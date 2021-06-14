@@ -21,6 +21,8 @@
 
         <activity android:name=".MainActivityWelcome"></activity>
 
+        <activity android:name="Administrator"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

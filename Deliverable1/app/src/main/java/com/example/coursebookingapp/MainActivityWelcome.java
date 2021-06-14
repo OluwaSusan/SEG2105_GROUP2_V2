@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +41,9 @@ public class MainActivityWelcome extends AppCompatActivity {
         login_imageview = findViewById(R.id.login_imageview);
         btnSignOut = findViewById(R.id.btnSignOut);
         progressBar = findViewById(R.id.progressBar_signOut);
-        fAuth = FirebaseAuth.getInstance();
-        realDatabase = FirebaseDatabase.getInstance();
+        currentUser();
 
-        btnSignOut.setOnClickListener(new View.OnClickListener(){
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fAuth.signOut();
@@ -55,36 +56,53 @@ public class MainActivityWelcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = fAuth.getCurrentUser().getEmail();
-                String[] parts = email.split("@");
-                String username = parts[0];
+                if (currentUser.getUserType() == UserType.ADMIN){
 
-                DBHandlerUsers db = new DBHandlerUsers();
-                currentUser = null;
-
-                db.findUser(username, new FirebaseCallBack() {
-                    @Override
-                    public void onCallBackList(ArrayList<User> userList) {
-
-                    }
-
-                    @Override
-                    public void onCallBackUser(User user) {
-                        currentUser= user;
-                    }
-                });
-
-                name_loggedin_textview.setText(currentUser.getFullName());
-                role_loggedin_textview.setText(currentUser.getUserType().toString());
+                    startActivity(new Intent(getApplicationContext(), Administrator.class));
+                }
+                else if (currentUser.getUserType() == UserType.INSTRUCTOR){
+                    Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();
+                }
 
 
             }
         });
 
 
-
     }
 
+    public void currentUser(){
+
+        fAuth = FirebaseAuth.getInstance();
+            realDatabase = FirebaseDatabase.getInstance();
+
+            String email = fAuth.getCurrentUser().getEmail();
+            String[] parts = email.split("@");
+            String username = parts[0];
+
+
+            DBHandlerUsers db = new DBHandlerUsers();
+            currentUser = null;
+
+            db.findUser(username, new FirebaseCallBack() {
+                @Override
+                public void onCallBackList(ArrayList<User> userList) {
+
+                }
+
+                @Override
+                public void onCallBackUser(User user) {
+                    currentUser= user;
+                }
+            });
+
+            name_loggedin_textview.setText(currentUser.getFullName());
+            role_loggedin_textview.setText(currentUser.getUserType().toString());
+
+        }
 
 
 }
