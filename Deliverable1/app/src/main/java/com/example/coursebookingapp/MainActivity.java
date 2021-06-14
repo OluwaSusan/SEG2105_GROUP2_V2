@@ -31,6 +31,8 @@ import org.jetbrains.annotations.NotNull;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class MainActivity extends Activity {
 
     //Variables
@@ -40,10 +42,11 @@ public class MainActivity extends Activity {
     FirebaseAuth fAuth;
     FirebaseDatabase realDatabase;
     ProgressBar progressBar;
-    DBHandlerUsers db;
+    DBHandlerUsers db = new DBHandlerUsers();
     User user;
     String userID;
     FirebaseCallBack callBack;
+    User userfound;
 
     public boolean validFullName(String fullName){
 
@@ -60,7 +63,19 @@ public class MainActivity extends Activity {
     //Check if user exists, if true error message is shown and new user cannot be added
     public boolean userNameExists(String username){
         DBHandlerUsers db = new DBHandlerUsers();
-        User user = db.findUser(username);
+        userfound = null;
+
+        db.findUser(username, new FirebaseCallBack() {
+            @Override
+            public void onCallBackList(ArrayList<User> userList) {
+
+            }
+
+            @Override
+            public void onCallBackUser(User user) {
+                userfound = user;
+            }
+        });
 
         if(user == null){
             return false;
@@ -128,7 +143,7 @@ public class MainActivity extends Activity {
                 else if(!validFullName(fullName)){
                     error_register.setText("Invalid full name, remove digits from name");
                 }
-                else if (!userNameExists(username)){
+                else if (userNameExists(username)){
                     error_register.setText("Username already exists, please choose a username or sign in");
                 }
                 else if(password.length() < 6 || password.length() > 12){
@@ -150,7 +165,7 @@ public class MainActivity extends Activity {
                                 userID = fAuth.getCurrentUser().getUid();
 
                                 //Create reference to database
-                                DatabaseReference storeUser = realDatabase.getReference("Users");
+                                //DatabaseReference storeUser = realDatabase.getReference("Users");
 
                                 //Create a User object
                                 User user = new User(username, fullName, password, onRadioButtonClicked(v), email);

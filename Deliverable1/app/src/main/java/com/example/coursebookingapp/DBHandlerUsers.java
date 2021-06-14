@@ -25,7 +25,7 @@ public class DBHandlerUsers {
 
     public DBHandlerUsers() {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        userRefrence = rootNode.getReference("users");
+        userRefrence = rootNode.getReference("Users");
     }
 
     public void addUser(User user) {

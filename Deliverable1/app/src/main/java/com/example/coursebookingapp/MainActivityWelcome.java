@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class MainActivityWelcome extends AppCompatActivity {
 
     TextView name_loggedin_textview, role_loggedin_textview;
@@ -53,10 +55,27 @@ public class MainActivityWelcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = fAuth.getCurrentUser().getEmail().toString();
+                String email = fAuth.getCurrentUser().getEmail();
                 String[] parts = email.split("@");
                 String username = parts[0];
 
+                DBHandlerUsers db = new DBHandlerUsers();
+                currentUser = null;
+
+                db.findUser(username, new FirebaseCallBack() {
+                    @Override
+                    public void onCallBackList(ArrayList<User> userList) {
+
+                    }
+
+                    @Override
+                    public void onCallBackUser(User user) {
+                        currentUser= user;
+                    }
+                });
+
+                name_loggedin_textview.setText(currentUser.getFullName());
+                role_loggedin_textview.setText(currentUser.getUserType().toString());
 
 
             }
