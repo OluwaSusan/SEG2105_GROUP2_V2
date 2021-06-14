@@ -2,6 +2,7 @@ package com.example.coursebookingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     //Variables
     //TextInputLayout fullName_reg, username_reg, password_reg;
@@ -45,8 +46,5 @@ public class MainActivity extends AppCompatActivity {
         //fullName_reg = findViewById(R.id.fullName_reg);
 
     }
-
-
-
 
 }
