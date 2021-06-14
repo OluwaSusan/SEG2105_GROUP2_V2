@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "5629873729",
+    "firebase_url": "https://course-booking-app-default-rtdb.firebaseio.com",
+    "project_id": "course-booking-app",
+    "storage_bucket": "course-booking-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5629873729:android:0509f91e3ea18fff1840c0",
+        "android_client_info": {
+          "package_name": "com.CourseBookingApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYfKlxMAcRnp508JrH9-OEa0_Si32IXrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5629873729:android:4e66338b08240c371840c0",
+        "android_client_info": {
+          "package_name": "com.example.course_booking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYfKlxMAcRnp508JrH9-OEa0_Si32IXrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5629873729:android:6eafaac1fa12ceb11840c0",
+        "android_client_info": {
+          "package_name": "com.example.testingfeatures"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYfKlxMAcRnp508JrH9-OEa0_Si32IXrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5629873729-5iu43lb1r5127n5f72vv80r7noqfps2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
