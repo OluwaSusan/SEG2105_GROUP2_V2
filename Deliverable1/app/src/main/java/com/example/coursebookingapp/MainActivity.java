@@ -175,8 +175,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), Login.class));
-                Toast.makeText(MainActivity.this, "Redirect Works",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
 
