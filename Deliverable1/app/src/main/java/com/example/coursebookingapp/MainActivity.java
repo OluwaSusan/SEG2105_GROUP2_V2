@@ -48,64 +48,6 @@ public class MainActivity extends Activity {
     FirebaseCallBack callBack;
     User userfound;
 
-    public boolean validFullName(String fullName){
-
-        char[] chars = fullName.toCharArray();
-        StringBuilder sb = new StringBuilder();
-        for(char c : chars){
-            if(Character.isDigit(c)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    //Check if user exists, if true error message is shown and new user cannot be added
-    public boolean userNameExists(String username){
-        DBHandlerUsers db = new DBHandlerUsers();
-        userfound = null;
-
-        db.findUser(username, new FirebaseCallBack() {
-            @Override
-            public void onCallBackList(ArrayList<User> userList) {
-
-            }
-
-            @Override
-            public void onCallBackUser(User user) {
-                userfound = user;
-            }
-        });
-
-        if(user == null){
-            return false;
-        }
-        else{
-            return true;
-        }
-
-    }
-
-    public UserType onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.student_radio:
-                if (checked)
-
-                    break;
-                return UserType.STUDENT;
-
-            case R.id.instructor_radio:
-                if (checked)
-
-                    break;
-                return UserType.INSTRUCTOR;
-        }
-        return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,5 +138,65 @@ public class MainActivity extends Activity {
         });
 
     }
+
+    public boolean validFullName(String fullName){
+
+        char[] chars = fullName.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for(char c : chars){
+            if(Character.isDigit(c)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Check if user exists, if true error message is shown and new user cannot be added
+    public boolean userNameExists(String username){
+        DBHandlerUsers db = new DBHandlerUsers();
+        userfound = null;
+
+        db.findUser(username, new FirebaseCallBack() {
+            @Override
+            public void onCallBackList(ArrayList<User> userList) {
+
+            }
+
+            @Override
+            public void onCallBackUser(User user) {
+                userfound = user;
+            }
+        });
+
+        if(user == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    public UserType onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.student_radio:
+                if (checked)
+
+                    break;
+                return UserType.STUDENT;
+
+            case R.id.instructor_radio:
+                if (checked)
+
+                    break;
+                return UserType.INSTRUCTOR;
+        }
+        return null;
+    }
+
 
 }

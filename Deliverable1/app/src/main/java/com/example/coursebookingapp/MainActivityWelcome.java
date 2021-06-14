@@ -76,7 +76,7 @@ public class MainActivityWelcome extends AppCompatActivity {
 
     public void currentUser(){
 
-        fAuth = FirebaseAuth.getInstance();
+            fAuth = FirebaseAuth.getInstance();
             realDatabase = FirebaseDatabase.getInstance();
 
             String email = fAuth.getCurrentUser().getEmail();
