@@ -1,6 +1,7 @@
 package com.example.coursebookingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.coursebookingapp.DBHandlerUsers;
 import com.example.coursebookingapp.User;
 import com.example.coursebookingapp.UserType;
@@ -33,16 +33,16 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     //Variables
-    TextInputLayout fullName_reg, username_reg, password_reg;
+    //TextInputLayout fullName_reg, username_reg, password_reg;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        fullName_reg = findViewById(R.id.fullName_reg);
+        //fullName_reg = findViewById(R.id.fullName_reg);
 
     }
 

@@ -49,27 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fullName_reg"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/full_name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp"
-            app:startIconDrawable="@drawable/ic_name"
-            app:startIconTint="@color/Orange_Deep">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:inputType="text"
-                android:hint="@string/full_name"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
