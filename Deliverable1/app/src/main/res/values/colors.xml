@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Custom Colors -->
+    <color name="Orange_Light">#EEF5DB</color>
+    <color name="Orange">#EC9F05</color>
+    <color name="Orange_Deep">#FF7F00</color>
+    <color name="Orange_Bold">#FF4E00</color>
+    <color name="Error_red">#FFD82A2A</color>
+
+
+    <color name="mtrl_textinput_default_box_stroke_color">#FF000000</color>
+
 </resources>
