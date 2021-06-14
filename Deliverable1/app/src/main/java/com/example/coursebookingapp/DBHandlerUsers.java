@@ -4,8 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.coursebookingapp.FirebaseCallBack;
-import com.example.coursebookingapp.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,22 +18,22 @@ import java.util.ArrayList;
 
 public class DBHandlerUsers {
 
-    private final DatabaseReference userRefrence;
+    private final DatabaseReference userReference;
 
 
     public DBHandlerUsers() {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        userRefrence = rootNode.getReference("Users");
+        userReference = rootNode.getReference("Users");
     }
 
     public void addUser(User user) {
-        userRefrence.child(user.getUserName()).setValue(user);
+        userReference.child(user.getUserName()).setValue(user);
     }
 
     public void findUser(String username, FirebaseCallBack callBack) {
 
 
-        Query query = userRefrence.orderByChild("userName").equalTo(username);
+        Query query = userReference.orderByChild("userName").equalTo(username);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -70,7 +68,7 @@ public class DBHandlerUsers {
     public void listUsers(FirebaseCallBack callBack) {
         ArrayList<User> userList = new ArrayList<User>();
 
-        userRefrence
+        userReference
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,7 +93,7 @@ public class DBHandlerUsers {
 
     public void deleteUser(String username) {
 
-        userRefrence.child(username).removeValue();
+        userReference.child(username).removeValue();
 
 
     }
