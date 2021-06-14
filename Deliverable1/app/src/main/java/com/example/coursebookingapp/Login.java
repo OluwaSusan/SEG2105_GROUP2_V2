@@ -65,7 +65,7 @@ public class Login extends Activity {
                             if (task.isSuccessful()){
 
                                 Toast.makeText(Login.this, "User Signed in",Toast.LENGTH_SHORT).show();
-                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
 
                             }else{
                                 error_login.setText("Invalid Username or Password");

@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     DBHandlerUsers db;
     User user;
     String userID;
+    FirebaseCallBack callBack;
 
     public boolean validFullName(String fullName){
 
@@ -156,7 +157,7 @@ public class MainActivity extends Activity {
                                 db.addUser(user);
                                 Toast.makeText(MainActivity.this, "User Profile Created" + userID,Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.INVISIBLE);
-                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
 
 
                             }else{
