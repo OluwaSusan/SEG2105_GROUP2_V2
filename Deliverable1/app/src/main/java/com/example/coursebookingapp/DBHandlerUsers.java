@@ -48,6 +48,8 @@ public class DBHandlerUsers {
                     callBack.onCallBackUser(dbUser);
                     Log.i("test", "reaches inside the find function ");
 
+                }else {
+                    callBack.onCallBackUser(new User());
                 }
 
             }
