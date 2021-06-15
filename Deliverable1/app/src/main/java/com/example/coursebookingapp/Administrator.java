@@ -44,7 +44,7 @@ public class Administrator extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                courseWindow();
+                courseWindow(null);
             }
 
 
@@ -57,11 +57,11 @@ public class Administrator extends AppCompatActivity {
             }
         });
     }
-    private void courseWindow() {
-        //code for a 'popup' (doesn't have to be) create course
-    }
     private void courseWindow(Course c) {
         //code for a 'popup' (doesn't have to be) edit existing course
+        if (c.equals(null)){
+
+        }
     }
     //missing code for Recyclerview and listing out users/courses depending on the contentview
 }
