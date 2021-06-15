@@ -1,23 +1,19 @@
 package com.example.coursebookingapp;
 
-public class Administrator extends User; AppCompatActivity  {
+import android.os.Bundle;
 
-    public Admin(){
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
+public class Administrator extends AppCompatActivity {
 
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_administrator);
 
-        }
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }

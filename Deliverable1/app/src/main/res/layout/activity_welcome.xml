@@ -45,15 +45,13 @@
             android:textColor="@color/Orange_Deep"
             android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/login_imageview"
+        <ImageButton
+            android:id="@+id/imageButton_login"
             android:layout_width="match_parent"
-            android:layout_height="356dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:src="@drawable/courseimage"
-            tools:ignore="ContentDescription" />
+            android:layout_height="400dp"
+            android:background="@color/Orange_Light"
+            app:srcCompat="@drawable/courseimage"
+            tools:ignore="ContentDescription"/>
 
         <LinearLayout
             android:layout_width="match_parent"

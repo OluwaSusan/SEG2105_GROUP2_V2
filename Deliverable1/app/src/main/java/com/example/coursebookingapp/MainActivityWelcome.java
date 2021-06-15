@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class MainActivityWelcome extends AppCompatActivity {
 
     TextView name_loggedin_textview, role_loggedin_textview;
-    ImageView login_imageview;
+    ImageButton imageButton_login;
     Button btnSignOut;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
@@ -35,7 +36,7 @@ public class MainActivityWelcome extends AppCompatActivity {
 
         name_loggedin_textview = findViewById(R.id.name_loggedin_textview);
         role_loggedin_textview = findViewById(R.id.role_loggedin_textview);
-        login_imageview = findViewById(R.id.login_imageview);
+        imageButton_login = findViewById(R.id.imageButton_login);
         btnSignOut = findViewById(R.id.btnSignOut);
         progressBar = findViewById(R.id.progressBar_signOut);
         currentUser();
@@ -49,14 +50,13 @@ public class MainActivityWelcome extends AppCompatActivity {
 
         });
 
-        login_imageview.setOnClickListener(new View.OnClickListener() {
+        imageButton_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (currentUser.getUserType() == UserType.ADMIN){
 
-                    startActivity(new Intent(getApplicationContext(), Administrator.class));
-                    //pass user
+                    startActivity(new Intent(MainActivityWelcome.this, Administrator.class));
                 }
                 else if (currentUser.getUserType() == UserType.INSTRUCTOR){
                     Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
@@ -64,7 +64,6 @@ public class MainActivityWelcome extends AppCompatActivity {
                 else{
                     Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
