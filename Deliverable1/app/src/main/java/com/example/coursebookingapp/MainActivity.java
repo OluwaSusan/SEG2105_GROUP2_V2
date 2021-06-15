@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     String userID;
     FirebaseCallBack callBack;
     User userfound;
+    RadioButton RadioButton;
 
 
     @Override
@@ -96,19 +97,20 @@ public class MainActivity extends Activity {
                     progressBar.setVisibility(View.VISIBLE);
                     //db.addUser(new User(username, fullName, password, onRadioButtonClicked(v)));
 
+                    Log.i("tEST", "bEFORE CREATION");
                     fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                         @Override
                         public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
 
                                 Toast.makeText(MainActivity.this, "User Created Successfully",Toast.LENGTH_SHORT).show();
-
                                 //userID is set to dummy email
                                 userID = fAuth.getCurrentUser().getUid();
 
                                 //Create reference to database
                                 //DatabaseReference storeUser = realDatabase.getReference("Users");
-
+                                Log.i("tEST", "bEFORE USER RTDB");
                                 //Create a User object
                                 User user = new User(username, fullName, password, onRadioButtonClicked(v), email);
                                 db.addUser(user);
