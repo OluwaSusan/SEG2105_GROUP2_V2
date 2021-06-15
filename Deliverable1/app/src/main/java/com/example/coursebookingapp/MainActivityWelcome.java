@@ -59,6 +59,7 @@ public class MainActivityWelcome extends AppCompatActivity {
                 if (currentUser.getUserType() == UserType.ADMIN){
 
                     startActivity(new Intent(getApplicationContext(), Administrator.class));
+                    //pass user
                 }
                 else if (currentUser.getUserType() == UserType.INSTRUCTOR){
                     Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
