@@ -26,6 +26,7 @@ public class Administrator extends AppCompatActivity {
         backBtn_admin = findViewById(R.id.backBtn_admin);
         coursebtn_add = findViewById(R.id.coursebtn_add);
 
+        viewCourses();
 
         viewusers_admin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +45,7 @@ public class Administrator extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                courseWindow(null);
+                createNewCourse();
             }
 
 
@@ -57,11 +58,15 @@ public class Administrator extends AppCompatActivity {
             }
         });
     }
-    private void courseWindow(Course c) {
-        //code for a 'popup' (doesn't have to be) edit existing course
-        if (c.equals(null)){
 
-        }
+    private void viewCourses() {
+        //recyclerview shows courses as course_item objects
     }
-    //missing code for Recyclerview and listing out users/courses depending on the contentview
+    private void viewStudents() {
+        //recyclerview shows students as user_item (only students from the database) objects
+    }
+
+    private void createNewCourse() {
+        //adds element in the recyclerview, adds the element in the database once the name and course code is updated
+    }
 }
