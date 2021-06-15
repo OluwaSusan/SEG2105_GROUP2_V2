@@ -1,19 +1,16 @@
 package com.example.coursebookingapp;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,25 +80,24 @@ public class MainActivityWelcome extends AppCompatActivity {
             String email = fAuth.getCurrentUser().getEmail();
             String[] parts = email.split("@");
             String username = parts[0];
+            Log.i("test" , "username " + username);
 
 
             DBHandlerUsers db = new DBHandlerUsers();
-            currentUser = null;
 
-            db.findUser(username, new FirebaseCallBack() {
+            db.findUser(username, new FirebaseCallBackUsers() {
                 @Override
-                public void onCallBackList(ArrayList<User> userList) {
+                public void onCallBackUsersList(ArrayList<User> userList) {
 
                 }
 
                 @Override
                 public void onCallBackUser(User user) {
-                    currentUser= user;
-                }
+                    name_loggedin_textview.setText(user.getFullName());
+                    role_loggedin_textview.setText(user.getUserType().toString());                }
             });
 
-            name_loggedin_textview.setText(currentUser.getFullName());
-            role_loggedin_textview.setText(currentUser.getUserType().toString());
+
 
         }
 

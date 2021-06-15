@@ -1,35 +1,26 @@
 package com.example.coursebookingapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import com.example.coursebookingapp.DBHandlerUsers;
-import com.example.coursebookingapp.User;
-import com.example.coursebookingapp.UserType;
+
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
-
-import android.os.Bundle;
 
 import java.util.ArrayList;
 
@@ -45,9 +36,9 @@ public class MainActivity extends Activity {
     DBHandlerUsers db = new DBHandlerUsers();
     User user;
     String userID;
-    FirebaseCallBack callBack;
+    FirebaseCallBackUsers callBack;
     User userfound;
-    RadioButton RadioButton;
+    UserType userType = UserType.STUDENT;
 
 
     @Override
@@ -97,23 +88,24 @@ public class MainActivity extends Activity {
                     progressBar.setVisibility(View.VISIBLE);
                     //db.addUser(new User(username, fullName, password, onRadioButtonClicked(v)));
 
-                    Log.i("tEST", "bEFORE CREATION");
                     fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
                         @Override
                         public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
 
                                 Toast.makeText(MainActivity.this, "User Created Successfully",Toast.LENGTH_SHORT).show();
+
                                 //userID is set to dummy email
                                 userID = fAuth.getCurrentUser().getUid();
-
                                 //Create reference to database
                                 //DatabaseReference storeUser = realDatabase.getReference("Users");
-                                Log.i("tEST", "bEFORE USER RTDB");
+
                                 //Create a User object
-                                User user = new User(username, fullName, password, onRadioButtonClicked(v), email);
+                                User user = new User(username, fullName, password, userType, email);
                                 db.addUser(user);
+                                Log.i("test", "user created successfully toast + ");
+
+
                                 Toast.makeText(MainActivity.this, "User Profile Created" + userID,Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.INVISIBLE);
                                 startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
@@ -158,9 +150,9 @@ public class MainActivity extends Activity {
         DBHandlerUsers db = new DBHandlerUsers();
         userfound = null;
 
-        db.findUser(username, new FirebaseCallBack() {
+        db.findUser(username, new FirebaseCallBackUsers() {
             @Override
-            public void onCallBackList(ArrayList<User> userList) {
+            public void onCallBackUsersList(ArrayList<User> userList) {
 
             }
 
@@ -179,7 +171,8 @@ public class MainActivity extends Activity {
 
     }
 
-    public UserType onRadioButtonClicked(View view) {
+    public void onRadioButtonClicked(View view) {
+        Log.i("test", "reachees inside onCLick Radio");
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
@@ -187,18 +180,17 @@ public class MainActivity extends Activity {
         switch(view.getId()) {
             case R.id.student_radio:
                 if (checked)
-
-                    break;
-                return UserType.STUDENT;
+                userType =  UserType.STUDENT;
+                break;
 
             case R.id.instructor_radio:
                 if (checked)
-
-                    break;
-                return UserType.INSTRUCTOR;
+                userType = UserType.INSTRUCTOR;
+                break;
         }
-        return null;
+
     }
+
 
 
 }

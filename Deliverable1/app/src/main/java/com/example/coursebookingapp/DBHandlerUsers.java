@@ -23,14 +23,14 @@ public class DBHandlerUsers {
 
     public DBHandlerUsers() {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        userReference = rootNode.getReference("Users");
+        userReference = rootNode.getReference("users");
     }
 
     public void addUser(User user) {
         userReference.child(user.getUserName()).setValue(user);
     }
 
-    public void findUser(String username, FirebaseCallBack callBack) {
+    public void findUser(String username, FirebaseCallBackUsers callBack) {
 
 
         Query query = userReference.orderByChild("userName").equalTo(username);
@@ -65,7 +65,7 @@ public class DBHandlerUsers {
 
     }
 
-    public void listUsers(FirebaseCallBack callBack) {
+    public void listUsers(FirebaseCallBackUsers callBack) {
         ArrayList<User> userList = new ArrayList<User>();
 
         userReference
@@ -80,7 +80,7 @@ public class DBHandlerUsers {
 
                         }
 
-                        callBack.onCallBackList(userList);
+                        callBack.onCallBackUsersList(userList);
                     }
 
                     @Override
