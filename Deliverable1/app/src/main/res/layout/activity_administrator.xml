@@ -35,9 +35,9 @@
         android:id="@+id/scrollview_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/viewusers_admin"
-        tools:layout_editor_absoluteX="24dp">
+        tools:layout_editor_absoluteX="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"

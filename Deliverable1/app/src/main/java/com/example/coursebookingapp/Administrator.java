@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,6 +15,7 @@ public class Administrator extends AppCompatActivity {
 
     Button viewusers_admin, homeBtn_admin, backBtn_admin;
     com.google.android.material.floatingactionbutton.FloatingActionButton coursebtn_add;
+    RecyclerView recUsers, recCourses;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,10 @@ public class Administrator extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                courseWindow();
             }
+
+
         });
         backBtn_admin.setOnClickListener(new View.OnClickListener() {
 
@@ -53,4 +57,11 @@ public class Administrator extends AppCompatActivity {
             }
         });
     }
+    private void courseWindow() {
+        //code for a 'popup' (doesn't have to be) create course
+    }
+    private void courseWindow(Course c) {
+        //code for a 'popup' (doesn't have to be) edit existing course
+    }
+    //missing code for Recyclerview and listing out users/courses depending on the contentview
 }
