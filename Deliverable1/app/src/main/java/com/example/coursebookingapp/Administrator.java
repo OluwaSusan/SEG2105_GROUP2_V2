@@ -1,7 +1,9 @@
 package com.example.coursebookingapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,10 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Administrator extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Administrator extends Activity {
 
     Button viewusers_admin, homeBtn_admin, backBtn_admin;
     com.google.android.material.floatingactionbutton.FloatingActionButton coursebtn_add;
+    FirebaseAuth fAuth;
+    FirebaseDatabase realDatabase;
     RecyclerView recUsers, recCourses;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +74,34 @@ public class Administrator extends AppCompatActivity {
 
     private void createNewCourse() {
         //adds element in the recyclerview, adds the element in the database once the name and course code is updated
+    }
+
+    public void currentAdmin(){
+
+        fAuth = FirebaseAuth.getInstance();
+        realDatabase = FirebaseDatabase.getInstance();
+
+        String email = fAuth.getCurrentUser().getEmail();
+        String[] parts = email.split("@");
+        String username = parts[0];
+        Log.i("test" , "username " + username);
+
+
+//        DBHandlerUsers db = new DBHandlerUsers();
+//
+//        db.findUser(username, new FirebaseCallBackUsers() {
+//            @Override
+//            public void onCallBackUsersList(ArrayList<User> userList) {
+//
+//            }
+//
+//            @Override
+//            public void onCallBackUser(User user) {
+//                name_loggedin_textview.setText(user.getFullName());
+//                role_loggedin_textview.setText(user.getUserType().toString());                }
+//        });
+
+
+
     }
 }
