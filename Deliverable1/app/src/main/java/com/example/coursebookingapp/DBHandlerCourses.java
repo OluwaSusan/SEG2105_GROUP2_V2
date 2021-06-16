@@ -19,7 +19,7 @@ public class DBHandlerCourses {
     private final DatabaseReference courseRefrence;
 
 
-    public DBHandlerCourses() {
+    public DBHandlerCourses(Administrator administrator) {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         courseRefrence = rootNode.getReference("courses");
     }

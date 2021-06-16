@@ -22,6 +22,7 @@ public class Administrator extends Activity {
     FirebaseAuth fAuth;
     FirebaseDatabase realDatabase;
     RecyclerView recUsers, recCourses;
+    ArrayList<Course> courselist;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +66,11 @@ public class Administrator extends Activity {
         });
     }
 
-    private void viewCourses() {
+    private void viewCourses(){
         //recyclerview shows courses as course_item objects
+    }
+    private void listCourses(ArrayList<Course> cl){
+        courselist = cl;
     }
 
     private void createNewCourse() {
@@ -83,6 +87,37 @@ public class Administrator extends Activity {
         String username = parts[0];
         Log.i("test" , "username " + username);
 
+        // initializing variables
+        ArrayList<Course> productArrayList = new ArrayList<>();
+        DBHandlerCourses dbHandler = new DBHandlerCourses(this);
+
+
+        // getting the arraylist of products from MyDBHandler class
+        dbHandler.listCourses(new FirebaseCallBackCourses() {
+                                                     @Override
+                                                     public void onCallBackCourseList(ArrayList<Course> courseList) {
+                                                         //.listCourses(courseList);
+                                                     }
+
+                                                     @Override
+                                                     public void onCallBackCourse(Course course) {
+
+                                                     }
+                                                 });
+
+                // here we pass the ArrayList to our adapter class
+                CourseAdapter productAdapter = new CourseAdapter(productArrayList, this);
+
+//        // my recyclerview is idProductDisplay in the activity_display_product.xml file
+//        RecyclerView productsRV = findViewById(R.id.idProductDisplay);
+//
+//        // layout manager positions items within our recyclerview
+//        // using a vertical recyclerview (other option is horizontal)
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+//        productsRV.setLayoutManager(linearLayoutManager);
+
+//        // attaching the adapter to the recyclerview
+//        productsRV.setAdapter(productAdapter);
 
 //        DBHandlerUsers db = new DBHandlerUsers();
 //
