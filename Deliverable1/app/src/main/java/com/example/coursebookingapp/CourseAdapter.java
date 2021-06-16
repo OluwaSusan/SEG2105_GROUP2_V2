@@ -7,69 +7,69 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursebookingapp.Course;
+import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-// adapter is used to get data from the table and then populate the recyclerview
-// think of it as the "middle man" that connects the table with the layout view
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
-    // creating variables
-    private ArrayList<Course> courseArrayList;
     private Context context;
+    private ArrayList<Course> courses;
 
-    // constructor
-    public CourseAdapter(ArrayList<Course> productModalArrayList, Context context) {
-        this.courseArrayList = productModalArrayList;
+
+    public CourseAdapter(Context context, ArrayList<Course> courses) {
         this.context = context;
+        this.courses = courses;
     }
 
     @NonNull
+    @NotNull
     @Override
-    // this is called when the recyclerview needs to represent an item
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // inflating our layout file for our recycler view items
-        // layout inflater is used to create a new product item for our layout
+    public CourseAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_item, parent, false);
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+
+        return holder;
     }
 
     @Override
-    // called by RecyclerView to display the data at the specified position
-    // it updates the contents of the recycler view item to reflect the specific product
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Course c = courseArrayList.get(position);
+    public void onBindViewHolder(@NonNull @NotNull CourseAdapter.ViewHolder holder, int position) {
 
-        // we get the product name using our getter from Product.java
-        // then we set the text in the corresponding TextView element in our layout
-        // process repeated for product price and id
-        holder.courseName.setText(c.getCourseName());
-        // we display data as text using setText() but price is a double and id is an int
-        // so we use valueOf() to represent the values as a string
-        holder.courseId.setText(String.valueOf(c.getCourseCode()));
+        holder.courseName.setText(courses.get(position).getCourseName());
+        holder.courseID.setText(courses.get(position).getCourseCode());
+
     }
 
     @Override
     public int getItemCount() {
-        // return the size of the ArrayList
-        return courseArrayList.size();
+        return courses.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
-        // creating variables for the TextViews
-        private TextView courseName, courseId;
+        TextView courseID;
+        TextView courseName;
+        CardView parentLayout;
 
-        public ViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            // initialize the TextViews
-            // use findViewById to find the view in our layout with the specified id
-            courseName = itemView.findViewById(R.id.idCourseName);
-            courseId = itemView.findViewById(R.id.idCourseID);
-        }
-    }
-}
 
+            courseID =  itemView.findViewById(R.id.idCourseID);
+            courseName = itemView.findViewById(R.id.idCourseName);
+            parentLayout = itemView.findViewById(R.id.parent_layout);
+
+
+        }
+
+    }
+
+
+
+
+}

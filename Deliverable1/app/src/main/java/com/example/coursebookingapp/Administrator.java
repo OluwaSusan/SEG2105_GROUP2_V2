@@ -21,9 +21,9 @@ public class Administrator extends Activity {
     Button viewusers_admin, homeBtn_admin, backBtn_admin;
     com.google.android.material.floatingactionbutton.FloatingActionButton coursebtn_add;
     FirebaseAuth fAuth;
-    FirebaseDatabase realDatabase;
+    DBHandlerCourses dbCourses;
     RecyclerView recUsers, recCourses;
-    ArrayList<Course> courselist;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,96 +31,38 @@ public class Administrator extends Activity {
 
         viewusers_admin = findViewById(R.id.viewusers_admin);
         homeBtn_admin = findViewById(R.id.homeBtn_admin);
-
         coursebtn_add = findViewById(R.id.coursebtn_add);
+        dbCourses = new DBHandlerCourses();
 
-        viewCourses();
+//        dbCourses.addCourse(new Course("Computer Science", "ITI1121"));
+//        dbCourses.addCourse(new Course("SEG2105", "Software Engineering"));
+//        dbCourses.addCourse(new Course("Linear Algebra", "MAT1346"));
 
-        viewusers_admin.setOnClickListener(new View.OnClickListener() {
+        dbCourses.listCourses(new FirebaseCallBackCourses() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserList.class));
-            }
-        });
-        homeBtn_admin.setOnClickListener(new View.OnClickListener() {
+            public void onCallBackCourseList(ArrayList<Course> courseList) {
 
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
-            }
-        });
-        coursebtn_add.setOnClickListener(new View.OnClickListener() {
+                initRecylcerView(courseList);
 
-            @Override
-            public void onClick(View v) {
-                createNewCourse();
             }
 
-
-        });
-        backBtn_admin.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                setContentView(R.layout.activity_administrator);
+            public void onCallBackCourse(Course course) {
+
             }
         });
+
     }
 
-    private void viewCourses(){
-        //recyclerview shows courses as course_item objects
-    }
-    private void listCourses(ArrayList<Course> cl){
-        courselist = cl;
-    }
-
-    private void createNewCourse() {
-        //adds element in the recyclerview, adds the element in the database once the name and course code is updated
-    }
-
-    public void currentAdmin(){
-
-        fAuth = FirebaseAuth.getInstance();
-        realDatabase = FirebaseDatabase.getInstance();
-
-        String email = fAuth.getCurrentUser().getEmail();
-        String[] parts = email.split("@");
-        String username = parts[0];
-        Log.i("test" , "username " + username);
-
-        // initializing variables
-        ArrayList<Course> courseArrayList = new ArrayList<>();
-        DBHandlerCourses dbHandler = new DBHandlerCourses(this);
-
-
-        // getting the arraylist of products from MyDBHandler class
-        dbHandler.listCourses(new FirebaseCallBackCourses() {
-                                                     @Override
-                                                     public void onCallBackCourseList(ArrayList<Course> courseList) {
-                                                         //.listCourses(courseList);
-                                                     }
-
-                                                     @Override
-                                                     public void onCallBackCourse(Course course) {
-
-                                                     }
-                                                 });
-
-                // here we pass the ArrayList to our adapter class
-                CourseAdapter courseAdapter = new CourseAdapter(courseArrayList, this);
-
-//        // my recyclerview is idProductDisplay in the activity_display_product.xml file
-        RecyclerView courseRV = findViewById(R.id.recyclerView_admin);
-
-        // layout manager positions items within our recyclerview
-        // using a vertical recyclerview (other option is horizontal)
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        courseRV.setLayoutManager(linearLayoutManager);
-
-        // attaching the adapter to the recyclerview
-        courseRV.setAdapter(courseAdapter);
+    private void initRecylcerView(ArrayList<Course> courseList){
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_admin);
+        CourseAdapter adapter = new CourseAdapter(this, courseList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
     }
+
+
 }

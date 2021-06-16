@@ -54,16 +54,32 @@ public class MainActivityWelcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (currentUser.getUserType() == UserType.ADMIN){
+                DBHandlerUsers dbUsers = new DBHandlerUsers();
 
-                    startActivity(new Intent(MainActivityWelcome.this, Administrator.class));
-                }
-                else if (currentUser.getUserType() == UserType.INSTRUCTOR){
-                    Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();
-                }
+                dbUsers.findUser(fAuth.getCurrentUser().getEmail().split("@")[0], new FirebaseCallBackUsers() {
+                    @Override
+                    public void onCallBackUsersList(ArrayList<User> userList) {
+
+                    }
+
+                    @Override
+                    public void onCallBackUser(User user) {
+
+                        if (user.getUserType() == UserType.ADMIN){
+
+                            startActivity(new Intent(MainActivityWelcome.this, Administrator.class));
+                        }
+                        else if (user.getUserType() == UserType.INSTRUCTOR){
+                            Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
 
             }
         });
