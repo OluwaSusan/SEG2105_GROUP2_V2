@@ -23,6 +23,8 @@
 
         <activity android:name=".Administrator"></activity>
 
+        <activity android:name=".UserList"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

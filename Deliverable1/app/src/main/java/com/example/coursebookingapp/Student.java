@@ -16,7 +16,6 @@ public class Student extends AppCompatActivity {
 
 
     public Student( String userName, String password, String FullName){
-    k
 
     }
 

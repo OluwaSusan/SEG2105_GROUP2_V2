@@ -37,7 +37,7 @@ public class UserList extends Activity {
         }
 
         );
-        backBtn_admin.setOnClickListener(new View.OnClickListener() {
+        homeBtn_userlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
