@@ -20,8 +20,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
 
     // constructor
-    public UserAdapter(ArrayList<Course> productModalArrayList, Context context) {
-        this.userArrayList = userModelArrayList;
+    public UserAdapter(ArrayList<User> userModalArrayList, Context context) {
+        this.userArrayList = userModalArrayList;
         this.context = context;
     }
 
@@ -44,12 +44,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         // we get the product name using our getter from Product.java
         // then we set the text in the corresponding TextView element in our layout
         // process repeated for product price and id
-        holder.userName.setText(String.valueOf(u.getuserName()));
+        holder.userName.setText(String.valueOf(u.getUserName()));
         // we display data as text using setText() but price is a double and id is an int
         // so we use valueOf() to represent the values as a string
-        holder.userfullName.setText(String.valueOf(c.getfullName()));
-        holder.userpassword.setText(String.valueOf(c.getpassword()));
-        holder.useremail.setText(String.valueOf(c.getemail()));
+        holder.userfullName.setText(String.valueOf(u.getFullName()));
+        holder.userpassword.setText(String.valueOf(u.getPassword()));
+        holder.useremail.setText(String.valueOf(u.getEmail()));
     }
 
     @Override
@@ -67,10 +67,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             super(itemView);
             // initialize the TextViews
             // use findViewById to find the view in our layout with the specified id
-            userName = itemView.findViewById(R.id.iduserName);
-            userfullName = itemView.findViewById(R.id.iduserfullName);
-            userpassword = itemView.findViewById(R.id.idpassword);
-            useremail = itemView.findViewById(R.id.iduseremail;
+//            userName = itemView.findViewById(R.id.idUserName);
+//            userfullName = itemView.findViewById(R.id.iduserfullName);
+//            userpassword = itemView.findViewById(R.id.idpassword);
+//            useremail = itemView.findViewById(R.id.iduseremail;
+            //missing elements
         }
     }
 }
