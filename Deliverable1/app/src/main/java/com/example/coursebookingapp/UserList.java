@@ -29,20 +29,21 @@ public class UserList extends Activity {
         homeBtn_userlist = findViewById(R.id.homeBtn_userlist);
 
         backBtn_admin.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-                                                 startActivity(new Intent(getApplicationContext(), Administrator.class));
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Administrator.class));
 
-                                             }
-                                         }
+            }
+        }
+
         );
         backBtn_admin.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-                                                 startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
 
-                                             }
-                                         }
+            }
+        }
         );
 
     }
