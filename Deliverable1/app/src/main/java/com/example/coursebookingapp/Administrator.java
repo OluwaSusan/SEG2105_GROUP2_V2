@@ -29,7 +29,7 @@ public class Administrator extends Activity {
 
         viewusers_admin = findViewById(R.id.viewusers_admin);
         homeBtn_admin = findViewById(R.id.homeBtn_admin);
-        backBtn_admin = findViewById(R.id.backBtn_admin);
+
         coursebtn_add = findViewById(R.id.coursebtn_add);
 
         viewCourses();
@@ -37,14 +37,14 @@ public class Administrator extends Activity {
         viewusers_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_userlist);
+                startActivity(new Intent(getApplicationContext(), UserList.class));
             }
         });
         homeBtn_admin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_welcome);
+                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
             }
         });
         coursebtn_add.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +67,6 @@ public class Administrator extends Activity {
 
     private void viewCourses() {
         //recyclerview shows courses as course_item objects
-    }
-    private void viewStudents() {
-        //recyclerview shows students as user_item (only students from the database) objects
     }
 
     private void createNewCourse() {
