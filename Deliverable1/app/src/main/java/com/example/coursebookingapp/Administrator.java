@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,7 +57,7 @@ public class Administrator extends Activity {
         coursebtn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewCourse();
+                showPopup();
             }
         });
         
@@ -73,7 +77,8 @@ public class Administrator extends Activity {
 
     }
 
-    private void createNewCourse() {
+    public void showPopup(){
+       //to do
     }
 
     private void initRecylcerView(ArrayList<Course> courseList){
