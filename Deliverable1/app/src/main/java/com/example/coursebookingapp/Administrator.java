@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +89,7 @@ public class Administrator extends Activity {
         Log.i("test" , "username " + username);
 
         // initializing variables
-        ArrayList<Course> productArrayList = new ArrayList<>();
+        ArrayList<Course> courseArrayList = new ArrayList<>();
         DBHandlerCourses dbHandler = new DBHandlerCourses(this);
 
 
@@ -106,32 +107,18 @@ public class Administrator extends Activity {
                                                  });
 
                 // here we pass the ArrayList to our adapter class
-                CourseAdapter productAdapter = new CourseAdapter(productArrayList, this);
+                CourseAdapter courseAdapter = new CourseAdapter(courseArrayList, this);
 
 //        // my recyclerview is idProductDisplay in the activity_display_product.xml file
-//        RecyclerView productsRV = findViewById(R.id.idProductDisplay);
-//
-//        // layout manager positions items within our recyclerview
-//        // using a vertical recyclerview (other option is horizontal)
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-//        productsRV.setLayoutManager(linearLayoutManager);
+        RecyclerView courseRV = findViewById(R.id);
 
-//        // attaching the adapter to the recyclerview
-//        productsRV.setAdapter(productAdapter);
+        // layout manager positions items within our recyclerview
+        // using a vertical recyclerview (other option is horizontal)
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        courseRV.setLayoutManager(linearLayoutManager);
 
-//        DBHandlerUsers db = new DBHandlerUsers();
-//
-//        db.findUser(username, new FirebaseCallBackUsers() {
-//            @Override
-//            public void onCallBackUsersList(ArrayList<User> userList) {
-//
-//            }
-//
-//            @Override
-//            public void onCallBackUser(User user) {
-//                name_loggedin_textview.setText(user.getFullName());
-//                role_loggedin_textview.setText(user.getUserType().toString());                }
-//        });
+        // attaching the adapter to the recyclerview
+        courseRV.setAdapter(courseAdapter);
 
 
 
