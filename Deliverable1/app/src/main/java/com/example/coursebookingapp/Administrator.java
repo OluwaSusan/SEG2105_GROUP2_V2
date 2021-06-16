@@ -110,7 +110,7 @@ public class Administrator extends Activity {
                 CourseAdapter courseAdapter = new CourseAdapter(courseArrayList, this);
 
 //        // my recyclerview is idProductDisplay in the activity_display_product.xml file
-        RecyclerView courseRV = findViewById(R.id);
+        RecyclerView courseRV = findViewById(R.id.reclclerView_courses);
 
         // layout manager positions items within our recyclerview
         // using a vertical recyclerview (other option is horizontal)
