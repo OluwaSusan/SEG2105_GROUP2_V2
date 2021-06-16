@@ -38,6 +38,25 @@ public class Administrator extends Activity {
 //        dbCourses.addCourse(new Course("SEG2105", "Software Engineering"));
 //        dbCourses.addCourse(new Course("Linear Algebra", "MAT1346"));
 
+        viewusers_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserList.class));
+            }
+        });
+        homeBtn_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
+            }
+        });
+        coursebtn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewCourse();
+            }
+        });
+        
         dbCourses.listCourses(new FirebaseCallBackCourses() {
             @Override
             public void onCallBackCourseList(ArrayList<Course> courseList) {
@@ -54,14 +73,14 @@ public class Administrator extends Activity {
 
     }
 
+    private void createNewCourse() {
+    }
+
     private void initRecylcerView(ArrayList<Course> courseList){
         RecyclerView recyclerView = findViewById(R.id.recyclerView_admin);
         CourseAdapter adapter = new CourseAdapter(this, courseList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
     }
 
 
