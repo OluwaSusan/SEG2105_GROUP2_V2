@@ -19,6 +19,7 @@ public class CourseActivity extends Activity {
     TextView errorCourseEnter;
     DBHandlerCourses dbCourses;
     Course foundCourse;
+    String specificCourse;
 
 
 
@@ -27,6 +28,7 @@ public class CourseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         //putExtra()
+        checkExtra(savedInstanceState);
         save_btn = findViewById(R.id.save_btn);
         dbCourses = new DBHandlerCourses();
 
@@ -42,6 +44,20 @@ public class CourseActivity extends Activity {
 
     }
 
+    private void checkExtra(Bundle savedInstanceState) {
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                specificCourse= null;
+            } else {
+                specificCourse= extras.getString("STRING_I_NEED");
+            }
+        } else {
+            specificCourse= (String) savedInstanceState.getSerializable("STRING_I_NEED");
+        }
+    }
+
     private void closeWindow() {
     }
 
@@ -50,6 +66,7 @@ public class CourseActivity extends Activity {
     }
 
     private void checkValidation() {
+
     }
 
 }

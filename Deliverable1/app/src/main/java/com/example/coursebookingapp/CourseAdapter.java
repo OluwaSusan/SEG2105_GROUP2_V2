@@ -3,6 +3,7 @@ package com.example.coursebookingapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,11 +52,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     }
 
-    private void refresh(String courseID){
+    private void refresh(String courseID) {
 
         int index = 0;
-        while(courses.iterator().hasNext()){
-            if(courses.get(index).getCourseCode().equals(courseID)){
+        while (courses.iterator().hasNext()) {
+            if (courses.get(index).getCourseCode().equals(courseID)) {
                 courses.remove(index);
                 break;
             }
@@ -72,8 +73,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     }
 
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView courseID;
         TextView courseName;
@@ -85,7 +85,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
-            courseID =  itemView.findViewById(R.id.idCourseID);
+            courseID = itemView.findViewById(R.id.idCourseID);
             courseName = itemView.findViewById(R.id.idCourseName);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             deleteButton = itemView.findViewById(R.id.deleteButton);
@@ -105,10 +105,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         refresh(courseID.getText().toString());
 
 
-
-
-
-
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
@@ -119,14 +115,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     builder.show();
 
 
-
-
-
-
+                }
+            });
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context.getApplicationContext(), CourseActivity.class);
+                    i.putExtra("Course_ID", courseID.getText().toString());
+                    context.startActivity(i);
                 }
             });
 
         }
-
     }
 }
