@@ -3,6 +3,7 @@ package com.example.coursebookingapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,7 +126,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
                 }
             });
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    Intent i = new Intent(context.getApplicationContext(), CourseActivity.class);
+                    i.putExtra("Course_ID", courseID.getText().toString());
+                    context.startActivity(i);
+                }
+            });
         }
 
     }

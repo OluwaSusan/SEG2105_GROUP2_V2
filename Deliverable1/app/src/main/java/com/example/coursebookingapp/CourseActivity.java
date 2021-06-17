@@ -18,9 +18,11 @@ public class CourseActivity extends Activity {
 
     Button save_btn;
     TextInputLayout course_name, course_id, course_description;
-    TextView errorCourseEnter;
+    TextView title, errorCourseEnter;
     DBHandlerCourses dbCourses;
     Course foundCourse;
+    String specificCourse;
+
 
 
     @Override
@@ -28,19 +30,67 @@ public class CourseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         //putExtra()
+        checkExtra(savedInstanceState);
         save_btn = findViewById(R.id.save_btn);
         dbCourses = new DBHandlerCourses();
+        course_name = findViewById(R.id.course_name);
+        course_id = findViewById(R.id.course_id);
+        title = findViewById(R.id.course_activity_title);
+
 
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkValidation();
-                saveCourse();
-                closeWindow();
+                boolean check = checkValidation(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
+                if (check) {
+                    if (specificCourse == null) {
+                        saveCourse(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
+                    } else {
+                        deleteCourse(specificCourse);
+                        saveCourse(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
+
+                    }
+                    closeWindow();
+                }
+                else{
+                    //give error
+                }
             }
         });
 
+    }
+
+    private void deleteCourse(String specificCourse) {
+        dbCourses.deleteCourse(specificCourse);
+    }
+
+    private void checkExtra(Bundle savedInstanceState) {
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                specificCourse= null;
+            } else {
+                specificCourse= extras.getString("Course_ID");
+                title.setText("Edit Course");
+                dbCourses.findCourse(specificCourse, new FirebaseCallBackCourses() {
+                    @Override
+                    public void onCallBackCourseList(ArrayList<Course> courseList) {
+
+                    }
+
+                    @Override
+                    public void onCallBackCourse(Course course) {
+                        course_name.getEditText().setText(course.getCourseName());
+                        course_id.getEditText().setText(course.getCourseCode());
+                    }
+                });
+
+            }
+        } else {
+            specificCourse= (String) savedInstanceState.getSerializable("Course_ID");
+        }
     }
 
     private void closeWindow() {
@@ -108,4 +158,7 @@ public class CourseActivity extends Activity {
 
         return returnBoolean[0];
     }
+
+
 }
+
