@@ -139,6 +139,10 @@ public class CourseActivity extends Activity {
             return "course_ID must be 7 chars";
         }
 
+        if(courseName.isEmpty()){
+            return "course name cannot be blank";
+        }
+
         for (int i = 0; i < 3; i++) {
             if (!Character.isLetter(courseID.charAt(i))) {
                 return "course_ID must start with 3 letters";
