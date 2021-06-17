@@ -1,5 +1,7 @@
 package com.example.coursebookingapp;
 
+import androidx.annotation.Nullable;
+
 public class Course {
 
     private String courseName;
@@ -29,4 +31,11 @@ public class Course {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
+
+
+    public boolean equals(Course course) {
+        return(course.getCourseCode().equals(getCourseCode()) && course.getCourseName().equals(getCourseName()));
+    }
+
+
 }
