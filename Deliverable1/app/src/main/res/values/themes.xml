@@ -29,4 +29,16 @@
         <item name="hintTextColor">@color/Orange_Bold</item>
     </style>
 
+    <style name="Theme.DialogBox" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">@color/Orange</item>
+        <item name="colorPrimaryVariant">@color/Orange_Bold</item>
+        <item name="colorOnPrimary">@color/Orange_Light</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/Orange_Deep</item>
+        <item name="colorSecondaryVariant">@color/Orange</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="textInputStyle">@style/TextInputLayoutStyle</item>
+    </style>
+
 </resources>

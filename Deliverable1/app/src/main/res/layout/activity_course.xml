@@ -15,10 +15,10 @@
         android:id="@+id/course_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/muli_black"
         android:padding="10dp"
-        android:text="@string/Register_prompt"
+        android:text="@string/new_course_title"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
@@ -27,19 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="165dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/courseimage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="ContentDescription" />
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,8 +34,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81">
+        app:layout_constraintTop_toBottomOf="@id/course_activity_title"
+        app:layout_constraintVertical_bias="0.5">
 
         <TextView
             android:id="@+id/error_register"
@@ -65,12 +52,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/full_name"
+            android:hint="@string/course_name"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp"
-            app:startIconDrawable="@drawable/ic_name"
-            app:startIconTint="@color/Orange_Deep">
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -86,12 +71,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_username"
+            android:hint="@string/course_id"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp"
-            app:startIconDrawable="@drawable/ic_user"
-            app:startIconTint="@color/Orange_Deep">
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -107,14 +90,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
+            android:hint="@string/description"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/Orange_Deep"
-            app:startIconDrawable="@drawable/ic_lock"
-            app:startIconTint="@color/Orange_Deep">
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -124,42 +103,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:id="@+id/userType_group"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:checkedButton="@id/student_radio"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/student_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/muli_bold"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/student"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/instructor_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/muli_bold"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/instructor"
-                    android:textSize="16sp" />
-
-            </RadioGroup>
-        </LinearLayout>
-
         <Button
             android:id="@+id/save_btn"
             android:layout_width="match_parent"
@@ -167,26 +110,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
-            android:text="@string/Register_prompt"
+            android:text="@string/save"
             android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/login_redirect_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/have_an_account"
-            android:textColor="@color/Orange_Deep" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
 
 
     </LinearLayout>

@@ -47,10 +47,10 @@ public class MainActivity extends Activity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        fullName_reg = findViewById(R.id.fullName_reg);
+        fullName_reg = findViewById(R.id.course_name);
         username_reg = findViewById(R.id.username_reg);
-        password_reg = findViewById(R.id.password_reg);
-        register_btn = findViewById(R.id.register_btn);
+        password_reg = findViewById(R.id.course_description);
+        register_btn = findViewById(R.id.save_btn);
         login_redirect_btn = findViewById(R.id.login_redirect_btn);
         error_register = findViewById(R.id.error_register);
         fAuth = FirebaseAuth.getInstance();

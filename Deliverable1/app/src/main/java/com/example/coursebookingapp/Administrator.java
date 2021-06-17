@@ -80,7 +80,7 @@ public class Administrator extends Activity {
     }
 
     public void showPopup(){
-       //to do
+        startActivity(new Intent(getApplicationContext(), CourseActivity.class));
     }
 
     private void initRecylcerView(ArrayList<Course> courseList){

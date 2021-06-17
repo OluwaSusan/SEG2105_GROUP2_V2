@@ -25,7 +25,7 @@
 
         <activity android:name=".UserList"></activity>
 
-
+        <activity android:name=".CourseActivity" android:theme="@style/Theme.DialogBox"></activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
