@@ -17,10 +17,9 @@ import java.util.ArrayList;
 public class CourseActivity extends Activity {
 
     Button save_btn;
-    TextInputLayout course_name, course_id, course_description;
+    TextInputLayout course_name, course_id;
     TextView title, errorCourseEnter;
     DBHandlerCourses dbCourses;
-    Course foundCourse;
     String specificCourse;
 
 
