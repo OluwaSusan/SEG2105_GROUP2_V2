@@ -1,6 +1,8 @@
 package com.example.coursebookingapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Course> courses;
@@ -49,16 +51,35 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     }
 
+    private void refresh(String courseID){
+
+        int index = 0;
+        while(courses.iterator().hasNext()){
+            if(courses.get(index).getCourseCode().equals(courseID)){
+                courses.remove(index);
+                break;
+            }
+            index++;
+        }
+        this.notifyDataSetChanged();
+
+    }
+
+
     @Override
     public int getItemCount() {
         return courses.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView courseID;
         TextView courseName;
         CardView parentLayout;
+        Button deleteButton;
+        Button editButton;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -67,7 +88,43 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             courseID =  itemView.findViewById(R.id.idCourseID);
             courseName = itemView.findViewById(R.id.idCourseName);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
+            editButton = itemView.findViewById(R.id.editButton);
 
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                    builder.setTitle("Are you sure you want to delete this course?").setMessage("This will permanently delete the course");
+                    builder.setPositiveButton("Yes", (dialog, which) -> {
+
+                        DBHandlerCourses dbCourses = new DBHandlerCourses();
+                        dbCourses.deleteCourse(courseID.getText().toString());
+                        refresh(courseID.getText().toString());
+
+
+
+
+
+
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+
+
+
+
+
+
+                }
+            });
 
         }
 

@@ -27,6 +27,7 @@ public class Administrator extends Activity {
     FirebaseAuth fAuth;
     DBHandlerCourses dbCourses;
     RecyclerView recUsers, recCourses;
+    CourseAdapter adapter;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class Administrator extends Activity {
         homeBtn_admin = findViewById(R.id.homeBtn_admin);
         coursebtn_add = findViewById(R.id.coursebtn_add);
         dbCourses = new DBHandlerCourses();
+
 
 //        dbCourses.addCourse(new Course("Computer Science", "ITI1121"));
 //        dbCourses.addCourse(new Course("SEG2105", "Software Engineering"));
@@ -83,9 +85,19 @@ public class Administrator extends Activity {
 
     private void initRecylcerView(ArrayList<Course> courseList){
         RecyclerView recyclerView = findViewById(R.id.recyclerView_admin);
-        CourseAdapter adapter = new CourseAdapter(this, courseList);
+        adapter = new CourseAdapter(this, courseList);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public static void refreshRecyclerView(String courseID){
+
+        //loop through and remove course from the list
+
+
+
+
     }
 
 
