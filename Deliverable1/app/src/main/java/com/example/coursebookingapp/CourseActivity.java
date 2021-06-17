@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class CourseActivity extends Activity {
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 boolean check = checkValidation(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
                 if (check) {
                     if (specificCourse == null) {
@@ -55,6 +58,7 @@ public class CourseActivity extends Activity {
                 else{
                     //give error
                 }
+                Log.i("test", "Course test: " + course_name.getEditText().getText().toString() + " " + course_id.getEditText().getText().toString() + " " + check);
             }
         });
 
@@ -107,20 +111,24 @@ public class CourseActivity extends Activity {
 
     private boolean checkValidation(String courseName, String courseID) {
 
-        final boolean[] returnBoolean = new boolean[1];
+        boolean returnBoolean = false;
 
         if (courseID.length() != 7) {
+
             return false;
         }
 
         for (int i = 0; i < 3; i++) {
             if (!Character.isLetter(courseID.charAt(i))) {
+
                 return false;
+
             }
         }
 
         for (int i = 3; i < 7; i++) {
             if (!Character.isDigit(courseID.charAt(i))) {
+
                 return false;
             }
         }
@@ -134,17 +142,21 @@ public class CourseActivity extends Activity {
                 boolean returnFalse = false;
 
                 for (int i = 0; i < courseList.size(); i++) {
+                    Log.i("test", "course exists: " + courseList.get(i).getCourseCode());
 
                     if (courseList.get(i).equals(course)) {
-                        returnBoolean[0] = false;
-                        returnFalse = true;
+//                        returnBoolean = false;
+//                        returnFalse = true;
                         break;
                     }
                 }
+                Log.i("test", "checkfalse: " + returnFalse);
 
-                if (!returnFalse) {
-                    returnBoolean[0] = true;
-                }
+//                if (!returnFalse) {
+//                    returnBoolean = true;
+//                    Log.i("test", "IM INSIDE THE BASE");
+//
+//                }
             }
 
             @Override
@@ -154,8 +166,9 @@ public class CourseActivity extends Activity {
 
 
         });
+        Log.i("test", "returned returnBoolean[0]: " + returnBoolean);
 
-        return returnBoolean[0];
+        return returnBoolean;
     }
 
 
