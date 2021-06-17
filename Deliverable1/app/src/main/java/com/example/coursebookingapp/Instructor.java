@@ -12,16 +12,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class Student extends AppCompatActivity {
+public class Instructor extends AppCompatActivity {
 
 
-    public Student( ){}
-
-
-
-
-
+    public Instructor() {
     }
 
-
 }
+
+
