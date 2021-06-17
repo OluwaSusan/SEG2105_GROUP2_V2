@@ -1,7 +1,10 @@
 package com.example.coursebookingapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,7 +31,37 @@ public class Administrator extends Activity {
     DBHandlerCourses dbCourses;
     RecyclerView recUsers, recCourses;
     CourseAdapter adapter;
+    BroadcastReceiver BR = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            dbCourses.listCourses(new FirebaseCallBackCourses() {
+                @Override
+                public void onCallBackCourseList(ArrayList<Course> courseList) {
 
+                    initRecylcerView(courseList);
+
+                }
+
+                @Override
+                public void onCallBackCourse(Course course) {
+
+                }
+            });
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //refresh the recyclerview to see the new courses
+        registerReceiver(BR, new IntentFilter("Refresh Classes"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(BR);
+        super.onDestroy();
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +71,6 @@ public class Administrator extends Activity {
         homeBtn_admin = findViewById(R.id.homeBtn_admin);
         coursebtn_add = findViewById(R.id.coursebtn_add);
         dbCourses = new DBHandlerCourses();
-
 
 //        dbCourses.addCourse(new Course("Computer Science", "ITI1121"));
 //        dbCourses.addCourse(new Course("SEG2105", "Software Engineering"));
@@ -63,19 +95,7 @@ public class Administrator extends Activity {
             }
         });
         
-        dbCourses.listCourses(new FirebaseCallBackCourses() {
-            @Override
-            public void onCallBackCourseList(ArrayList<Course> courseList) {
-
-                initRecylcerView(courseList);
-
-            }
-
-            @Override
-            public void onCallBackCourse(Course course) {
-
-            }
-        });
+        BR.onReceive(this, null);
 
     }
 
@@ -89,15 +109,6 @@ public class Administrator extends Activity {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    public static void refreshRecyclerView(String courseID){
-
-        //loop through and remove course from the list
-
-
-
-
     }
 
 

@@ -2,6 +2,8 @@ package com.example.coursebookingapp;
 
 import androidx.annotation.Nullable;
 
+import java.util.Objects;
+
 public class Course {
 
     private String courseName;
@@ -32,10 +34,17 @@ public class Course {
         this.courseCode = courseCode;
     }
 
-
-    public boolean equals(Course course) {
-        return(course.getCourseCode().equals(getCourseCode()) && course.getCourseName().equals(getCourseName()));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(courseName, course.courseName) &&
+                Objects.equals(courseCode, course.courseCode);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseName, courseCode);
+    }
 }

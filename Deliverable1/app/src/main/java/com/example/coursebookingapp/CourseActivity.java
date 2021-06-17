@@ -14,14 +14,16 @@ import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseActivity extends Activity {
 
     Button save_btn;
     TextInputLayout course_name, course_id;
-    TextView title, errorCourseEnter;
+    TextView title, error_register;
     DBHandlerCourses dbCourses;
     String specificCourse;
+    List<Course> courseList;
 
 
 
@@ -29,39 +31,57 @@ public class CourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        //putExtra()
-        checkExtra(savedInstanceState);
         save_btn = findViewById(R.id.save_btn);
         dbCourses = new DBHandlerCourses();
         course_name = findViewById(R.id.course_name);
         course_id = findViewById(R.id.course_id);
         title = findViewById(R.id.course_activity_title);
-
+        error_register = findViewById(R.id.error_register);
+        checkExtra(savedInstanceState);
+        loadCourselist();
 
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //trim() coursename/id
+                String courseName = course_name.getEditText().getText().toString().trim();
+                String courseID = course_id.getEditText().getText().toString().trim();
 
 
-                boolean check = checkValidation(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
-                if (check) {
+                String errorMessage = checkValidation(courseName, courseID);
+                if (errorMessage == null) {
                     if (specificCourse == null) {
-                        saveCourse(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
+                        saveCourse(courseName, courseID);
                     } else {
                         deleteCourse(specificCourse);
-                        saveCourse(course_name.getEditText().getText().toString(), course_id.getEditText().getText().toString());
+                        saveCourse(courseName, courseID);
 
                     }
                     closeWindow();
                 }
                 else{
-                    //give error
+                    error_register.setVisibility(View.VISIBLE);
+                    error_register.setText(errorMessage);
                 }
-                Log.i("test", "Course test: " + course_name.getEditText().getText().toString() + " " + course_id.getEditText().getText().toString() + " " + check);
             }
         });
 
+    }
+
+    private void loadCourselist() {
+
+        dbCourses.listCourses(new FirebaseCallBackCourses() {
+            @Override
+            public void onCallBackCourseList(ArrayList<Course> courseList) {
+                CourseActivity.this.courseList = courseList;
+
+            }
+            @Override
+            public void onCallBackCourse(Course course) {
+
+            }
+        });
     }
 
     private void deleteCourse(String specificCourse) {
@@ -97,6 +117,9 @@ public class CourseActivity extends Activity {
     }
 
     private void closeWindow() {
+        finish();
+        Intent i = new Intent("Refresh Classes");
+        sendBroadcast(i);
     }
 
     private void saveCourse(String courseName, String courseID) {
@@ -109,66 +132,26 @@ public class CourseActivity extends Activity {
 
 
 
-    private boolean checkValidation(String courseName, String courseID) {
+    private String checkValidation(String courseName, String courseID) {
 
-        boolean returnBoolean = false;
 
         if (courseID.length() != 7) {
-
-            return false;
+            return "course_ID must be 7 chars";
         }
 
         for (int i = 0; i < 3; i++) {
             if (!Character.isLetter(courseID.charAt(i))) {
-
-                return false;
-
+                return "course_ID must start with 3 letters";
             }
         }
 
         for (int i = 3; i < 7; i++) {
             if (!Character.isDigit(courseID.charAt(i))) {
 
-                return false;
+                return "course_ID must end with 4 digits";
             }
         }
-
-
-        dbCourses.listCourses(new FirebaseCallBackCourses() {
-            @Override
-            public void onCallBackCourseList(ArrayList<Course> courseList) {
-
-                Course course = new Course(courseName, courseID);
-                boolean returnFalse = false;
-
-                for (int i = 0; i < courseList.size(); i++) {
-                    Log.i("test", "course exists: " + courseList.get(i).getCourseCode());
-
-                    if (courseList.get(i).equals(course)) {
-//                        returnBoolean = false;
-//                        returnFalse = true;
-                        break;
-                    }
-                }
-                Log.i("test", "checkfalse: " + returnFalse);
-
-//                if (!returnFalse) {
-//                    returnBoolean = true;
-//                    Log.i("test", "IM INSIDE THE BASE");
-//
-//                }
-            }
-
-            @Override
-            public void onCallBackCourse(Course course) {
-
-            }
-
-
-        });
-        Log.i("test", "returned returnBoolean[0]: " + returnBoolean);
-
-        return returnBoolean;
+        return courseList.contains(new Course(courseName, courseID))? "This course already exists":null;
     }
 
 

@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Student extends AppCompatActivity {
 
 
-    public Student( ){}
+    public Student(){}
 
 
 
@@ -23,5 +23,3 @@ public class Student extends AppCompatActivity {
 
     }
 
-
-}
