@@ -134,7 +134,6 @@ public class CourseActivity extends Activity {
 
     private String checkValidation(String courseName, String courseID) {
 
-
         if (courseID.length() != 7) {
             return "course_ID must be 7 chars";
         }
