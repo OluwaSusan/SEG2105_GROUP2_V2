@@ -67,6 +67,7 @@ public class UserList extends Activity {
 
         backBtn_admin = findViewById(R.id.backBtn_admin);
         homeBtn_userlist = findViewById(R.id.homeBtn_userlist);
+        dbUsers = new DBHandlerUsers();
 
         backBtn_admin.setOnClickListener(new View.OnClickListener() {
             @Override
