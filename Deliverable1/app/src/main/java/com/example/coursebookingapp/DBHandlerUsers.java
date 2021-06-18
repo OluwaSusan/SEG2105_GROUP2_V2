@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -102,10 +103,14 @@ public class DBHandlerUsers {
 
         userReference.child(username).removeValue();
 
+       /* String email = username + "@userID.com";
+
         //1-Firebase instance and sign out of admin
         FirebaseAuth fAuth;
         fAuth = FirebaseAuth.getInstance();
         fAuth.signOut();
+
+        FirebaseAuth dAuth = FirebaseAuth.getInstance();
 
         //2-Find user to delete email and password
         findUser(username, new FirebaseCallBackUsers() {
@@ -116,17 +121,40 @@ public class DBHandlerUsers {
 
             @Override
             public void onCallBackUser(User user) {
-                userDel = user;
+
+                //userDel = user;
+                FirebaseUser currentUser = dAuth.getCurrentUser();
+                dAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword());
+                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), user.getPassword());
+                currentUser.reauthenticate(credential);
+
+                currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //Toast.makeText(UserList.this, "User Account Deleted Successfully",Toast.LENGTH_SHORT).show();
+                            Log.i("test", "deletion successful");
+                        } else {
+                            //Toast.makeText(DBHandlerUsers.this, "User Account Deletion Unsuccessful", Toast.LENGTH_SHORT).show();
+                            Log.i("test", "deletion failed");
+                        }
+                    }
+                });
+
+                //5-Signout by getting instance
+                dAuth.signOut();
             }
         });
 
         //3-Get user to delete credentials
-        FirebaseAuth dAuth;
-        dAuth = FirebaseAuth.getInstance();
-        dAuth.signInWithEmailAndPassword(userDel.getEmail(), userDel.getPassword());
-        final FirebaseUser currentUser = dAuth.getCurrentUser();
+        //FirebaseAuth dAuth = FirebaseAuth.getInstance();
+        //dAuth.signInWithEmailAndPassword(email, userDel.getPassword());
+        //FirebaseUser currentUser = dAuth.getCurrentUser();
+        //AuthCredential credential = EmailAuthProvider.getCredential(email, userDel.getPassword());
+        //currentUser.reauthenticate(credential);
 
        //4-Delete User
+        *//**
         currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -142,13 +170,17 @@ public class DBHandlerUsers {
 
         //5-Signout by getting instance
         dAuth.signOut();
+         **//*
 
         //Sign back in to admin
         FirebaseAuth aAuth;
         aAuth = FirebaseAuth.getInstance();
         aAuth.signInWithEmailAndPassword("admin@userID.com", "admin123");
-        String test = aAuth.getCurrentUser().getEmail().toString();
-        Log.i("test", "who is logged in" + test);
+        //String test = aAuth.getCurrentUser().getEmail().toString();
+        //Log.i("test", "who is logged in" + test);*/
+
+
+        userReference.child(username).removeValue();
 
     }
 
