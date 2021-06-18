@@ -113,8 +113,6 @@ public class MainActivityWelcome extends AppCompatActivity {
             });
 
 
-
         }
-
 
 }
