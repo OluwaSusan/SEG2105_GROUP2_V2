@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">CourseBookingApp</string>
+    <string name="app_name">Course_Booking_App</string>
+
+    <!-- Strings Related to Welcome Messages-->
+    <string name="welcome_prompt">Welcome to the Course Booking App</string>
+    <string name="signIn_prompt">Login</string>
+    <string name="Register_prompt">Register</string>
+    <string name="new_course_title">New Course</string>
+    <string name="edit_course_title">Edit Course</string>
+    <string name="logged_in_as">You are logged in as</string>
+    <string name="sign_out">SignOut</string>
+
+    <!-- Strings related to login and SignUp -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="course_id">Course ID</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="have_an_account">Already have an account? Sign In</string>
+    <string name="create_account">New User? Sign Up</string>
+
+    <!-- Strings related to Register -->
+    <string name="full_name">Full Name</string>
+    <string name="user_type">User Type</string>
+
+    <!-- Strings for RadioGroup -->
+    <string name="student">Student</string>
+    <string name="instructor">Instructor</string>
+
+    <!-- Strings related to Navigation -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_courses">Courses</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- String related to Course Page -->
+    <string name="course_code">Course Code</string>
+    <string name="course_name">Course Name</string>
+
 </resources>

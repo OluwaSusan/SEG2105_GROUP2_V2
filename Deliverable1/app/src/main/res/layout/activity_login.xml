@@ -2,28 +2,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@color/Orange_Light"
     android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="20dp">
 
+
     <TextView
-        android:id="@+id/course_activity_title"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/muli_black"
         android:padding="10dp"
-        android:text="@string/Register_prompt"
-        android:textAlignment="center"
+        android:text="@string/action_sign_in_short"
         android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="34sp"
-        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +34,7 @@
         android:layout_height="180dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/courseimage"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,17 +43,17 @@
         tools:ignore="ContentDescription" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/error_register"
+            android:id="@+id/error_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -59,30 +61,8 @@
             android:text=""
             android:textColor="@color/Error_red" />
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/full_name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp"
-            app:startIconDrawable="@drawable/ic_name"
-            app:startIconTint="@color/Orange_Deep">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:inputType="text"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username_reg"
+            android:id="@+id/username_login"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +83,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_description"
+            android:id="@+id/password_login"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,72 +104,33 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:id="@+id/userType_group"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:checkedButton="@id/student_radio"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/student_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/muli_bold"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/student"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/instructor_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/muli_bold"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/instructor"
-                    android:textSize="16sp" />
-
-            </RadioGroup>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
-            android:text="@string/Register_prompt"
+            android:enabled="true"
+            android:text="@string/signIn_prompt"
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/login_redirect_btn"
+            android:id="@+id/register_redirect_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/have_an_account"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:text="@string/create_account"
             android:textColor="@color/Orange_Deep" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBar_login"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible" />
-
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

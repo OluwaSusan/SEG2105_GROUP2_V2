@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="CourseBookingApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseBookingApp">
@@ -16,6 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Login"></activity>
+
+        <activity android:name=".MainActivityWelcome"></activity>
+
+        <activity android:name=".Administrator"></activity>
+
+        <activity android:name=".UserList"></activity>
+
+        <activity android:name=".CourseActivity" android:theme="@style/Theme.DialogBox"></activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <receiver android:name=".Administrator" />
     </application>
 
 </manifest>

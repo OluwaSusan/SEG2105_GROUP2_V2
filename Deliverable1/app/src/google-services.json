@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5629873729:android:0509f91e3ea18fff1840c0",
+        "mobilesdk_app_id": "1:5629873729:android:4e66338b08240c371840c0",
         "android_client_info": {
-          "package_name": "com.CourseBookingApp"
+          "package_name": "com.example.course_booking_app"
         }
       },
       "oauth_client": [
@@ -37,9 +37,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5629873729:android:4e66338b08240c371840c0",
+        "mobilesdk_app_id": "1:5629873729:android:c792160187984b2e1840c0",
         "android_client_info": {
-          "package_name": "com.example.course_booking_app"
+          "package_name": "com.example.coursebookingapp"
         }
       },
       "oauth_client": [
