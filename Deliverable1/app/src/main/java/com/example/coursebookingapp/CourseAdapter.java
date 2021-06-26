@@ -81,6 +81,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         CardView parentLayout;
         Button deleteButton;
         Button editButton;
+        Button expandCourse;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -91,6 +92,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             parentLayout = itemView.findViewById(R.id.parent_layout);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);
+            expandCourse = itemView.findViewById(R.id.openCourse_btn);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,11 +107,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         dbCourses.deleteCourse(courseID.getText().toString());
                         refresh(courseID.getText().toString());
 
-
-
-
-
-
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
@@ -119,7 +116,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     });
                     builder.show();
 
-
                 }
             });
             editButton.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +123,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 public void onClick(View v) {
 
                     Intent i = new Intent(context.getApplicationContext(), CourseActivity.class);
+                    i.putExtra("Course_ID", courseID.getText().toString());
+                    context.startActivity(i);
+                }
+            });
+
+            expandCourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context.getApplicationContext(), CoursePage.class);
                     i.putExtra("Course_ID", courseID.getText().toString());
                     context.startActivity(i);
                 }

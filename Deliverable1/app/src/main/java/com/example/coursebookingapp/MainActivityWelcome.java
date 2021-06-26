@@ -70,7 +70,7 @@ public class MainActivityWelcome extends AppCompatActivity {
                             startActivity(new Intent(MainActivityWelcome.this, Administrator.class));
                         }
                         else if (user.getUserType() == UserType.INSTRUCTOR){
-                            Toast.makeText(MainActivityWelcome.this, "Instructor currently has no permissions",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MainActivityWelcome.this, Instructor.class));
                         }
                         else{
                             Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();

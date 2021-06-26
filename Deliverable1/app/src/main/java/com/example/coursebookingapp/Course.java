@@ -8,6 +8,9 @@ public class Course {
 
     private String courseName;
     private String courseCode;
+    private String capacity;
+    private String description;
+    private String instructor;
 
 
     public Course(){}
@@ -32,6 +35,26 @@ public class Course {
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
+    }
+
+    public String getCapacity(){ return capacity;}
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getDescription(){return description;}
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getInstructor() {
+        return instructor;
     }
 
     @Override

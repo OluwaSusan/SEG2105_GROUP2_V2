@@ -13,7 +13,7 @@
     <Button
 
 
-        android:id="@+id/assigned_bckbtn"
+        android:id="@+id/bckbtn_coursepage"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -24,7 +24,7 @@
 
     <Button
 
-        android:id="@+id/homeBtn_assigned"
+        android:id="@+id/homeBtn_coursepage"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -38,7 +38,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="64dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/assigned_bckbtn"
+        app:layout_constraintTop_toBottomOf="@+id/bckbtn_coursepage"
         tools:layout_editor_absoluteX="20dp">
 
         <TextView
@@ -79,7 +79,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/instructor_coursepage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,11 +110,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:clickable="false"
             android:fontFamily="@font/muli_bold"
             android:padding="8dp"
-            android:text="resistance temperature detector (RTD) with a time constant  = 2 s was used to measure the temperature of coee contained in three thermos  asks, to be referred to as A, B and C. After the RTD was"
+            android:text="resistance temperature detector (RTD) with a time constant = 2 s was used to measure the temperature of coee contained in three thermos  asks, to be referred to as A, B and C. After the RTD was"
             android:textColor="@color/black"
-            android:clickable="false"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -151,6 +151,20 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/assign_unassign_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/loading_coursepage"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
 
     </LinearLayout>
 
