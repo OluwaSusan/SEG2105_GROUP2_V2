@@ -42,5 +42,7 @@
     <!-- String related to Course Page -->
     <string name="course_code">Course Code</string>
     <string name="course_name">Course Name</string>
+    <string name="course_description">Course Description:</string>
+    <string name="cap">Capacity</string>
 
 </resources>

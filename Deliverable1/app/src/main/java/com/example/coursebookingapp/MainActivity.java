@@ -172,7 +172,7 @@ public class MainActivity extends Activity {
     }
 
     public void onRadioButtonClicked(View view) {
-        Log.i("test", "reachees inside onCLick Radio");
+        Log.i("test", "reaches inside onCLick Radio");
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
