@@ -29,6 +29,8 @@
 
         <activity android:name=".CoursePage"></activity>
 
+        <activity android:name=".Instructor"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
