@@ -157,6 +157,5 @@ public class CourseActivity extends Activity {
         return courseList.contains(new Course(courseName, courseID))? "This course already exists":null;
     }
 
-
 }
 
