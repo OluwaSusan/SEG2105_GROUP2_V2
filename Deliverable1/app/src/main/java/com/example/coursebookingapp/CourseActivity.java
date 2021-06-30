@@ -156,15 +156,21 @@ public class CourseActivity extends Activity {
         }
         return courseList.contains(new Course(courseName, courseID))? "This course already exists":null;
     }
-    public boolean checkNameValidTest(String courseName, String courseID) {
+    public boolean checkCourseNameValidTest(String courseName) {
+
+
+        if (courseName.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkCourseIDValidTest(String courseID) {
 
         if (courseID.length() != 7) {
             return false;
         }
 
-        if(courseName.isEmpty()){
-            return false;
-        }
 
         for (int i = 0; i < 3; i++) {
             if (!Character.isLetter(courseID.charAt(i))) {

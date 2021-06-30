@@ -27,16 +27,22 @@ public class JUnitTest {
     
 
     @Test
-    public void validation_courses(){
-        boolean res = course.checkNameValidTest("Linear Algebra", "MAT1348");
+    public void validation_coursename(){
+        boolean res = course.checkCourseNameValidTest("Linear Algebra");
+        assertTrue(res);
+    }
+
+    @Test
+    public void validation_courseID(){
+        boolean res = course.checkCourseIDValidTest("MAT 1348");
         assertTrue(res);
     }
     
-    @Test 
-    public void validation_userNameExists(){
-        boolean res = main.userNameExists("stevey");
-        assertTrue(res);
-    }
+//    @Test
+//  public void validation_userNameExists(){
+//        boolean res = main.userNameExists("stevey");
+//       assertTrue(res);
+//   }
     
 
 }
