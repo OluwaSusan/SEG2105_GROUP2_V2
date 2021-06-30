@@ -11,10 +11,12 @@ import com.example.coursebookingapp.CourseActivity;
 
 public class JUnitTest {
     private MainActivity main;
+    private CourseActivity course;
 
     @Before
     public void setUp() {
         main = new MainActivity();
+        course = new CourseActivity();
     }
 
     @Test
@@ -28,11 +30,10 @@ public class JUnitTest {
 //        assertThat(main.userNameExists.isTrue());
 //    }
 
-//    @Test
-//    public void validation_courses(){
-//
-//        str = course.checkValidation("Introduction to Discrete Math", "MAT1348");
-//        assertThat(str,null);
-//    }
+    @Test
+    public void validation_courses(){
+        boolean res  = course.checkValidation("Introduction to Discrete Math", "MAT1348");
+        assertTrue(res);
+    }
 
 }
