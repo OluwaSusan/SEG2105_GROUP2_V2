@@ -29,8 +29,11 @@ public class DBHandlerUsers {
     User userDel;
 
 
+
     public DBHandlerUsers() {
+
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
         userReference = rootNode.getReference("users");
     }
 

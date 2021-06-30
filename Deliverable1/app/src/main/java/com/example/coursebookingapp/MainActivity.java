@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     FirebaseAuth fAuth;
     FirebaseDatabase realDatabase;
     ProgressBar progressBar;
-    DBHandlerUsers db = new DBHandlerUsers();
+    DBHandlerUsers db;
     User user;
     String userID;
     FirebaseCallBackUsers callBack;
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
+        db = new DBHandlerUsers();
         fullName_reg = findViewById(R.id.course_name);
         username_reg = findViewById(R.id.username_reg);
         password_reg = findViewById(R.id.course_description);
