@@ -83,14 +83,16 @@ public class Instructor extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
             }
         });
+
+        BR.onReceive(this, null);
     }
 
     private void initRecylcerView(ArrayList<Course> courseList){
+        adapter = new CourseAdapter(Instructor.this, courseList);
         RecyclerView recyclerView = findViewById(R.id.recyclerView_instructor);
-        adapter = new CourseAdapter(this, courseList);
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(Instructor.this));
     }
 
 

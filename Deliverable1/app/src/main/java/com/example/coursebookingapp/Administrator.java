@@ -104,8 +104,8 @@ public class Administrator extends Activity {
     }
 
     private void initRecylcerView(ArrayList<Course> courseList){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_admin);
         adapter = new CourseAdapter(this, courseList);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_admin);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
