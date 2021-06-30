@@ -24,17 +24,19 @@ public class JUnitTest {
         boolean result = main.validFullName("Steve McQueen");
         assertTrue(result);
     }
-
-//    @Test
-//    public void validation_userNameExists(){
-//        assertThat(main.userNameExists.isTrue());
-//    }
+    
 
     @Test
     public void validation_courses(){
         boolean res = course.checkNameValidTest("Linear Algebra", "MAT1348");
-
         assertTrue(res);
     }
+    
+    @Test 
+    public void validation_userNameExists(){
+        boolean res = main.userNameExists("stevey");
+        assertTrue(res);
+    }
+    
 
 }
