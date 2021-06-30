@@ -32,7 +32,8 @@ public class JUnitTest {
 
     @Test
     public void validation_courses(){
-        boolean res  = course.checkValidation("Introduction to Discrete Math", "MAT1348");
+        boolean res = course.checkNameValidTest("Linear Algebra", "MAT1348");
+
         assertTrue(res);
     }
 

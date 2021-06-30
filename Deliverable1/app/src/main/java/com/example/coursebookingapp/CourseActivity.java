@@ -132,7 +132,7 @@ public class CourseActivity extends Activity {
 
 
 
-    private String checkValidation(String courseName, String courseID) {
+    public String checkValidation(String courseName, String courseID) {
 
         if (courseID.length() != 7) {
             return "course_ID must be 7 chars";
@@ -155,6 +155,30 @@ public class CourseActivity extends Activity {
             }
         }
         return courseList.contains(new Course(courseName, courseID))? "This course already exists":null;
+    }
+    public boolean checkNameValidTest(String courseName, String courseID) {
+
+        if (courseID.length() != 7) {
+            return false;
+        }
+
+        if(courseName.isEmpty()){
+            return false;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (!Character.isLetter(courseID.charAt(i))) {
+                return false;
+            }
+        }
+
+        for (int i = 3; i < 7; i++) {
+            if (!Character.isDigit(courseID.charAt(i))) {
+
+                return false;
+            }
+        }
+        return true;
     }
 
 }
