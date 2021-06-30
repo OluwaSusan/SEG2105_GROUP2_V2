@@ -34,7 +34,7 @@ public class JUnitTest {
 
     @Test
     public void validation_courseID(){
-        boolean res = course.checkCourseIDValidTest("MAT 1348");
+        boolean res = course.checkCourseIDValidTest("MAT1348");
         assertTrue(res);
     }
     
