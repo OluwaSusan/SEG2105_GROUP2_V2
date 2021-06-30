@@ -42,13 +42,14 @@ public class CoursePage extends Activity {
         homeBtn_coursepage = findViewById(R.id.homeBtn_coursepage);
         backBtn_coursepage = findViewById(R.id.bckbtn_coursepage);
         loading = findViewById(R.id.loading_coursepage);
+        dbCourses = new DBHandlerCourses();
 
         //Show page as loading
         loading.setVisibility(View.VISIBLE);
 
         checkExtra(savedInstanceState);
         currentUser();
-        setViewBasedOnInstructor();
+
 
         homeBtn_coursepage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +61,7 @@ public class CoursePage extends Activity {
         backBtn_coursepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Instructor.class));
+                startActivity(new Intent(getApplicationContext(), InstructorActivity.class));
             }
         });
 
@@ -126,11 +127,18 @@ public class CoursePage extends Activity {
                     public void onCallBackCourse(Course course) {
                         coursename.setText(course.getCourseName());
                         coursecode.setText(course.getCourseCode());
-                        capacity.setText(course.getCapacity());
-                        instructor.setText(course.getInstructor());
-                        description.setText(course.getDescription());
-                        description_og = course.getDescription();
-                        capacity_og = course.getCapacity();
+                        if (!course.getDetails().equals(null)){
+                            if (course.getDetails().getCap() != 0){
+                                capacity.setText("" + course.getDetails().getCap());
+                            }
+                            if (!course.getDetails().getDesc().equals(null)){
+                                description.setText(course.getDetails().getDesc());
+                            }
+                        }
+                        if (!course.getInstructor().getFullName().equals(null)){
+                            instructor.setText(course.getInstructor().getFullName());
+                        }
+
 
                     }
                 });
@@ -163,6 +171,7 @@ public class CoursePage extends Activity {
             @Override
             public void onCallBackUser(User user) {
                 userCurrent = user.getFullName();
+                setViewBasedOnInstructor();
             }
         });
 

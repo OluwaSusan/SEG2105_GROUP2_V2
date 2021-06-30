@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +69,7 @@ public class MainActivityWelcome extends AppCompatActivity {
                             startActivity(new Intent(MainActivityWelcome.this, Administrator.class));
                         }
                         else if (user.getUserType() == UserType.INSTRUCTOR){
-                            startActivity(new Intent(MainActivityWelcome.this, Instructor.class));
+                            startActivity(new Intent(MainActivityWelcome.this, InstructorActivity.class));
                         }
                         else{
                             Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();

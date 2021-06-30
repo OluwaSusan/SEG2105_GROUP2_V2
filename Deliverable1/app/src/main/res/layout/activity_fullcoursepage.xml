@@ -156,7 +156,7 @@
             android:id="@+id/assign_unassign_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="Assign/unassign"
             android:visibility="visible" />
 
         <ProgressBar

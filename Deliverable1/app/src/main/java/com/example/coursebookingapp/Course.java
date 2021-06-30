@@ -1,17 +1,13 @@
 package com.example.coursebookingapp;
 
-import androidx.annotation.Nullable;
-
 import java.util.Objects;
 
 public class Course {
 
     private String courseName;
     private String courseCode;
-    private String capacity;
-    private String description;
-    private String instructor;
-
+    private Instructor instructor;
+    private Details details;
 
     public Course(){}
 
@@ -37,23 +33,11 @@ public class Course {
         this.courseCode = courseCode;
     }
 
-    public String getCapacity(){ return capacity;}
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getDescription(){return description;}
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setInstructor(String instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 
-    public String getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
 
@@ -69,5 +53,13 @@ public class Course {
     @Override
     public int hashCode() {
         return Objects.hash(courseName, courseCode);
+    }
+
+    public Details getDetails() {
+        return details;
+    }
+
+    public void setDetails(Details details) {
+        this.details = details;
     }
 }
