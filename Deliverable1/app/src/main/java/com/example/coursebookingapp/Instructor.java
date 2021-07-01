@@ -66,14 +66,14 @@ public class Instructor extends AppCompatActivity {
         homeBtn_instructor = findViewById(R.id.homeBtn_instructor);
         dbCourses = new DBHandlerCourses();
 
-        /**
+
         viewassigned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), .class));
+                startActivity(new Intent(getApplicationContext(), AssignedCourses.class));
             }
         });
-         **/
+
 
         homeBtn_instructor.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,15 +20,15 @@ public class CoursePage extends Activity {
 
     EditText description, capacity;
     TextView coursecode, coursename, instructor;
-    String description_og, instructor_og;
+    String description_og, assignedInstructor_username, assignedInstructor_fullname;
     int capacity_og;
     DBHandlerCourses dbCourses;
     String specificCourse;
-    String userCurrent;
+    String userCurrent_fullname, getUserCurrent_username;
     Button assign_unassign, homeBtn_coursepage, backBtn_coursepage;
-    FirebaseAuth fAuth;
-    FirebaseDatabase realDatabase;
-    ProgressBar loading;
+    private FirebaseAuth fAuth;
+    private FirebaseDatabase realDatabase;
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -88,14 +88,14 @@ public class CoursePage extends Activity {
 
     private void setViewBasedOnInstructor() {
 
-        String instructorStr = instructor.getText().toString();
+        //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
 
-        if (instructorStr.isEmpty()){
+        if (assignedInstructor_username.isEmpty()){
             assign_unassign.setText("ASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
         }
-        else if (userCurrent.equals(instructorStr)){
+        else if (getUserCurrent_username.equals(assignedInstructor_username)){
             assign_unassign.setText("UNASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
@@ -150,7 +150,8 @@ public class CoursePage extends Activity {
                             instructor.setText((CharSequence)null);
                         }
                         else {
-                            instructor.setText(course.getInstructor());
+                            instructor.setText(assignedInstructor(course.getInstructor()));
+                            assignedInstructor_username = course.getInstructor();
 
                         }
                     }
@@ -183,11 +184,30 @@ public class CoursePage extends Activity {
 
             @Override
             public void onCallBackUser(User user) {
-                userCurrent = user.getFullName();
+                userCurrent_fullname = user.getFullName();
+                getUserCurrent_username = user.getUserName();
                 setViewBasedOnInstructor();
             }
         });
 
-
     }
+
+    public String assignedInstructor(String username){
+        DBHandlerUsers db = new DBHandlerUsers();
+
+        db.findUser(username, new FirebaseCallBackUsers() {
+            @Override
+            public void onCallBackUsersList(ArrayList<User> userList) {
+
+            }
+
+            @Override
+            public void onCallBackUser(User user) {
+                assignedInstructor_fullname = user.getFullName();
+            }
+        });
+
+        return assignedInstructor_fullname;
+    }
+
 }
