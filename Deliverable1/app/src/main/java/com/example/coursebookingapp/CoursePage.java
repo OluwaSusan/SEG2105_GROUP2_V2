@@ -16,12 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class CoursePage extends Activity {
+public class  CoursePage extends Activity {
 
     EditText description, capacity;
     TextView coursecode, coursename, instructor;
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
-    int capacity_og;
+    String capacity_og;
     DBHandlerCourses dbCourses;
     String specificCourse;
     String userCurrent_fullname, getUserCurrent_username;
@@ -89,7 +89,6 @@ public class CoursePage extends Activity {
     private void setViewBasedOnInstructor() {
 
         //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
-
         if (assignedInstructor_username.isEmpty()){
             assign_unassign.setText("ASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
@@ -104,7 +103,6 @@ public class CoursePage extends Activity {
             assign_unassign.setVisibility(View.INVISIBLE);
             assign_unassign.setClickable(false);
         }
-
         //Page finished loading
         loading.setVisibility(View.INVISIBLE);
     }
@@ -133,19 +131,15 @@ public class CoursePage extends Activity {
                         //if coded correctly if description is empty then all other fields are empty too
                         if (Strings.isEmptyOrWhitespace(course.getDescription())){
                             description.setText((CharSequence)null);
+                            capacity.setText((CharSequence)null);
                         }
                         else {
                             description.setText(course.getDescription());
                             description_og = course.getDescription();
-
-                        }
-                        if (course.getCapacity() == 0){
-                            capacity.setText((CharSequence)null);
-                        }
-                        else {
                             capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
+
                         if (Strings.isEmptyOrWhitespace(course.getInstructor())){
                             instructor.setText((CharSequence)null);
                         }

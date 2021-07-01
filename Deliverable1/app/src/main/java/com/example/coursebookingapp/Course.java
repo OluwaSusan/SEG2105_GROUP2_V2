@@ -7,7 +7,7 @@ public class Course {
     private String courseName;
     private String courseCode;
     private String instructor;
-    private int capacity;
+    private String capacity;
     private String description;
 
     public Course(){}
@@ -42,9 +42,9 @@ public class Course {
         return instructor;
     }
 
-    public int getCapacity(){ return capacity;}
+    public String getCapacity(){ return capacity;}
 
-    public void setCapacity( int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
