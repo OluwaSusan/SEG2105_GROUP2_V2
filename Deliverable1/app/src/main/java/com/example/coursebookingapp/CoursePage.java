@@ -131,21 +131,27 @@ public class CoursePage extends Activity {
 
                         //if coded correctly if description is empty then all other fields are empty too
                         if (course.getDescription().isEmpty()){
-                            capacity.setText((CharSequence)null);
-                            instructor.setText((CharSequence)null);
                             description.setText((CharSequence)null);
                         }
-                        else{
-                            capacity.setText(course.getCapacity());
-                            instructor.setText(course.getInstructor());
+                        else {
                             description.setText(course.getDescription());
                             description_og = course.getDescription();
+
+                        }
+                        if (course.getCapacity() == 0){
+                            capacity.setText((CharSequence)null);
+                        }
+                        else {
+                            capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
+                        if (course.getInstructor().isEmpty()){
+                            instructor.setText((CharSequence)null);
+                        }
+                        else {
+                            instructor.setText(course.getInstructor());
 
-
-
-
+                        }
                     }
                 });
 
