@@ -136,8 +136,11 @@ public class CoursePage extends Activity {
                             }
                         }
                         if (!course.getInstructor().getFullName().equals(null)){
-                            instructor.setText(course.getInstructor().getFullName());
+                            if (!course.getInstructor().getFullName().equals(null)){
+                                instructor.setText(course.getInstructor().getFullName());
+                            }
                         }
+
 
 
                     }
