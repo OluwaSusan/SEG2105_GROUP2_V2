@@ -156,37 +156,28 @@ public class MainActivity extends Activity {
             status = false;
         }
 
-        for ( int i = 0;  i < array.length; i++) {
-            if(Character.isDigit(array[i]))
+        for (int i = 0; i < array.length; i++) {
+            if (Character.isDigit(array[i]))
                 digits++;
-            if(Character.isLowerCase(array[i]))
+            if (Character.isLowerCase(array[i]))
                 lower++;
-            if(Character.isUpperCase(array[i]))
+            if (Character.isUpperCase(array[i]))
                 upper++;
         }
 
-        if (lower <  0 ){
+        if (lower < 0) {
 
             status = false;
-
-        if ( upper  <0 ) {
+        }
+        if (upper < 0) {
             status = false;
         }
 
-        if ( digits < 0 ) {
+        if (digits < 0) {
             status = false;
         }
-
         return status;
     }
-
-
-
-
-
-
-
-}
 
     //Check if user exists, if true error message is shown and new user cannot be added
     public boolean userNameExists(String username){
