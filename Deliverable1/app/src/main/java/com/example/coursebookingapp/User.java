@@ -1,6 +1,10 @@
 package com.example.coursebookingapp;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
 public class User {
 
     private String userName;
@@ -8,8 +12,10 @@ public class User {
     private String password;
     private UserType userType;
     private String email;
+    private ArrayList<Course> courses;
 
-    public User() {
+
+    public User(){
 
     }
 
@@ -19,6 +25,16 @@ public class User {
         this.password = password;
         this.userType = userType;
         this.email = email;
+        this.courses = new ArrayList<Course>();
+    }
+
+    public User(String userName, String fullName, String password, UserType userType, String email, ArrayList<Course> courses) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.password = password;
+        this.userType = userType;
+        this.email = email;
+        this.courses = courses;
     }
 
     public String getUserName() {
@@ -51,6 +67,25 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                ", courses=" + Arrays.toString(courses.toArray()) +
+                '}';
     }
 
     public String getEmail() {
