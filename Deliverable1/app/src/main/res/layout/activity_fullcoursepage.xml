@@ -185,7 +185,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/mon_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
@@ -194,7 +194,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/textView13"
+                    android:id="@+id/mon_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -208,6 +208,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
+                    android:id="@+id/tues_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
@@ -216,7 +217,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/textView15"
+                    android:id="@+id/tues_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -229,6 +230,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
+                    android:id="@+id/wed_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
@@ -238,7 +240,7 @@
 
 
                 <EditText
-                    android:id="@+id/textView17"
+                    android:id="@+id/wed_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -251,6 +253,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
+                    android:id="@+id/thurs_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
@@ -259,7 +262,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/textView19"
+                    android:id="@+id/thurs_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -272,6 +275,7 @@
                 android:layout_height="match_parent">
 
                 <CheckBox
+                    android:id="@+id/fri_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
@@ -280,7 +284,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/textView20"
+                    android:id="@+id/fri_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -307,6 +311,7 @@
             android:id="@+id/error_coursepage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="Error Message Goes Here"
             android:textColor="@color/Error_red" />
 
