@@ -43,8 +43,7 @@ public class DBHandlerCourses {
 
                     Course dbCourse = snapshot.child(courseCode).getValue(Course.class);
                     callBack.onCallBackCourse(dbCourse);
-
-                    //Log.i("test", "reaches inside the find function ");
+                    Log.i("test", "reaches inside the find function ");
 
                 } else {
                     callBack.onCallBackCourse(new Course());
@@ -55,7 +54,7 @@ public class DBHandlerCourses {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-                //Log.i("test", "reaches here");
+                Log.i("test", "reaches here");
 
             }
 
@@ -75,7 +74,7 @@ public class DBHandlerCourses {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Course course = snapshot.getValue(Course.class);
 
-                            //Log.i("test", "user inside loop " + course);
+                            Log.i("test", "user inside loop " + course);
                             courseList.add(course);
 
                         }
@@ -135,6 +134,11 @@ public class DBHandlerCourses {
 
         courseRefrence.child(courseCode).child("courseName").setValue(updatedCourseName);
 
+    }
+
+    public void updateCourse(String courseCode, Course updatedCourse){
+        deleteCourse(courseCode);
+        addCourse(updatedCourse);
 
     }
 
