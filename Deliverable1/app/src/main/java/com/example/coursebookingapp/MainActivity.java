@@ -145,6 +145,49 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    public boolean validPasswordTest (String password){
+
+        boolean status= true;
+        char [] array = password.toCharArray();
+        int lower=0, upper=0, digits=0;
+
+
+        if (password.length() < 8) {
+            status = false;
+        }
+
+        for ( int i = 0;  i < array.length; i++) {
+            if(Character.isDigit(array[i]))
+                digits++;
+            if(Character.isLowerCase(array[i]))
+                lower++;
+            if(Character.isUpperCase(array[i]))
+                upper++;
+        }
+
+        if (lower <  0 ){
+
+            status = false;
+
+        if ( upper  <0 ) {
+            status = false;
+        }
+
+        if ( digits < 0 ) {
+            status = false;
+        }
+
+        return status;
+    }
+
+
+
+
+
+
+
+}
+
     //Check if user exists, if true error message is shown and new user cannot be added
     public boolean userNameExists(String username){
         DBHandlerUsers db = new DBHandlerUsers();

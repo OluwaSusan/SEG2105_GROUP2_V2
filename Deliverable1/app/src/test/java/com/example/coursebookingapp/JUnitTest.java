@@ -24,6 +24,12 @@ public class JUnitTest {
         boolean result = main.validFullName("Steve McQueen");
         assertTrue(result);
     }
+
+    @Test
+    public void validation_password(){
+        boolean result = main.validPasswordTest("Password123");
+        assertTrue(result);
+    }
     
 
     @Test
@@ -37,7 +43,8 @@ public class JUnitTest {
         boolean res = course.checkCourseIDValidTest("MAT1348");
         assertTrue(res);
     }
-    
+
+
 //    @Test
 //  public void validation_userNameExists(){
 //        boolean res = main.userNameExists("stevey");
