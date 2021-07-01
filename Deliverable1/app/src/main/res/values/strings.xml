@@ -44,5 +44,10 @@
     <string name="course_name">Course Name</string>
     <string name="course_description">Course Description:</string>
     <string name="cap">Capacity</string>
+    <string name="mon">Monday:</string>
+    <string name="tues">Tuesday:</string>
+    <string name="wed">Wednesday:</string>
+    <string name="thurs">Thursday:</string>
+    <string name="fri">Friday:</string>
 
 </resources>

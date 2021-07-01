@@ -128,13 +128,21 @@ public class CoursePage extends Activity {
                     public void onCallBackCourse(Course course) {
                         coursename.setText(course.getCourseName());
                         coursecode.setText(course.getCourseCode());
-                        coursename.setText(course.getCourseName());
-                        coursecode.setText(course.getCourseCode());
-                        capacity.setText(course.getCapacity());
-                        instructor.setText(course.getInstructor());
-                        description.setText(course.getDescription());
-                        description_og = course.getDescription();
-                        capacity_og = course.getCapacity();
+
+                        //if coded correctly if description is empty then all other fields are empty too
+                        if (course.getDescription().isEmpty()){
+                            capacity.setText((CharSequence)null);
+                            instructor.setText((CharSequence)null);
+                            description.setText((CharSequence)null);
+                        }
+                        else{
+                            capacity.setText(course.getCapacity());
+                            instructor.setText(course.getInstructor());
+                            description.setText(course.getDescription());
+                            description_og = course.getDescription();
+                            capacity_og = course.getCapacity();
+                        }
+
 
 
 

@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    public boolean validPasswordTest (String password){
+    /**public boolean validPasswordTest (String password){
 
         boolean status= true;
         char [] array = password.toCharArray();
@@ -180,14 +180,8 @@ public class MainActivity extends Activity {
         return status;
     }
 
-
-
-
-
-
-
 }
-
+**/
     //Check if user exists, if true error message is shown and new user cannot be added
     public boolean userNameExists(String username){
         DBHandlerUsers db = new DBHandlerUsers();

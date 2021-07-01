@@ -11,8 +11,6 @@
     android:paddingBottom="20dp">
 
     <Button
-
-
         android:id="@+id/bckbtn_coursepage"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="50dp"
@@ -41,16 +39,40 @@
         app:layout_constraintTop_toBottomOf="@+id/bckbtn_coursepage"
         tools:layout_editor_absoluteX="20dp">
 
-        <TextView
-            android:id="@+id/coursecode_coursepage"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/muli_black"
-            android:padding="2dp"
-            android:text="MCG4308"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/coursecode_coursepage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/muli_black"
+                android:padding="2dp"
+                android:text="MCG4308"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/edit_courepage"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="190dp"
+                android:drawableLeft="@drawable/ic_edit"
+                android:drawableTint="@color/Orange_Deep" />
+
+            <Button
+                android:id="@+id/save_coursepage"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/ic_save"
+                android:drawableTint="@color/Orange_Deep" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/coursename_coursepage"
@@ -85,11 +107,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
+                android:background="@color/Orange_Light"
+                android:clickable="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
                 android:text="Philipe Entendre"
-                android:clickable="false"
-                android:background="@color/Orange_Light"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -142,15 +164,130 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
+                android:background="@color/Orange_Light"
+                android:clickable="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
                 android:text="200"
-                android:clickable="false"
-                android:background="@color/Orange_Light"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/mon"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_marginStart="10dp"
+                    android:text="TextView"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/tues"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="TextView"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/wed"
+                    android:textColor="@color/black" />
+
+
+                <EditText
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="TextView"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/thurs"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="TextView"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/fri"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="TextView"
+                    android:textSize="12sp" />
+            </TableRow>
+        </TableLayout>
 
         <Button
             android:id="@+id/assign_unassign_btn"
@@ -165,6 +302,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/error_coursepage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error Message Goes Here"
+            android:textColor="@color/Error_red" />
 
     </LinearLayout>
 
