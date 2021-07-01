@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.common.util.Strings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -130,7 +131,7 @@ public class CoursePage extends Activity {
                         coursecode.setText(course.getCourseCode());
 
                         //if coded correctly if description is empty then all other fields are empty too
-                        if (course.getDescription().isEmpty()){
+                        if (Strings.isEmptyOrWhitespace(course.getDescription())){
                             description.setText((CharSequence)null);
                         }
                         else {
@@ -145,7 +146,7 @@ public class CoursePage extends Activity {
                             capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
-                        if (course.getInstructor().isEmpty()){
+                        if (Strings.isEmptyOrWhitespace(course.getInstructor())){
                             instructor.setText((CharSequence)null);
                         }
                         else {
