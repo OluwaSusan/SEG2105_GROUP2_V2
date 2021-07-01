@@ -1,100 +1,42 @@
 package com.example.coursebookingapp;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import java.util.Objects;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+public class Instructor {
 
-import com.google.firebase.auth.FirebaseAuth;
+    private String fullName;
+    private String email;
 
-import java.util.ArrayList;
+    public Instructor(){}
 
 
-public class Instructor extends AppCompatActivity {
+    public String getFullName() {
+        return fullName;
+    }
 
-    Button viewassigned, homeBtn_instructor;
-    FirebaseAuth fAuth;
-    DBHandlerCourses dbCourses;
-    RecyclerView recCourses;
-    CourseAdapter adapter;
-    BroadcastReceiver BR = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            dbCourses.listCourses(new FirebaseCallBackCourses() {
-                @Override
-                public void onCallBackCourseList(ArrayList<Course> courseList) {
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-                    initRecylcerView(courseList);
+    public String getEmail() {
+        return email;
+    }
 
-                }
-
-                @Override
-                public void onCallBackCourse(Course course) {
-
-                }
-            });
-        }
-    };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //refresh the recyclerview to see the new courses
-        registerReceiver(BR, new IntentFilter("Refresh Classes"));
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
-    protected void onDestroy() {
-        unregisterReceiver(BR);
-        super.onDestroy();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Instructor course = (Instructor) o;
+        return Objects.equals(fullName, course.fullName) &&
+                Objects.equals(email, course.email);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_instructor);
-
-        viewassigned = findViewById(R.id.view_assigned);
-        homeBtn_instructor = findViewById(R.id.homeBtn_instructor);
-        dbCourses = new DBHandlerCourses();
-
-        /**
-        viewassigned.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), .class));
-            }
-        });
-         **/
-
-        homeBtn_instructor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivityWelcome.class));
-            }
-        });
-
-        BR.onReceive(this, null);
+    public int hashCode() {
+        return Objects.hash(fullName, email);
     }
-
-    private void initRecylcerView(ArrayList<Course> courseList){
-        adapter = new CourseAdapter(Instructor.this, courseList);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_instructor);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Instructor.this));
-    }
-
-
-
 }
-
-

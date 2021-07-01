@@ -6,9 +6,8 @@ public class Course {
 
     private String courseName;
     private String courseCode;
-    private String instructor;
-    private String description;
-    private int capacity;
+    private Instructor instructor;
+    private Details details;
 
     public Course(){}
 
@@ -34,21 +33,13 @@ public class Course {
         this.courseCode = courseCode;
     }
 
-    public void setInstructor(String instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 
-    public String getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
-
-    public String getDescription() { return description; }
-
-    public void setDescription(String details) { this.description = details; }
-
-    public void setCapacity(int capacity) { this.capacity = capacity; }
-
-    public int getCapacity() { return capacity; }
 
     @Override
     public boolean equals(Object o) {
@@ -64,5 +55,11 @@ public class Course {
         return Objects.hash(courseName, courseCode);
     }
 
+    public Details getDetails() {
+        return details;
+    }
 
+    public void setDetails(Details details) {
+        this.details = details;
+    }
 }
