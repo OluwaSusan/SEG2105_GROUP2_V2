@@ -19,7 +19,8 @@ public class CoursePage extends Activity {
 
     EditText description, capacity;
     TextView coursecode, coursename, instructor;
-    String description_og, capacity_og, instructor_og;
+    String description_og, instructor_og;
+    int capacity_og;
     DBHandlerCourses dbCourses;
     String specificCourse;
     String userCurrent;
@@ -61,7 +62,7 @@ public class CoursePage extends Activity {
         backBtn_coursepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), InstructorActivity.class));
+                startActivity(new Intent(getApplicationContext(), Instructor.class));
             }
         });
 
@@ -127,17 +128,14 @@ public class CoursePage extends Activity {
                     public void onCallBackCourse(Course course) {
                         coursename.setText(course.getCourseName());
                         coursecode.setText(course.getCourseCode());
-                        if (!course.getDetails().equals(null)){
-                            if (course.getDetails().getCap() != 0){
-                                capacity.setText("" + course.getDetails().getCap());
-                            }
-                            if (!course.getDetails().getDesc().equals(null)){
-                                description.setText(course.getDetails().getDesc());
-                            }
-                        }
-                        if (!course.getInstructor().getFullName().equals(null)){
-                            instructor.setText(course.getInstructor().getFullName());
-                        }
+                        coursename.setText(course.getCourseName());
+                        coursecode.setText(course.getCourseCode());
+                        capacity.setText(course.getCapacity());
+                        instructor.setText(course.getInstructor());
+                        description.setText(course.getDescription());
+                        description_og = course.getDescription();
+                        capacity_og = course.getCapacity();
+
 
 
                     }

@@ -29,7 +29,7 @@
 
         <activity android:name=".CoursePage"></activity>
 
-        <activity android:name=".InstructorActivity"></activity>
+        <activity android:name=".Instructor"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
