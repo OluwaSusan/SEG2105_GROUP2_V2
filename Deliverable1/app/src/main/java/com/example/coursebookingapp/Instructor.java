@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class Instructor extends AppCompatActivity {
 
     Button viewassigned, homeBtn_instructor;
+    com.google.android.material.floatingactionbutton.FloatingActionButton searchbtn;
     FirebaseAuth fAuth;
     DBHandlerCourses dbCourses;
     RecyclerView recCourses;
@@ -65,6 +66,8 @@ public class Instructor extends AppCompatActivity {
         viewassigned = findViewById(R.id.view_assigned);
         homeBtn_instructor = findViewById(R.id.homeBtn_instructor);
         dbCourses = new DBHandlerCourses();
+        searchbtn = findViewById(R.id.searchbtn);
+
 
 
         viewassigned.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +85,15 @@ public class Instructor extends AppCompatActivity {
             }
         });
 
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SearchCourse.class));
+            }
+        });
         BR.onReceive(this, null);
     }
+
 
     private void initRecylcerView(ArrayList<Course> courseList){
         adapter = new CourseAdapter(Instructor.this, courseList);

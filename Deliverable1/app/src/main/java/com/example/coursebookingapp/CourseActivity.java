@@ -27,7 +27,7 @@ public class CourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        save_btn = findViewById(R.id.search_btn);
+        save_btn = findViewById(R.id.save_btn);
         dbCourses = new DBHandlerCourses();
         course_name = findViewById(R.id.course_name);
         course_id = findViewById(R.id.course_id);

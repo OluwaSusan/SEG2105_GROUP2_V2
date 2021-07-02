@@ -27,6 +27,9 @@
 
         <activity android:name=".CourseActivity" android:theme="@style/Theme.DialogBox"></activity>
 
+        <activity android:name=".SearchCourse" android:theme="@style/Theme.DialogBox"></activity>
+
+
         <activity android:name=".CoursePage"></activity>
 
         <activity android:name=".Instructor"></activity>

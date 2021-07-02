@@ -15,7 +15,9 @@
     <string name="prompt_password">Password</string>
     <string name="course_id">Course ID</string>
     <string name="description">Description</string>
+    <string name="query">Enter course name or ID</string>
     <string name="save">Save</string>
+    <string name="search">Search</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Login</string>
     <string name="welcome">"Welcome !"</string>

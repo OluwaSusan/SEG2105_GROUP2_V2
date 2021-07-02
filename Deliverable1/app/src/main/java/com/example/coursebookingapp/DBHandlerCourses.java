@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +64,73 @@ public class DBHandlerCourses {
         });
 
 
+    }
+
+    public void findByName(String courseName, FirebaseCallBackCourses callBack) {
+
+
+        Query query = courseRefrence.orderByChild("courseName").equalTo(courseName);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+
+                if (snapshot.exists()) {
+
+
+                    Course dbCourse = snapshot.getChildren().iterator().next().getValue(Course.class);
+                    callBack.onCallBackCourse(dbCourse);
+
+                    //Log.i("test", "reaches inside the find function ");
+
+                } else {
+                    callBack.onCallBackCourse(new Course());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                //Log.i("test", "reaches here");
+
+            }
+
+
+        });
+
+
+    }
+
+    public void searchCourse(String query, FirebaseCallBackCourses callBack) {
+
+        findCourse(query, new FirebaseCallBackCourses() {
+                    @Override
+                    public void onCallBackCourseList(ArrayList<Course> courseList) {
+                        callBack.onCallBackCourseList(courseList);
+                    }
+
+                    @Override
+                    public void onCallBackCourse(Course course) {
+                        if(Strings.isEmptyOrWhitespace(course.getCourseCode())) {
+                            //No result by ID, try by name
+                            findByName(query, new FirebaseCallBackCourses() {
+                                @Override
+                                public void onCallBackCourseList(ArrayList<Course> courseList) {
+                                    callBack.onCallBackCourseList(courseList);
+                                }
+
+                                @Override
+                                public void onCallBackCourse(Course course) {
+                                    callBack.onCallBackCourse(course);
+                                }
+                            });
+                            return;
+                        }
+                        callBack.onCallBackCourse(course);
+                    }
+                });
     }
 
     public void listCourses(FirebaseCallBackCourses callBack) {

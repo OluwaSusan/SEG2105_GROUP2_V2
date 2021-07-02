@@ -19,7 +19,7 @@
         android:layout_marginTop="28dp"
         android:fontFamily="@font/muli_black"
         android:padding="10dp"
-        android:text="@string/search_course_title"
+        android:text="@string/search"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
@@ -49,30 +49,11 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_name"
+            android:id="@+id/query"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/course_name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/Orange_Deep"
-            app:boxStrokeWidth="1dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:inputType="text"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/course_id"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/course_id"
+            android:hint="@string/query"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/Orange_Deep"
             app:boxStrokeWidth="1dp">
