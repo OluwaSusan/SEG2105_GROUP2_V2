@@ -12,10 +12,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
@@ -82,6 +86,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         Button deleteButton;
         Button editButton;
         Button expandCourse;
+        FirebaseAuth fAuth;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -93,6 +98,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);
             expandCourse = itemView.findViewById(R.id.openCourse_btn);
+
+       /*     DBHandlerUsers dbUsers = new DBHandlerUsers();
+            dbUsers.findUser(fAuth.getCurrentUser().getEmail().split("@")[0], new FirebaseCallBackUsers() {
+                @Override
+                public void onCallBackUsersList(ArrayList<User> userList) { }
+
+                @Override
+                public void onCallBackUser(User user) {
+
+                    if (user.getUserType() == UserType.INSTRUCTOR){
+                        deleteButton.setVisibility(View.INVISIBLE);
+                        editButton.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+            });*/
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
