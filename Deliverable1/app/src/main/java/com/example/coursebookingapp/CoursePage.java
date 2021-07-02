@@ -30,6 +30,7 @@ public class  CoursePage extends Activity {
     private FirebaseDatabase realDatabase;
     private ProgressBar loading;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -133,6 +134,7 @@ public class  CoursePage extends Activity {
             public void onClick(View v) {
                 enableFields(2);
 
+
             }
         });
 
@@ -211,7 +213,7 @@ public class  CoursePage extends Activity {
                         }
                         else {
                             instructor.setText(assignedInstructor(course.getInstructor()));
-                            //instructor.setText(course.getInstructor());
+                            instructor.setText(course.getInstructor());
                             assignedInstructor_username = course.getInstructor();
 
                         }

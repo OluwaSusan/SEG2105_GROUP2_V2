@@ -1,5 +1,6 @@
 package com.example.coursebookingapp;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Course {
@@ -9,6 +10,8 @@ public class Course {
     private String instructor;
     private String capacity;
     private String description;
+    private HashMap<String, String> dates = new HashMap<>();
+
 
     public Course(){}
 
