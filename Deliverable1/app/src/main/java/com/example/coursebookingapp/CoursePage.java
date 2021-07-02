@@ -78,13 +78,6 @@ public class  CoursePage extends Activity {
 
                 if (task.equals("ASSIGN")){
 
-                    if(courseDetailValidation()){
-                        err_mssg.setText("Click Edit, fill all fields including: Description, Capacity and Date&time, click save then click assign");
-                    }
-                    else{
-
-                    }
-
                     //call dbHandlerCourses assign method
                     //or delete original and add new
                 }
@@ -92,6 +85,20 @@ public class  CoursePage extends Activity {
                     //call dbHandlerCourses unassign method
                     //or delete original and add new
                 }
+            }
+        });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

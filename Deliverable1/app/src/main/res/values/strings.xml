@@ -31,7 +31,7 @@
 
     <!-- Strings for RadioGroup -->
     <string name="student">Student</string>
-    <string name="instructor">Instructor</string>
+    <string name="instructor">Instructor:</string>
 
     <!-- Strings related to Navigation -->
     <string name="title_activity_main">MainActivity</string>
