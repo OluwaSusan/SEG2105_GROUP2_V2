@@ -50,4 +50,6 @@
     <string name="thurs">Thursday:</string>
     <string name="fri">Friday:</string>
 
+    <string name="search_course_title">Placeholder</string>
+
 </resources>

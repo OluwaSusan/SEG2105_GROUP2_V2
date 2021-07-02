@@ -139,5 +139,14 @@ public class DBHandlerCourses {
 
     }
 
+//    public void assignCourse(String courseCode, String instructor){
+//        courseRefrence.child(courseCode).child("instructor").setValue(instructor);
+//    }
+//
+//    public void unassignCourse(String courseCode){
+//        courseRefrence.child(courseCode).child("instructor").removeValue();
+//
+//    }
+
 
 }

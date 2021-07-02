@@ -15,8 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class  CoursePage extends Activity {
+public class CoursePage extends Activity {
 
     EditText description, capacity, mon_time, tues_time, wed_time, thurs_time, fri_time;
     TextView coursecode, coursename, instructor, err_mssg;
@@ -25,14 +26,14 @@ public class  CoursePage extends Activity {
     DBHandlerCourses dbCourses;
     String specificCourse;
     String userCurrent_fullname, getUserCurrent_username;
-    Button assign_unassign, homeBtn_coursepage, backBtn_coursepage,saveBtn, editBtn;
+    Button assign_unassign, homeBtn_coursepage, backBtn_coursepage, saveBtn, editBtn;
     private FirebaseAuth fAuth;
     private FirebaseDatabase realDatabase;
     private ProgressBar loading;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullcoursepage);
 
@@ -82,7 +83,7 @@ public class  CoursePage extends Activity {
 
                 String task = assign_unassign.getText().toString();
 
-                if (task.equals("ASSIGN")){
+                if (task.equals("ASSIGN")) {
                     //create a new course of the info including instructor
                     Course course_assign = new Course(coursename.getText().toString(), coursecode.getText().toString());
                     course_assign.setInstructor(getUserCurrent_username);
@@ -100,8 +101,7 @@ public class  CoursePage extends Activity {
                     setViewBasedOnInstructor();
                     err_mssg.setText("To Add information click edit and save the information");
 
-                }
-                else if (task.equals("UNASSIGN")){
+                } else if (task.equals("UNASSIGN")) {
                     //create a new course with course info minus details
                     Course course_unassign = new Course(coursename.getText().toString(), coursecode.getText().toString());
 
@@ -112,9 +112,9 @@ public class  CoursePage extends Activity {
                     //update assigned instructor fields and view to match
                     assignedInstructor_username = "";
                     assignedInstructor_fullname = "";
-                    description.setText((CharSequence)null);
-                    capacity.setText((CharSequence)null);
-                    instructor.setText((CharSequence)null);
+                    description.setText((CharSequence) null);
+                    capacity.setText((CharSequence) null);
+                    instructor.setText((CharSequence) null);
 
                     //update view
                     setViewBasedOnInstructor();
@@ -145,6 +145,35 @@ public class  CoursePage extends Activity {
                 }
 
 
+                HashMap<String, String> dates = new HashMap<>();
+
+                if(!mon_time.getText().toString().isEmpty() && validateTimes(mon_time.getText().toString().replaceAll(" ", ""))){
+
+                    dates.put("Monday",mon_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if(!tues_time.getText().toString().isEmpty() && validateTimes(tues_time.getText().toString().replaceAll(" ", ""))){
+                    dates.put("Tuesday",tues_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if(!wed_time.getText().toString().isEmpty() && validateTimes(wed_time.getText().toString().replaceAll(" ", ""))){
+
+                    dates.put("Wednesday",wed_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if(!thurs_time.getText().toString().isEmpty() && validateTimes(thurs_time.getText().toString().replaceAll(" ", ""))){
+
+                    dates.put("Thursday",thurs_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if(!fri_time.getText().toString().isEmpty() && validateTimes(fri_time.getText().toString().replaceAll(" ", ""))){
+
+                    dates.put("Friday",fri_time.getText().toString().replaceAll(" ", ""));
+
+                }
+
+
+
 
             }
         });
@@ -154,7 +183,7 @@ public class  CoursePage extends Activity {
     private void setViewBasedOnInstructor() {
 
         //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
-        if (Strings.isEmptyOrWhitespace(assignedInstructor_username)){
+        if (Strings.isEmptyOrWhitespace(assignedInstructor_username)) {
             assign_unassign.setText("ASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
@@ -163,8 +192,7 @@ public class  CoursePage extends Activity {
             editBtn.setClickable(false);
             saveBtn.setVisibility(View.INVISIBLE);
             saveBtn.setClickable(false);
-        }
-        else if (getUserCurrent_username.equals(assignedInstructor_username)){
+        } else if (getUserCurrent_username.equals(assignedInstructor_username)) {
             assign_unassign.setText("UNASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
@@ -173,8 +201,7 @@ public class  CoursePage extends Activity {
             editBtn.setClickable(true);
             saveBtn.setVisibility(View.VISIBLE);
             saveBtn.setClickable(true);
-        }
-        else{
+        } else {
             assign_unassign.setVisibility(View.INVISIBLE);
             assign_unassign.setClickable(false);
             editBtn.setVisibility(View.INVISIBLE);
@@ -191,10 +218,10 @@ public class  CoursePage extends Activity {
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                specificCourse= null;
+            if (extras == null) {
+                specificCourse = null;
             } else {
-                specificCourse= extras.getString("Course_ID");
+                specificCourse = extras.getString("Course_ID");
 
                 dbCourses.findCourse(specificCourse, new FirebaseCallBackCourses() {
                     @Override
@@ -208,21 +235,19 @@ public class  CoursePage extends Activity {
                         coursecode.setText(course.getCourseCode());
 
                         //if coded correctly if description is empty then all other fields are empty too
-                        if (Strings.isEmptyOrWhitespace(course.getDescription())){
-                            description.setText((CharSequence)null);
-                            capacity.setText((CharSequence)null);
-                        }
-                        else {
+                        if (Strings.isEmptyOrWhitespace(course.getDescription())) {
+                            description.setText((CharSequence) null);
+                            capacity.setText((CharSequence) null);
+                        } else {
                             description.setText(course.getDescription());
                             description_og = course.getDescription();
                             capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
 
-                        if (Strings.isEmptyOrWhitespace(course.getInstructor())){
-                            instructor.setText((CharSequence)null);
-                        }
-                        else {
+                        if (Strings.isEmptyOrWhitespace(course.getInstructor())) {
+                            instructor.setText((CharSequence) null);
+                        } else {
                             instructor.setText(assignedInstructor(course.getInstructor()));
                             instructor.setText(course.getInstructor());
                             assignedInstructor_username = course.getInstructor();
@@ -233,11 +258,11 @@ public class  CoursePage extends Activity {
 
             }
         } else {
-            specificCourse= (String) savedInstanceState.getSerializable("Course_ID");
+            specificCourse = (String) savedInstanceState.getSerializable("Course_ID");
         }
     }
 
-    public void currentUser(){
+    public void currentUser() {
 
         fAuth = FirebaseAuth.getInstance();
         realDatabase = FirebaseDatabase.getInstance();
@@ -245,7 +270,7 @@ public class  CoursePage extends Activity {
         String email = fAuth.getCurrentUser().getEmail();
         String[] parts = email.split("@");
         String username = parts[0];
-        Log.i("test" , "username " + username);
+        Log.i("test", "username " + username);
 
 
         DBHandlerUsers db = new DBHandlerUsers();
@@ -266,7 +291,7 @@ public class  CoursePage extends Activity {
 
     }
 
-    public String assignedInstructor(String username){
+    public String assignedInstructor(String username) {
         DBHandlerUsers db = new DBHandlerUsers();
 
         db.findUser(username, new FirebaseCallBackUsers() {
@@ -284,8 +309,8 @@ public class  CoursePage extends Activity {
         return assignedInstructor_fullname;
     }
 
-    public void enableFields(int state){
-        if(state ==1){
+    public void enableFields(int state) {
+        if (state == 1) {
             description.setEnabled(true);
             capacity.setEnabled(true);
             mon_time.setEnabled(true);
@@ -293,8 +318,7 @@ public class  CoursePage extends Activity {
             wed_time.setEnabled(true);
             thurs_time.setEnabled(true);
             fri_time.setEnabled(true);
-        }
-        else{
+        } else {
             description.setEnabled(false);
             capacity.setEnabled(false);
             mon_time.setEnabled(false);
@@ -322,6 +346,68 @@ public class  CoursePage extends Activity {
         return true;
     }
 
+    private boolean validateTimes(String input) {
+
+        String[] times = input.split("-");
+
+        if (times.length != 2) {
+            System.out.println("-2");
+
+            return false;
+        }
+
+        int[] hours = new int[2];
+        int[] minutes = new int[2];
+        int[] halfTime = new int[2]; // 0 is am 1 is pm
+
+        for (int i = 0; i < 2; i++) {
+
+            if (!(times[i].contains("pm") || times[i].contains("am") || times[i].contains(":"))) {
+
+                return false;
+            }
+
+            if (times[i].contains("pm")) {
+                halfTime[i] = 1;
+            }
+
+            if (Integer.parseInt(times[i].split(":")[0]) > 11
+                    || Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
+
+                return false;
+            }
+
+            hours[i] = Integer.parseInt(times[i].split(":")[0]);
+            minutes[i] = Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", ""));
+        }
+
+        // first time is after in the same half of the day
+        if (hours[0] > hours[1] && halfTime[0] == halfTime[1]) {
+
+            return false;
+
+        }
+
+        if (hours[0] == hours[1] && minutes[0] > minutes[1] && halfTime[0] == halfTime[1]) {
+
+            return false;
+
+        }
+        // pm to am classes are not valid
+        if (halfTime[0] > halfTime[1]) {
+
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    private void errorMessage() {
+        err_mssg.setText("Invalid input try again. ex. 8:00am-9:00am");
+
+    }
 
 
 }
