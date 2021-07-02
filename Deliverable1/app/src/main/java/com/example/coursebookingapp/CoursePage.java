@@ -263,7 +263,26 @@ public class CoursePage extends Activity {
 
                         }
                         else{
-                            course.getDates().get("Monday").isEmpty()
+
+                            for (String day: course.getDates().keySet()){
+
+                                if(day.equals("Monday")){
+                                    mon_time.setText(course.getDates().get(day));
+                                }
+                                if(day.equals("Tuesday")){
+                                    tues_time.setText(course.getDates().get(day));
+                                }
+                                if(day.equals("Wednesday")){
+                                    wed_time.setText(course.getDates().get(day));
+                                }
+                                if(day.equals("Thursday")){
+                                    thurs_time.setText(course.getDates().get(day));
+                                }
+                                if(day.equals("Friday")){
+                                    fri_time.setText(course.getDates().get(day));
+                                }
+
+                            }
                         }
                     }
                 });
