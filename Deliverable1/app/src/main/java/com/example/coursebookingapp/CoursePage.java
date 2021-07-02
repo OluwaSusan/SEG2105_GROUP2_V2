@@ -134,6 +134,17 @@ public class  CoursePage extends Activity {
             public void onClick(View v) {
                 enableFields(2);
 
+                Course updated = new Course(coursename.getText().toString(), coursecode.getText().toString());
+
+                if(!validation()){
+                    err_mssg.setText("Invalid fields will not be accepted, course details not saved");
+                }
+                else{
+                    updated.setDescription(description.getText().toString());
+                    updated.setCapacity(capacity.getText().toString());
+                }
+
+
 
             }
         });
@@ -293,6 +304,22 @@ public class  CoursePage extends Activity {
             fri_time.setEnabled(false);
 
         }
+    }
+
+    public boolean validation(){
+
+        int cap = Integer.parseInt(capacity.getText().toString());
+
+        if(description.getText().toString().length() > 195){
+            err_mssg.setText("Description exceeds maximum characterrs of 195, please re-edit");
+            return false;
+        }
+        if (cap < 1){
+            err_mssg.setText("Capacity is invalid, please re-edit a valid capacity");
+            return false;
+        }
+
+        return true;
     }
 
 
