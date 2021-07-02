@@ -147,34 +147,33 @@ public class CoursePage extends Activity {
 
                 HashMap<String, String> dates = new HashMap<>();
 
-                if(!mon_time.getText().toString().isEmpty() && validateTimes(mon_time.getText().toString().replaceAll(" ", ""))){
+                if(!mon_time.getText().toString().isEmpty() && validateTimes("monday", mon_time.getText().toString().replaceAll(" ", ""))){
 
                     dates.put("Monday",mon_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!tues_time.getText().toString().isEmpty() && validateTimes(tues_time.getText().toString().replaceAll(" ", ""))){
+                if(!tues_time.getText().toString().isEmpty() && validateTimes("tuesday", tues_time.getText().toString().replaceAll(" ", ""))){
                     dates.put("Tuesday",tues_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!wed_time.getText().toString().isEmpty() && validateTimes(wed_time.getText().toString().replaceAll(" ", ""))){
+                if(!wed_time.getText().toString().isEmpty() && validateTimes("wednesday", wed_time.getText().toString().replaceAll(" ", ""))){
 
                     dates.put("Wednesday",wed_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!thurs_time.getText().toString().isEmpty() && validateTimes(thurs_time.getText().toString().replaceAll(" ", ""))){
+                if(!thurs_time.getText().toString().isEmpty() && validateTimes("thursday", thurs_time.getText().toString().replaceAll(" ", ""))){
 
                     dates.put("Thursday",thurs_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!fri_time.getText().toString().isEmpty() && validateTimes(fri_time.getText().toString().replaceAll(" ", ""))){
+                if(!fri_time.getText().toString().isEmpty() && validateTimes("friday", fri_time.getText().toString().replaceAll(" ", ""))){
 
                     dates.put("Friday",fri_time.getText().toString().replaceAll(" ", ""));
 
                 }
 
-
-
-
+                updated.setDates(dates);
+                dbCourses.updateCourse(updated.getCourseCode(), updated);
             }
         });
 
@@ -346,7 +345,7 @@ public class CoursePage extends Activity {
         return true;
     }
 
-    private boolean validateTimes(String input) {
+    private boolean validateTimes(String day, String input) {
 
         String[] times = input.split("-");
 
@@ -364,6 +363,7 @@ public class CoursePage extends Activity {
 
             if (!(times[i].contains("pm") || times[i].contains("am") || times[i].contains(":"))) {
 
+                err_mssg.setText("The time entered for " + day + " is invalid");
                 return false;
             }
 
@@ -374,6 +374,7 @@ public class CoursePage extends Activity {
             if (Integer.parseInt(times[i].split(":")[0]) > 11
                     || Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
 
+                err_mssg.setText("The time entered for " + day + " is invalid");
                 return false;
             }
 
@@ -383,18 +384,21 @@ public class CoursePage extends Activity {
 
         // first time is after in the same half of the day
         if (hours[0] > hours[1] && halfTime[0] == halfTime[1]) {
+            err_mssg.setText("The time entered for " + day + " is invalid");
 
             return false;
 
         }
 
         if (hours[0] == hours[1] && minutes[0] > minutes[1] && halfTime[0] == halfTime[1]) {
+            err_mssg.setText("The time entered for " + day + " is invalid");
 
             return false;
 
         }
         // pm to am classes are not valid
         if (halfTime[0] > halfTime[1]) {
+            err_mssg.setText("The time entered for " + day + " is invalid");
 
             return false;
         }
@@ -404,10 +408,7 @@ public class CoursePage extends Activity {
     }
 
 
-    private void errorMessage() {
-        err_mssg.setText("Invalid input try again. ex. 8:00am-9:00am");
 
-    }
 
 
 }

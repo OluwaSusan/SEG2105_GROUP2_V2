@@ -21,6 +21,15 @@ public class Course {
 
     }
 
+    public Course(String courseName, String courseCode, String instructor, String capacity, String description, HashMap<String, String> dates) {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.instructor = instructor;
+        this.capacity = capacity;
+        this.description = description;
+        this.dates = dates;
+    }
+
     public String getCourseName() {
         return courseName;
     }
@@ -55,6 +64,14 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public HashMap<String, String> getDates() {
+        return dates;
+    }
+
+    public void setDates(HashMap<String, String> dates) {
+        this.dates = dates;
     }
 
     @Override
