@@ -62,7 +62,7 @@ public class SearchCourse extends Activity {
                     error_register.setText("No results");
                 }
                 else {
-                    Intent i = new Intent(getApplicationContext(), CourseActivity.class);
+                    Intent i = new Intent(getApplicationContext(), CoursePage.class);
                     i.putExtra("Course_ID", course.getCourseCode());
                     startActivity(i);
                     finish();

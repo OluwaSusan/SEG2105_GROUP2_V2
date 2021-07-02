@@ -73,7 +73,7 @@ public class Instructor extends AppCompatActivity {
         viewassigned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AssignedCourses.class));
+                //startActivity(new Intent(getApplicationContext(), AssignedCourses.class));
             }
         });
 
