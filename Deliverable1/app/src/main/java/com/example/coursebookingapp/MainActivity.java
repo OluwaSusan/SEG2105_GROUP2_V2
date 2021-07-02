@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         fullName_reg = findViewById(R.id.course_name);
         username_reg = findViewById(R.id.username_reg);
         password_reg = findViewById(R.id.course_description);
-        register_btn = findViewById(R.id.save_btn);
+        register_btn = findViewById(R.id.search_btn);
         login_redirect_btn = findViewById(R.id.login_redirect_btn);
         error_register = findViewById(R.id.error_register);
         fAuth = FirebaseAuth.getInstance();

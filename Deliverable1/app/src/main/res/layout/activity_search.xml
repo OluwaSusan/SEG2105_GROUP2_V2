@@ -12,13 +12,14 @@
     android:paddingBottom="20dp">
 
     <TextView
-        android:id="@+id/course_activity_title"
+        android:id="@+id/course_search_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/muli_black"
         android:padding="10dp"
-        android:text="@string/new_course_title"
+        android:text="@string/search_course_title"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
@@ -34,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/course_activity_title"
+        app:layout_constraintTop_toBottomOf="@id/course_search_activity_title"
         app:layout_constraintVertical_bias="0.5">
 
         <TextView
@@ -92,7 +93,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
-            android:text="@string/save"
+            android:text="@string/search"
             android:textColor="@color/black" />
 
 
