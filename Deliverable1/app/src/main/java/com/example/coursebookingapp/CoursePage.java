@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class  CoursePage extends Activity {
 
     EditText description, capacity;
-    TextView coursecode, coursename, instructor;
+    TextView coursecode, coursename, instructor, err_mssg;
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
     String capacity_og;
     DBHandlerCourses dbCourses;
     String specificCourse;
     String userCurrent_fullname, getUserCurrent_username;
-    Button assign_unassign, homeBtn_coursepage, backBtn_coursepage;
+    Button assign_unassign, homeBtn_coursepage, backBtn_coursepage,saveBtn, editBtn;
     private FirebaseAuth fAuth;
     private FirebaseDatabase realDatabase;
     private ProgressBar loading;
@@ -44,6 +44,9 @@ public class  CoursePage extends Activity {
         homeBtn_coursepage = findViewById(R.id.homeBtn_coursepage);
         backBtn_coursepage = findViewById(R.id.bckbtn_coursepage);
         loading = findViewById(R.id.loading_coursepage);
+        saveBtn = findViewById(R.id.save_coursepage);
+        editBtn = findViewById(R.id.edit_courepage);
+        err_mssg = findViewById(R.id.error_coursepage);
         dbCourses = new DBHandlerCourses();
 
         //Show page as loading
@@ -74,13 +77,56 @@ public class  CoursePage extends Activity {
                 String task = assign_unassign.getText().toString();
 
                 if (task.equals("ASSIGN")){
-                    //call dbHandlerCourses assign method
-                    //or delete original and add new
+                    //create a new course of the info including instructor
+                    Course course_assign = new Course(coursename.getText().toString(), coursecode.getText().toString());
+                    course_assign.setInstructor(getUserCurrent_username);
+
+                    //delete old course and readd with new instructor
+                    dbCourses.deleteCourse(coursecode.getText().toString());
+                    dbCourses.addCourse(course_assign);
+
+                    //update fields and view
+                    assignedInstructor_fullname = userCurrent_fullname;
+                    assignedInstructor_username = getUserCurrent_username;
+                    instructor.setText(assignedInstructor_fullname);
+
+                    //reset view based on new instructor
+                    setViewBasedOnInstructor();
+                    err_mssg.setText("To Add information click edit and save the information");
+
                 }
                 else if (task.equals("UNASSIGN")){
-                    //call dbHandlerCourses unassign method
-                    //or delete original and add new
+                    //create a new course with course info minus details
+                    Course course_unassign = new Course(coursename.getText().toString(), coursecode.getText().toString());
+
+                    //delete old course and add back original course without details
+                    dbCourses.deleteCourse(coursecode.getText().toString());
+                    dbCourses.addCourse(course_unassign);
+
+                    //update assigned instructor fields and view to match
+                    assignedInstructor_username = "";
+                    assignedInstructor_fullname = "";
+                    description.setText((CharSequence)null);
+                    capacity.setText((CharSequence)null);
+                    instructor.setText((CharSequence)null);
+
+                    //update view
+                    setViewBasedOnInstructor();
                 }
+            }
+        });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -93,15 +139,29 @@ public class  CoursePage extends Activity {
             assign_unassign.setText("ASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
+
+            editBtn.setVisibility(View.INVISIBLE);
+            editBtn.setClickable(false);
+            saveBtn.setVisibility(View.INVISIBLE);
+            saveBtn.setClickable(false);
         }
         else if (getUserCurrent_username.equals(assignedInstructor_username)){
             assign_unassign.setText("UNASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
+
+            editBtn.setVisibility(View.VISIBLE);
+            editBtn.setClickable(true);
+            saveBtn.setVisibility(View.VISIBLE);
+            saveBtn.setClickable(true);
         }
         else{
             assign_unassign.setVisibility(View.INVISIBLE);
             assign_unassign.setClickable(false);
+            editBtn.setVisibility(View.INVISIBLE);
+            editBtn.setClickable(false);
+            saveBtn.setVisibility(View.INVISIBLE);
+            saveBtn.setClickable(false);
         }
         //Page finished loading
         loading.setVisibility(View.INVISIBLE);
@@ -145,6 +205,7 @@ public class  CoursePage extends Activity {
                         }
                         else {
                             instructor.setText(assignedInstructor(course.getInstructor()));
+                            instructor.setText(course.getInstructor());
                             assignedInstructor_username = course.getInstructor();
 
                         }
@@ -203,5 +264,6 @@ public class  CoursePage extends Activity {
 
         return assignedInstructor_fullname;
     }
+
 
 }
