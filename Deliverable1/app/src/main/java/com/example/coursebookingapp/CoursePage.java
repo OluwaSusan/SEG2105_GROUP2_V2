@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.util.Strings;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 public class CoursePage extends Activity {
 
     EditText description, capacity, mon_time, tues_time, wed_time, thurs_time, fri_time;
-    TextView coursecode, coursename, instructor, err_mssg;
+    TextView coursecode, coursename, instructor;
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
     String capacity_og;
     DBHandlerCourses dbCourses;
@@ -48,7 +49,7 @@ public class CoursePage extends Activity {
         loading = findViewById(R.id.loading_coursepage);
         saveBtn = findViewById(R.id.save_coursepage);
         editBtn = findViewById(R.id.edit_courepage);
-        err_mssg = findViewById(R.id.error_coursepage);
+//        err_mssg = findViewById(R.id.error_coursepage);
         mon_time = findViewById(R.id.mon_time);
         tues_time = findViewById(R.id.tues_time);
         wed_time = findViewById(R.id.wed_time);
@@ -99,7 +100,8 @@ public class CoursePage extends Activity {
 
                     //reset view based on new instructor
                     setViewBasedOnInstructor();
-                    err_mssg.setText("To Add information click edit and save the information");
+                    Toast toast = Toast.makeText(getApplicationContext(), "To Add information click edit and save the information", Toast.LENGTH_SHORT);
+                    toast.show();
 
                 } else if (task.equals("UNASSIGN")) {
                     //create a new course with course info minus details
@@ -115,6 +117,11 @@ public class CoursePage extends Activity {
                     description.setText((CharSequence) null);
                     capacity.setText((CharSequence) null);
                     instructor.setText((CharSequence) null);
+                    mon_time.setText((CharSequence) null);
+                    tues_time.setText((CharSequence) null);
+                    wed_time.setText((CharSequence) null);
+                    thurs_time.setText((CharSequence) null);
+                    fri_time.setText((CharSequence) null);
 
                     //update view
                     setViewBasedOnInstructor();
@@ -136,10 +143,10 @@ public class CoursePage extends Activity {
 
                 Course updated = new Course(coursename.getText().toString(), coursecode.getText().toString());
 
-                if(!validation()){
-                    err_mssg.setText("Invalid fields will not be accepted, course details not saved");
-                }
-                else{
+                if (!validation()) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid fields will not be accepted, course details not saved", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
                     updated.setDescription(description.getText().toString());
                     updated.setCapacity(capacity.getText().toString());
                 }
@@ -147,32 +154,33 @@ public class CoursePage extends Activity {
 
                 HashMap<String, String> dates = new HashMap<>();
 
-                if(!mon_time.getText().toString().isEmpty() && validateTimes("monday", mon_time.getText().toString().replaceAll(" ", ""))){
+                if (!mon_time.getText().toString().isEmpty() && validateTimes("monday", mon_time.getText().toString().replaceAll(" ", ""))) {
 
-                    dates.put("Monday",mon_time.getText().toString().replaceAll(" ", ""));
-
-                }
-                if(!tues_time.getText().toString().isEmpty() && validateTimes("tuesday", tues_time.getText().toString().replaceAll(" ", ""))){
-                    dates.put("Tuesday",tues_time.getText().toString().replaceAll(" ", ""));
+                    dates.put("Monday", mon_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!wed_time.getText().toString().isEmpty() && validateTimes("wednesday", wed_time.getText().toString().replaceAll(" ", ""))){
-
-                    dates.put("Wednesday",wed_time.getText().toString().replaceAll(" ", ""));
-
-                }
-                if(!thurs_time.getText().toString().isEmpty() && validateTimes("thursday", thurs_time.getText().toString().replaceAll(" ", ""))){
-
-                    dates.put("Thursday",thurs_time.getText().toString().replaceAll(" ", ""));
+                if (!tues_time.getText().toString().isEmpty() && validateTimes("tuesday", tues_time.getText().toString().replaceAll(" ", ""))) {
+                    dates.put("Tuesday", tues_time.getText().toString().replaceAll(" ", ""));
 
                 }
-                if(!fri_time.getText().toString().isEmpty() && validateTimes("friday", fri_time.getText().toString().replaceAll(" ", ""))){
+                if (!wed_time.getText().toString().isEmpty() && validateTimes("wednesday", wed_time.getText().toString().replaceAll(" ", ""))) {
 
-                    dates.put("Friday",fri_time.getText().toString().replaceAll(" ", ""));
+                    dates.put("Wednesday", wed_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if (!thurs_time.getText().toString().isEmpty() && validateTimes("thursday", thurs_time.getText().toString().replaceAll(" ", ""))) {
+
+                    dates.put("Thursday", thurs_time.getText().toString().replaceAll(" ", ""));
+
+                }
+                if (!fri_time.getText().toString().isEmpty() && validateTimes("friday", fri_time.getText().toString().replaceAll(" ", ""))) {
+
+                    dates.put("Friday", fri_time.getText().toString().replaceAll(" ", ""));
 
                 }
 
                 updated.setDates(dates);
+                updated.setInstructor(assignedInstructor_username);
                 dbCourses.updateCourse(updated.getCourseCode(), updated);
             }
         });
@@ -243,9 +251,9 @@ public class CoursePage extends Activity {
 
                         }
 
-                        if(Strings.isEmptyOrWhitespace(course.getCapacity())){
+                        if (Strings.isEmptyOrWhitespace(course.getCapacity())) {
                             capacity.setText((CharSequence) null);
-                        }else{
+                        } else {
                             capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
@@ -253,32 +261,42 @@ public class CoursePage extends Activity {
                         if (Strings.isEmptyOrWhitespace(course.getInstructor())) {
                             instructor.setText((CharSequence) null);
                         } else {
-                            instructor.setText(assignedInstructor(course.getInstructor()));
-                            instructor.setText(course.getInstructor());
+
+
+                            DBHandlerUsers db = new DBHandlerUsers();
+                            db.findUser(course.getInstructor(), new FirebaseCallBackUsers() {
+                                @Override
+                                public void onCallBackUsersList(ArrayList<User> userList) {
+
+                                }
+
+                                @Override
+                                public void onCallBackUser(User user) {
+                                    instructor.setText(user.getFullName());
+                                }
+                            });
                             assignedInstructor_username = course.getInstructor();
-
                         }
 
-                        if(course.getDates().size() < 1){
+                        if (course.getDates().size() < 1) {
 
-                        }
-                        else{
+                        } else {
 
-                            for (String day: course.getDates().keySet()){
+                            for (String day : course.getDates().keySet()) {
 
-                                if(day.equals("Monday")){
+                                if (day.equals("Monday")) {
                                     mon_time.setText(course.getDates().get(day));
                                 }
-                                if(day.equals("Tuesday")){
+                                if (day.equals("Tuesday")) {
                                     tues_time.setText(course.getDates().get(day));
                                 }
-                                if(day.equals("Wednesday")){
+                                if (day.equals("Wednesday")) {
                                     wed_time.setText(course.getDates().get(day));
                                 }
-                                if(day.equals("Thursday")){
+                                if (day.equals("Thursday")) {
                                     thurs_time.setText(course.getDates().get(day));
                                 }
-                                if(day.equals("Friday")){
+                                if (day.equals("Friday")) {
                                     fri_time.setText(course.getDates().get(day));
                                 }
 
@@ -322,24 +340,6 @@ public class CoursePage extends Activity {
 
     }
 
-    public String assignedInstructor(String username) {
-        DBHandlerUsers db = new DBHandlerUsers();
-
-        db.findUser(username, new FirebaseCallBackUsers() {
-            @Override
-            public void onCallBackUsersList(ArrayList<User> userList) {
-
-            }
-
-            @Override
-            public void onCallBackUser(User user) {
-                assignedInstructor_fullname = user.getFullName();
-            }
-        });
-
-        return assignedInstructor_fullname;
-    }
-
     public void enableFields(int state) {
         if (state == 1) {
             description.setEnabled(true);
@@ -361,16 +361,18 @@ public class CoursePage extends Activity {
         }
     }
 
-    public boolean validation(){
+    public boolean validation() {
 
         int cap = Integer.parseInt(capacity.getText().toString());
 
-        if(description.getText().toString().length() > 195){
-            err_mssg.setText("Description exceeds maximum characterrs of 195, please re-edit");
+        if (description.getText().toString().length() > 195) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Description exceeds maximum characterrs of 195, please re-edit", Toast.LENGTH_SHORT);
+            toast.show();
             return false;
         }
-        if (cap < 1){
-            err_mssg.setText("Capacity is invalid, please re-edit a valid capacity");
+        if (cap < 1) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Capacity is invalid, please re-edit a valid capacity", Toast.LENGTH_SHORT);
+            toast.show();
             return false;
         }
 
@@ -388,7 +390,7 @@ public class CoursePage extends Activity {
         }
 
         if (Integer.parseInt(times[0].split(":")[0]) > 11 || Integer.parseInt(times[1].split(":")[0]) > 12) {
-            err_mssg.setText("The time entered for " + day + " is invalid");
+            showTimeValidationToast(day);
             return false;
         }
 
@@ -400,7 +402,7 @@ public class CoursePage extends Activity {
 
             if (!(times[i].contains("pm") || times[i].contains("am") || times[i].contains(":"))) {
 
-                err_mssg.setText("The time entered for " + day + " is invalid");
+                showTimeValidationToast(day);
                 return false;
             }
 
@@ -410,7 +412,7 @@ public class CoursePage extends Activity {
 
             if (Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
 
-                err_mssg.setText("The time entered for " + day + " is invalid");
+                showTimeValidationToast(day);
                 return false;
             }
 
@@ -420,21 +422,21 @@ public class CoursePage extends Activity {
 
         // first time is after in the same half of the day
         if (hours[0] > hours[1] && halfTime[0] == halfTime[1]) {
-            err_mssg.setText("The time entered for " + day + " is invalid");
+            showTimeValidationToast(day);
 
             return false;
 
         }
 
         if (hours[0] == hours[1] && minutes[0] > minutes[1] && halfTime[0] == halfTime[1]) {
-            err_mssg.setText("The time entered for " + day + " is invalid");
+            showTimeValidationToast(day);
 
             return false;
 
         }
         // pm to am classes are not valid
         if (halfTime[0] > halfTime[1]) {
-            err_mssg.setText("The time entered for " + day + " is invalid");
+            showTimeValidationToast(day);
 
             return false;
         }
@@ -443,7 +445,10 @@ public class CoursePage extends Activity {
 
     }
 
-
+    private void showTimeValidationToast(String day) {
+        Toast toast = Toast.makeText(getApplicationContext(), "The time entered for " + day + " is invalid", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
 
 
