@@ -152,7 +152,7 @@ public class MainActivity extends Activity {
         int lower=0, upper=0, digits=0;
 
 
-        if (password.length() < 12 && password.length() > 8) {
+        if (password.length() >12 && password.length() <= 8) {
             status = false;
         }
 
@@ -166,13 +166,11 @@ public class MainActivity extends Activity {
         }
 
         if (lower < 0) {
-
             status = false;
         }
         if (upper < 0) {
             status = false;
         }
-
         if (digits < 0) {
             status = false;
         }

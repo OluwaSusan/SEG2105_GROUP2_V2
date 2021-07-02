@@ -453,7 +453,7 @@ public class CoursePage extends Activity {
     public boolean description_validation_test(String description) {
 
 
-        if (description.getText().toString().length() > 195) {
+        if (description.length() > 195) {
             return false;
         }
         return true;
