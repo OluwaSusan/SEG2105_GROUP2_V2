@@ -159,7 +159,7 @@
             <EditText
 
                 android:id="@+id/capacity_coursepage"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
@@ -192,11 +192,10 @@
 
                 <EditText
                     android:id="@+id/mon_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_marginStart="10dp"
-                    android:text="TextView"
                     android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
@@ -220,7 +219,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="TextView"
                     android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
@@ -245,7 +243,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="TextView"
                     android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
@@ -269,7 +266,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="TextView"
                     android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
@@ -293,7 +289,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="TextView"
                     android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>

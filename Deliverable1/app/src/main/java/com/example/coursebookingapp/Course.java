@@ -74,6 +74,7 @@ public class Course {
         this.dates = dates;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

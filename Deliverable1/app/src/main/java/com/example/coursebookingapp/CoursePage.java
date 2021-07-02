@@ -236,10 +236,16 @@ public class CoursePage extends Activity {
                         //if coded correctly if description is empty then all other fields are empty too
                         if (Strings.isEmptyOrWhitespace(course.getDescription())) {
                             description.setText((CharSequence) null);
-                            capacity.setText((CharSequence) null);
+
                         } else {
                             description.setText(course.getDescription());
                             description_og = course.getDescription();
+
+                        }
+
+                        if(Strings.isEmptyOrWhitespace(course.getCapacity())){
+                            capacity.setText((CharSequence) null);
+                        }else{
                             capacity.setText(course.getCapacity());
                             capacity_og = course.getCapacity();
                         }
@@ -251,6 +257,13 @@ public class CoursePage extends Activity {
                             instructor.setText(course.getInstructor());
                             assignedInstructor_username = course.getInstructor();
 
+                        }
+
+                        if(course.getDates().size() < 1){
+
+                        }
+                        else{
+                            course.getDates().get("Monday").isEmpty()
                         }
                     }
                 });
