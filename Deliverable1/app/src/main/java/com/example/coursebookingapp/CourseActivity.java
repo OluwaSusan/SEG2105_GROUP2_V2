@@ -3,13 +3,9 @@ package com.example.coursebookingapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,7 +27,7 @@ public class CourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        save_btn = findViewById(R.id.save_btn);
+        save_btn = findViewById(R.id.search_btn);
         dbCourses = new DBHandlerCourses();
         course_name = findViewById(R.id.course_name);
         course_id = findViewById(R.id.course_id);
