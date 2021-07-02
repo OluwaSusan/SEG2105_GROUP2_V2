@@ -387,6 +387,11 @@ public class CoursePage extends Activity {
             return false;
         }
 
+        if (Integer.parseInt(times[0].split(":")[0]) > 11 || Integer.parseInt(times[1].split(":")[0]) > 12) {
+            err_mssg.setText("The time entered for " + day + " is invalid");
+            return false;
+        }
+
         int[] hours = new int[2];
         int[] minutes = new int[2];
         int[] halfTime = new int[2]; // 0 is am 1 is pm
@@ -403,8 +408,7 @@ public class CoursePage extends Activity {
                 halfTime[i] = 1;
             }
 
-            if (Integer.parseInt(times[i].split(":")[0]) > 11
-                    || Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
+            if (Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
 
                 err_mssg.setText("The time entered for " + day + " is invalid");
                 return false;
