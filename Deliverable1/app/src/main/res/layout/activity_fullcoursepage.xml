@@ -111,7 +111,6 @@
                 android:clickable="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
-                android:text="Philipe Entendre"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -164,11 +163,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
-                android:background="@color/Orange_Light"
                 android:clickable="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
-                android:text="200"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
