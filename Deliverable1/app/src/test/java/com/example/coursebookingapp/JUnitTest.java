@@ -7,16 +7,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.example.coursebookingapp.MainActivity;
 import com.example.coursebookingapp.CourseActivity;
+import com.example.coursebookingapp.CoursePage;
 
 
 public class JUnitTest {
     private MainActivity main;
     private CourseActivity course;
+    private CoursePage coursep ;
 
     @Before
     public void setUp() {
         main = new MainActivity();
         course = new CourseActivity();
+        coursep = new CoursePage();
     }
 
     @Test
@@ -41,6 +44,12 @@ public class JUnitTest {
     @Test
     public void validation_courseID(){
         boolean res = course.checkCourseIDValidTest("MAT1348");
+        assertTrue(res);
+    }
+
+    @Test
+    public void validation_coursedescription(){
+        boolean res = coursep.description_validation_test("This course is to study the fundamentals of engineering design.");
         assertTrue(res);
     }
 

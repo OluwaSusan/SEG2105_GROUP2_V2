@@ -450,6 +450,15 @@ public class CoursePage extends Activity {
         toast.show();
     }
 
+    public boolean description_validation_test(String description_og) {
+
+
+        if (description.getText().toString().length() > 195) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 }
