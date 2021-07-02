@@ -77,13 +77,41 @@ public class  CoursePage extends Activity {
                 String task = assign_unassign.getText().toString();
 
                 if (task.equals("ASSIGN")){
+                    //create a new course of the info including instructor
+                    Course course_assign = new Course(coursename.getText().toString(), coursecode.getText().toString());
+                    course_assign.setInstructor(getUserCurrent_username);
 
-                    //call dbHandlerCourses assign method
-                    //or delete original and add new
+                    //delete old course and readd with new instructor
+                    dbCourses.deleteCourse(coursecode.getText().toString());
+                    dbCourses.addCourse(course_assign);
+
+                    //update fields and view
+                    assignedInstructor_fullname = userCurrent_fullname;
+                    assignedInstructor_username = getUserCurrent_username;
+                    instructor.setText(assignedInstructor_fullname);
+
+                    //reset view based on new instructor
+                    setViewBasedOnInstructor();
+                    err_mssg.setText("To Add information click edit and save the information");
+
                 }
                 else if (task.equals("UNASSIGN")){
-                    //call dbHandlerCourses unassign method
-                    //or delete original and add new
+                    //create a new course with course info minus details
+                    Course course_unassign = new Course(coursename.getText().toString(), coursecode.getText().toString());
+
+                    //delete old course and add back original course without details
+                    dbCourses.deleteCourse(coursecode.getText().toString());
+                    dbCourses.addCourse(course_unassign);
+
+                    //update assigned instructor fields and view to match
+                    assignedInstructor_username = "";
+                    assignedInstructor_fullname = "";
+                    description.setText((CharSequence)null);
+                    capacity.setText((CharSequence)null);
+                    instructor.setText((CharSequence)null);
+
+                    //update view
+                    setViewBasedOnInstructor();
                 }
             }
         });
@@ -112,10 +140,10 @@ public class  CoursePage extends Activity {
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
 
-            editBtn.setVisibility(View.VISIBLE);
-            editBtn.setClickable(true);
-            saveBtn.setVisibility(View.VISIBLE);
-            saveBtn.setClickable(true);
+            editBtn.setVisibility(View.INVISIBLE);
+            editBtn.setClickable(false);
+            saveBtn.setVisibility(View.INVISIBLE);
+            saveBtn.setClickable(false);
         }
         else if (getUserCurrent_username.equals(assignedInstructor_username)){
             assign_unassign.setText("UNASSIGN");

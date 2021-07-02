@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
-            android:clickable="false"
+            android:enabled="false"
             android:fontFamily="@font/muli_bold"
             android:padding="8dp"
             android:text="resistance temperature detector (RTD) with a time constant = 2 s was used to measure the temperature of coee contained in three thermos  asks, to be referred to as A, B and C. After the RTD was"
@@ -163,7 +163,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
-                android:clickable="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
                 android:textColor="@color/black"
@@ -209,6 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
+                    android:clickable="false"
                     android:fontFamily="@font/muli_bold"
                     android:text="@string/tues"
                     android:textColor="@color/black" />
@@ -232,6 +232,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
                     android:fontFamily="@font/muli_bold"
+                    android:clickable="false"
                     android:text="@string/wed"
                     android:textColor="@color/black" />
 
@@ -255,6 +256,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="2dp"
                     android:fontFamily="@font/muli_bold"
+                    android:clickable="false"
                     android:text="@string/thurs"
                     android:textColor="@color/black" />
 
@@ -278,6 +280,7 @@
                     android:layout_margin="2dp"
                     android:fontFamily="@font/muli_bold"
                     android:text="@string/fri"
+                    android:clickable="false"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -309,7 +312,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Error Message Goes Here"
             android:textColor="@color/Error_red" />
 
     </LinearLayout>
