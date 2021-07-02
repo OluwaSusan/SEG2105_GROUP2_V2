@@ -89,7 +89,7 @@ public class  CoursePage extends Activity {
     private void setViewBasedOnInstructor() {
 
         //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
-        if (assignedInstructor_username.isEmpty()){
+        if (Strings.isEmptyOrWhitespace(assignedInstructor_username)){
             assign_unassign.setText("ASSIGN");
             assign_unassign.setVisibility(View.VISIBLE);
             assign_unassign.setClickable(true);
