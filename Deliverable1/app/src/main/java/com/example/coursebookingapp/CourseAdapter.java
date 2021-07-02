@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,8 +99,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);
             expandCourse = itemView.findViewById(R.id.openCourse_btn);
+            fAuth = FirebaseAuth.getInstance();
 
-       /*     DBHandlerUsers dbUsers = new DBHandlerUsers();
+
+            DBHandlerUsers dbUsers = new DBHandlerUsers();
+            Log.i("test", "user course adapter " + fAuth.getCurrentUser().getEmail().split("@")[0]);
+
             dbUsers.findUser(fAuth.getCurrentUser().getEmail().split("@")[0], new FirebaseCallBackUsers() {
                 @Override
                 public void onCallBackUsersList(ArrayList<User> userList) { }
@@ -108,12 +113,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 public void onCallBackUser(User user) {
 
                     if (user.getUserType() == UserType.INSTRUCTOR){
-                        deleteButton.setVisibility(View.INVISIBLE);
-                        editButton.setVisibility(View.INVISIBLE);
+                        deleteButton.setVisibility(View.GONE);
+                        editButton.setVisibility(View.GONE);
                     }
 
                 }
-            });*/
+            });
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
