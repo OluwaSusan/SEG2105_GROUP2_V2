@@ -163,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
+                android:enabled="false"
                 android:fontFamily="@font/muli_bold"
                 android:padding="2dp"
                 android:textColor="@color/black"
@@ -196,6 +197,7 @@
                     android:layout_margin="2dp"
                     android:layout_marginStart="10dp"
                     android:text="TextView"
+                    android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
 
@@ -219,6 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:text="TextView"
+                    android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
 
@@ -243,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:text="TextView"
+                    android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
 
@@ -266,6 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:text="TextView"
+                    android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
 
@@ -289,6 +294,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:text="TextView"
+                    android:enabled="false"
                     android:textSize="12sp" />
             </TableRow>
         </TableLayout>

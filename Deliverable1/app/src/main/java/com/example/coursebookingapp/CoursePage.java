@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class  CoursePage extends Activity {
 
-    EditText description, capacity;
+    EditText description, capacity, mon_time, tues_time, wed_time, thurs_time, fri_time;
     TextView coursecode, coursename, instructor, err_mssg;
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
     String capacity_og;
@@ -47,6 +47,11 @@ public class  CoursePage extends Activity {
         saveBtn = findViewById(R.id.save_coursepage);
         editBtn = findViewById(R.id.edit_courepage);
         err_mssg = findViewById(R.id.error_coursepage);
+        mon_time = findViewById(R.id.mon_time);
+        tues_time = findViewById(R.id.tues_time);
+        wed_time = findViewById(R.id.wed_time);
+        thurs_time = findViewById(R.id.thurs_time);
+        fri_time = findViewById(R.id.fri_time);
         dbCourses = new DBHandlerCourses();
 
         //Show page as loading
@@ -119,13 +124,14 @@ public class  CoursePage extends Activity {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                enableFields(1);
             }
         });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enableFields(2);
 
             }
         });
@@ -205,7 +211,7 @@ public class  CoursePage extends Activity {
                         }
                         else {
                             instructor.setText(assignedInstructor(course.getInstructor()));
-                            instructor.setText(course.getInstructor());
+                            //instructor.setText(course.getInstructor());
                             assignedInstructor_username = course.getInstructor();
 
                         }
@@ -264,6 +270,29 @@ public class  CoursePage extends Activity {
 
         return assignedInstructor_fullname;
     }
+
+    public void enableFields(int state){
+        if(state ==1){
+            description.setEnabled(true);
+            capacity.setEnabled(true);
+            mon_time.setEnabled(true);
+            tues_time.setEnabled(true);
+            wed_time.setEnabled(true);
+            thurs_time.setEnabled(true);
+            fri_time.setEnabled(true);
+        }
+        else{
+            description.setEnabled(false);
+            capacity.setEnabled(false);
+            mon_time.setEnabled(false);
+            tues_time.setEnabled(false);
+            wed_time.setEnabled(false);
+            thurs_time.setEnabled(false);
+            fri_time.setEnabled(false);
+
+        }
+    }
+
 
 
 }
