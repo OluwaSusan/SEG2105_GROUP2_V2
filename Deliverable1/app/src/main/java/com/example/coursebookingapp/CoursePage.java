@@ -146,6 +146,8 @@ public class CoursePage extends Activity {
                 if (!validation()) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid fields will not be accepted, course details not saved", Toast.LENGTH_SHORT);
                     toast.show();
+                    description.setText((CharSequence) null);
+                    capacity.setText((CharSequence) null);
                 } else {
                     updated.setDescription(description.getText().toString());
                     updated.setCapacity(capacity.getText().toString());
@@ -157,26 +159,22 @@ public class CoursePage extends Activity {
                 if (!mon_time.getText().toString().isEmpty() && validateTimes("monday", mon_time.getText().toString().replaceAll(" ", ""))) {
 
                     dates.put("Monday", mon_time.getText().toString().replaceAll(" ", ""));
-
                 }
+
                 if (!tues_time.getText().toString().isEmpty() && validateTimes("tuesday", tues_time.getText().toString().replaceAll(" ", ""))) {
                     dates.put("Tuesday", tues_time.getText().toString().replaceAll(" ", ""));
-
                 }
+
                 if (!wed_time.getText().toString().isEmpty() && validateTimes("wednesday", wed_time.getText().toString().replaceAll(" ", ""))) {
 
                     dates.put("Wednesday", wed_time.getText().toString().replaceAll(" ", ""));
-
                 }
                 if (!thurs_time.getText().toString().isEmpty() && validateTimes("thursday", thurs_time.getText().toString().replaceAll(" ", ""))) {
 
                     dates.put("Thursday", thurs_time.getText().toString().replaceAll(" ", ""));
-
                 }
                 if (!fri_time.getText().toString().isEmpty() && validateTimes("friday", fri_time.getText().toString().replaceAll(" ", ""))) {
-
                     dates.put("Friday", fri_time.getText().toString().replaceAll(" ", ""));
-
                 }
 
                 updated.setDates(dates);
@@ -365,7 +363,7 @@ public class CoursePage extends Activity {
 
         int cap = Integer.parseInt(capacity.getText().toString());
 
-        if (description.getText().toString().length() > 195) {
+        if (description.toString().length() > 195) {
             Toast toast = Toast.makeText(getApplicationContext(), "Description exceeds maximum characterrs of 195, please re-edit", Toast.LENGTH_SHORT);
             toast.show();
             return false;
@@ -437,7 +435,6 @@ public class CoursePage extends Activity {
         // pm to am classes are not valid
         if (halfTime[0] > halfTime[1]) {
             showTimeValidationToast(day);
-
             return false;
         }
 
