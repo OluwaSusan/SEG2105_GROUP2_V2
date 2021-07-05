@@ -135,6 +135,7 @@ public class CoursePage extends Activity {
                     //update view
                     setViewBasedOnUser();
                 }
+
                 else if(task.equals("ENROLL")){
                     students.put(getUserCurrent_username, userCurrent_fullname);
                     dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
