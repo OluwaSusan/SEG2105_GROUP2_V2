@@ -70,7 +70,7 @@ public class CoursePage extends Activity {
 
         currentUser();
         checkExtra(savedInstanceState);
-        currentUser();
+        //currentUser();
 
 
         homeBtn_coursepage.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +97,7 @@ public class CoursePage extends Activity {
                     //create a new course of the info including instructor
                     Course course_assign = new Course(coursename.getText().toString(), coursecode.getText().toString());
                     course_assign.setInstructor(getUserCurrent_username);
+                    course_assign.setStudents(students);
 
                     //delete old course and readd with new instructor
                     dbCourses.deleteCourse(coursecode.getText().toString());
@@ -115,10 +116,13 @@ public class CoursePage extends Activity {
                 } else if (task.equals("UNASSIGN")) {
                     //create a new course with course info minus details
                     Course course_unassign = new Course(coursename.getText().toString(), coursecode.getText().toString());
+                    course_unassign.setStudents(students);
 
                     //delete old course and add back original course without details
                     dbCourses.deleteCourse(coursecode.getText().toString());
                     dbCourses.addCourse(course_unassign);
+
+                    //if an instructor unassign themselves does student list delete?
 
                     //update assigned instructor fields and view to match
                     assignedInstructor_username = "";
@@ -212,8 +216,13 @@ public class CoursePage extends Activity {
 
     private void setViewBasedOnUser() {
 
+        Log.i("Current User", "SetView: " + getUserCurrent_username );
+        Log.i("Assigned", "SetView: " + assignedInstructor_username);
+        Log.i("User type", "Set View: " + userType);
+
         //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
         if (userType == UserType.INSTRUCTOR){
+
             if (Strings.isEmptyOrWhitespace(assignedInstructor_username)) {
                 un_assign_enroll.setText("ASSIGN");
                 un_assign_enroll.setVisibility(View.VISIBLE);
@@ -223,6 +232,7 @@ public class CoursePage extends Activity {
                 editBtn.setClickable(false);
                 saveBtn.setVisibility(View.INVISIBLE);
                 saveBtn.setClickable(false);
+
             } else if (getUserCurrent_username.equals(assignedInstructor_username)) {
                 un_assign_enroll.setText("UNASSIGN");
                 un_assign_enroll.setVisibility(View.VISIBLE);
@@ -271,7 +281,6 @@ public class CoursePage extends Activity {
         loading.setVisibility(View.INVISIBLE);
     }
 
-
     private void checkExtra(Bundle savedInstanceState) {
 
         if (savedInstanceState == null) {
@@ -309,10 +318,10 @@ public class CoursePage extends Activity {
                             capacity_og = course.getCapacity();
                         }
 
+
                         if (Strings.isEmptyOrWhitespace(course.getInstructor())) {
                             instructor.setText((CharSequence) null);
                         } else {
-
 
                             DBHandlerUsers db = new DBHandlerUsers();
                             db.findUser(course.getInstructor(), new FirebaseCallBackUsers() {
@@ -324,9 +333,12 @@ public class CoursePage extends Activity {
                                 @Override
                                 public void onCallBackUser(User user) {
                                     instructor.setText(user.getFullName());
+                                    //assignedInstructor_username = user.getUserName();
                                 }
                             });
                             assignedInstructor_username = course.getInstructor();
+                            Log.i("Assigned", "After onCallBackCourse: " + assignedInstructor_username);
+                            setViewBasedOnUser();
                         }
 
                         if (course.getDates().size() < 1) {
@@ -370,9 +382,11 @@ public class CoursePage extends Activity {
                 });
 
             }
+
         } else {
             specificCourse = (String) savedInstanceState.getSerializable("Course_ID");
         }
+
     }
 
     public void currentUser() {
@@ -399,7 +413,11 @@ public class CoursePage extends Activity {
                 userCurrent_fullname = user.getFullName();
                 getUserCurrent_username = user.getUserName();
                 userType = user.getUserType();
-                setViewBasedOnUser();
+
+                Log.i("Current User", "onCallBackUser Username: " + getUserCurrent_username );
+                Log.i("Current User", "User Type" + userType);
+
+                //setViewBasedOnUser();
             }
         });
 
@@ -430,7 +448,7 @@ public class CoursePage extends Activity {
 
         int cap = Integer.parseInt(capacity.getText().toString());
 
-        if (description.toString().length() > 195) {
+        if (description.getText().toString().length() > 195) {
             Toast toast = Toast.makeText(getApplicationContext(), "Description exceeds maximum characterrs of 195, please re-edit", Toast.LENGTH_SHORT);
             toast.show();
             return false;
