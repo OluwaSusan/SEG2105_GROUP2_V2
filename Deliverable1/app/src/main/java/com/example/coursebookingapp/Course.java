@@ -1,5 +1,6 @@
 package com.example.coursebookingapp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class Course {
     private String capacity;
     private String description;
     private HashMap<String, String> dates = new HashMap<>();
+    private HashMap<String, String> students = new HashMap<>();
 
 
     public Course(){}
@@ -22,6 +24,15 @@ public class Course {
     }
 
     public Course(String courseName, String courseCode, String instructor, String capacity, String description, HashMap<String, String> dates) {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.instructor = instructor;
+        this.capacity = capacity;
+        this.description = description;
+        this.dates = dates;
+    }
+
+    public Course(String courseName, String courseCode, String instructor, String capacity, String description, HashMap<String, String> dates, ArrayList<String> students) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.instructor = instructor;
@@ -74,6 +85,9 @@ public class Course {
         this.dates = dates;
     }
 
+    public HashMap<String, String> getStudents() { return students; }
+
+    public void setStudents(HashMap<String, String> students) { this.students = students; }
 
     @Override
     public boolean equals(Object o) {

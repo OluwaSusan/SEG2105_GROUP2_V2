@@ -116,6 +116,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         deleteButton.setVisibility(View.GONE);
                         editButton.setVisibility(View.GONE);
                     }
+                    if (user.getUserType() == UserType.STUDENT){
+                        deleteButton.setVisibility(View.GONE);
+                        editButton.setVisibility(View.GONE);
+                    }
 
                 }
             });

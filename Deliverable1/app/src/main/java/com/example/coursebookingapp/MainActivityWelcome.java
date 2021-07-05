@@ -72,7 +72,7 @@ public class MainActivityWelcome extends AppCompatActivity {
                             startActivity(new Intent(MainActivityWelcome.this, Instructor.class));
                         }
                         else{
-                            Toast.makeText(MainActivityWelcome.this, "Student currently has no permissions",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MainActivityWelcome.this, Student.class));
                         }
 
                     }

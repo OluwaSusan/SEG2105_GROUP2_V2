@@ -295,10 +295,10 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/assign_unassign_btn"
+            android:id="@+id/un_assign_enroll_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Assign/unassign"
+            android:text="Assign/unassign/enroll/unenroll"
             android:visibility="visible" />
 
         <ProgressBar

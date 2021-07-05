@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DBHandlerCourses {
 
@@ -204,6 +205,11 @@ public class DBHandlerCourses {
 
         courseRefrence.child(courseCode).child("courseName").setValue(updatedCourseName);
 
+    }
+
+    public void updateStudentEnrolled(String courseCode, HashMap<String, String> students) {
+
+        courseRefrence.child(courseCode).child("students").setValue(students);
 
     }
 
