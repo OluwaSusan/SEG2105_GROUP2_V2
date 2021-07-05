@@ -206,6 +206,7 @@ public class CoursePage extends Activity {
                     dates.put("Friday", fri_time.getText().toString().replaceAll(" ", ""));
                 }
 
+                updated.setStudents(students);
                 updated.setDates(dates);
                 updated.setInstructor(assignedInstructor_username);
                 dbCourses.updateCourse(updated.getCourseCode(), updated);
