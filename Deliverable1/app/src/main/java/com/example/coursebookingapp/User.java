@@ -13,6 +13,7 @@ public class User {
     private UserType userType;
     private String email;
     private ArrayList<Course> courses;
+    private HashMap<String, String> myCourses = new HashMap<>();
 
 
     public User(){
@@ -76,6 +77,10 @@ public class User {
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
+
+    public HashMap<String, String> getMyCourses() { return myCourses; }
+
+    public void setMyCourses(HashMap<String, String> myCourses) { this.myCourses = myCourses; }
 
     @Override
     public String toString() {

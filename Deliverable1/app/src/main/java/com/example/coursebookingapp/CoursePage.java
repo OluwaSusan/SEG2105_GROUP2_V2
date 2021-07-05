@@ -25,6 +25,7 @@ public class CoursePage extends Activity {
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
     String capacity_og;
     DBHandlerCourses dbCourses;
+    DBHandlerUsers dbUsers;
     String specificCourse;
     String userCurrent_fullname, getUserCurrent_username;
     Button un_assign_enroll, homeBtn_coursepage, backBtn_coursepage, saveBtn, editBtn;
@@ -36,6 +37,7 @@ public class CoursePage extends Activity {
     private boolean studEnr = false;
     protected Course sCourse;
     protected HashMap<String, String> students;
+    protected HashMap<String, String> courses;
 
 
 
@@ -62,6 +64,7 @@ public class CoursePage extends Activity {
         thurs_time = findViewById(R.id.thurs_time);
         fri_time = findViewById(R.id.fri_time);
         dbCourses = new DBHandlerCourses();
+        dbUsers = new DBHandlerUsers();
         sCourse = new Course();
         students = new HashMap<>();
 
@@ -108,6 +111,11 @@ public class CoursePage extends Activity {
                     assignedInstructor_username = getUserCurrent_username;
                     instructor.setText(assignedInstructor_fullname);
 
+                    //update user
+                    courses.put(coursecode.getText().toString(), coursename.getText().toString());
+                    dbUsers.updateCourses(getUserCurrent_username, courses);
+
+
                     //reset view based on new instructor
                     setViewBasedOnUser();
                     Toast toast = Toast.makeText(getApplicationContext(), "To Add information click edit and save the information", Toast.LENGTH_SHORT);
@@ -122,7 +130,9 @@ public class CoursePage extends Activity {
                     dbCourses.deleteCourse(coursecode.getText().toString());
                     dbCourses.addCourse(course_unassign);
 
-                    //if an instructor unassign themselves does student list delete?
+                    //update user
+                    courses.remove(coursecode.getText().toString());
+                    dbUsers.updateCourses(getUserCurrent_username, courses);
 
                     //update assigned instructor fields and view to match
                     assignedInstructor_username = "";
@@ -144,6 +154,11 @@ public class CoursePage extends Activity {
                     students.put(getUserCurrent_username, userCurrent_fullname);
                     dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
                     userEnr = true;
+
+                    //update user
+                    courses.put(coursecode.getText().toString(), coursename.getText().toString());
+                    dbUsers.updateCourses(getUserCurrent_username, courses);
+
                     setViewBasedOnUser();
 
                     //Create a new course with course info minus details
@@ -153,6 +168,11 @@ public class CoursePage extends Activity {
                     students.remove(getUserCurrent_username);
                     dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
                     userEnr = false;
+
+                    //update user
+                    courses.remove(coursecode.getText().toString());
+                    dbUsers.updateCourses(getUserCurrent_username, courses);
+
                     setViewBasedOnUser();
                 }
             }
@@ -284,6 +304,7 @@ public class CoursePage extends Activity {
 
     private void checkExtra(Bundle savedInstanceState) {
 
+        Log.i("Entered", "Check Extra: Yes");
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -301,10 +322,12 @@ public class CoursePage extends Activity {
                     public void onCallBackCourse(Course course) {
                         coursename.setText(course.getCourseName());
                         coursecode.setText(course.getCourseCode());
+                        Log.i("After getting course", "Check Extra - Before Description " + course.getDescription());
 
                         //if coded correctly if description is empty then all other fields are empty too
-                        if (Strings.isEmptyOrWhitespace(course.getDescription())) {
+                        if (Strings.isEmptyOrWhitespace(course.getDescription()) || course.getDescription() == null) {
                             description.setText((CharSequence) null);
+                            Log.i("After getting course", "Check Extra - After Description " + course.getDescription());
 
                         } else {
                             description.setText(course.getDescription());
@@ -320,8 +343,10 @@ public class CoursePage extends Activity {
                         }
 
 
-                        if (Strings.isEmptyOrWhitespace(course.getInstructor())) {
+                        if (Strings.isEmptyOrWhitespace(course.getInstructor()) || course.getDescription() == null) {
                             instructor.setText((CharSequence) null);
+                            assignedInstructor_username = "";
+                            setViewBasedOnUser();
                         } else {
 
                             DBHandlerUsers db = new DBHandlerUsers();
@@ -336,6 +361,7 @@ public class CoursePage extends Activity {
                                     instructor.setText(user.getFullName());
                                     //assignedInstructor_username = user.getUserName();
                                 }
+
                             });
                             assignedInstructor_username = course.getInstructor();
                             Log.i("Assigned", "After onCallBackCourse: " + assignedInstructor_username);
@@ -414,6 +440,7 @@ public class CoursePage extends Activity {
                 userCurrent_fullname = user.getFullName();
                 getUserCurrent_username = user.getUserName();
                 userType = user.getUserType();
+                courses = user.getMyCourses();
 
                 Log.i("Current User", "onCallBackUser Username: " + getUserCurrent_username );
                 Log.i("Current User", "User Type" + userType);

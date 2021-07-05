@@ -14,6 +14,7 @@ import com.google.firebase.database.annotations.NotNull;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class DBHandlerUsers {
@@ -144,6 +145,12 @@ public class DBHandlerUsers {
 
         userRefrence.child(username).removeValue();
 
+
+    }
+
+    public void updateCourses(String userName, HashMap<String, String> courses) {
+
+        userRefrence.child(userName).child("courses").setValue(courses);
 
     }
 
