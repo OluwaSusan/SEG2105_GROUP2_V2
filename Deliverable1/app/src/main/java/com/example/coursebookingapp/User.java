@@ -38,6 +38,15 @@ public class User {
         this.courses = courses;
     }
 
+    public User(String userName, String fullName, String password, UserType userType, String email, HashMap<String, String> myCourses) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.password = password;
+        this.userType = userType;
+        this.email = email;
+        this.myCourses = myCourses;
+    }
+
     public String getUserName() {
         return userName;
     }

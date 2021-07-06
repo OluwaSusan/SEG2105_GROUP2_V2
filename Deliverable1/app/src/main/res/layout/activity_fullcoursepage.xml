@@ -171,6 +171,15 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
+            <Button
+                android:id="@+id/viewStudents"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawableTint="@color/Orange_Deep"
+                android:text="Button" />
+
         </LinearLayout>
 
         <TableLayout

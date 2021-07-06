@@ -34,12 +34,45 @@ public class DBHandlerUsers {
             userRefrence.child(user.getUserName()).child("courses").child(user.getCourses().get(i).getCourseName()).setValue(user.getCourses().get(i));
         }
 
+    }
+
+    public void findUser(String username, FirebaseCallBackUsers callBack){
 
 
+        Query query = userRefrence.orderByChild("userName").equalTo(username);
+        query.addListenerForSingleValueEvent(new ValueEventListener()  {
+
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+
+                if (snapshot.exists()) {
+
+                    User dbUser = snapshot.child(username).getValue(User.class);
+                    callBack.onCallBackUser(dbUser);
+
+                    //Log.i("test", "reaches inside the find function ");
+
+                } else {
+                    callBack.onCallBackUser(new User());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                //Log.i("test", "reaches here");
+
+            }
+
+
+        });
 
 
     }
 
+/*
     public void findUser(String username, FirebaseCallBackUsers callBack) {
 
 
@@ -96,8 +129,36 @@ public class DBHandlerUsers {
 
 
     }
-
+*/
     public void listUsers(FirebaseCallBackUsers callBack) {
+        ArrayList<User> userList = new ArrayList<User>();
+
+        userRefrence
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            User user = snapshot.getValue(User.class);
+
+                            //Log.i("test", "user inside loop " + course);
+                            userList.add(user);
+
+                        }
+
+                        callBack.onCallBackUsersList(userList);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
+
+    }
+
+/*    public void listUsers(FirebaseCallBackUsers callBack) {
         ArrayList<User> userList = new ArrayList<User>();
 
         userRefrence
@@ -139,7 +200,7 @@ public class DBHandlerUsers {
                 });
 
 
-    }
+    }*/
 
     public void deleteUser(String username) {
 
@@ -148,9 +209,9 @@ public class DBHandlerUsers {
 
     }
 
-    public void updateCourses(String userName, HashMap<String, String> courses) {
+    public void updateCourses(String userName, HashMap<String, String> myCourses) {
 
-        userRefrence.child(userName).child("courses").setValue(courses);
+        userRefrence.child(userName).child("myCourses").setValue(myCourses);
 
     }
 

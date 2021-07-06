@@ -28,14 +28,13 @@ public class CoursePage extends Activity {
     DBHandlerUsers dbUsers;
     String specificCourse;
     String userCurrent_fullname, getUserCurrent_username;
-    Button un_assign_enroll, homeBtn_coursepage, backBtn_coursepage, saveBtn, editBtn;
+    Button un_assign_enroll, homeBtn_coursepage, backBtn_coursepage, saveBtn, editBtn, viewStudents;
     private FirebaseAuth fAuth;
     private FirebaseDatabase realDatabase;
     private ProgressBar loading;
     private UserType userType = UserType.INSTRUCTOR;
     private boolean userEnr = false;
     private boolean studEnr = false;
-    protected Course sCourse;
     protected HashMap<String, String> students;
     protected HashMap<String, String> courses;
 
@@ -57,6 +56,7 @@ public class CoursePage extends Activity {
         loading = findViewById(R.id.loading_coursepage);
         saveBtn = findViewById(R.id.save_coursepage);
         editBtn = findViewById(R.id.edit_courepage);
+        viewStudents = findViewById(R.id.viewStudents);
 //      err_mssg = findViewById(R.id.error_coursepage);
         mon_time = findViewById(R.id.mon_time);
         tues_time = findViewById(R.id.tues_time);
@@ -65,8 +65,8 @@ public class CoursePage extends Activity {
         fri_time = findViewById(R.id.fri_time);
         dbCourses = new DBHandlerCourses();
         dbUsers = new DBHandlerUsers();
-        sCourse = new Course();
         students = new HashMap<>();
+        courses = new HashMap<>();
 
         //Show page as loading
         loading.setVisibility(View.VISIBLE);
@@ -233,6 +233,13 @@ public class CoursePage extends Activity {
             }
         });
 
+        viewStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void setViewBasedOnUser() {
@@ -253,6 +260,8 @@ public class CoursePage extends Activity {
                 editBtn.setClickable(false);
                 saveBtn.setVisibility(View.INVISIBLE);
                 saveBtn.setClickable(false);
+                viewStudents.setVisibility(View.INVISIBLE);
+                viewStudents.setClickable(false);
 
             } else if (getUserCurrent_username.equals(assignedInstructor_username)) {
                 un_assign_enroll.setText("UNASSIGN");
@@ -263,6 +272,9 @@ public class CoursePage extends Activity {
                 editBtn.setClickable(true);
                 saveBtn.setVisibility(View.VISIBLE);
                 saveBtn.setClickable(true);
+                viewStudents.setVisibility(View.VISIBLE);
+                viewStudents.setClickable(true);
+
             } else {
                 un_assign_enroll.setVisibility(View.INVISIBLE);
                 un_assign_enroll.setClickable(false);
@@ -270,6 +282,8 @@ public class CoursePage extends Activity {
                 editBtn.setClickable(false);
                 saveBtn.setVisibility(View.INVISIBLE);
                 saveBtn.setClickable(false);
+                viewStudents.setVisibility(View.INVISIBLE);
+                viewStudents.setClickable(false);
             }
         }
         else if (userType == UserType.STUDENT){
@@ -278,6 +292,8 @@ public class CoursePage extends Activity {
             editBtn.setClickable(false);
             saveBtn.setVisibility(View.INVISIBLE);
             saveBtn.setClickable(false);
+            viewStudents.setVisibility(View.INVISIBLE);
+            viewStudents.setClickable(false);
 
             //no students enrolled
             if(!studEnr){
@@ -335,7 +351,7 @@ public class CoursePage extends Activity {
 
                         }
 
-                        if (Strings.isEmptyOrWhitespace(course.getCapacity())) {
+                        if (Strings.isEmptyOrWhitespace(course.getCapacity()) || course.getCapacity() == null) {
                             capacity.setText((CharSequence) null);
                         } else {
                             capacity.setText(course.getCapacity());
@@ -343,7 +359,7 @@ public class CoursePage extends Activity {
                         }
 
 
-                        if (Strings.isEmptyOrWhitespace(course.getInstructor()) || course.getDescription() == null) {
+                        if (Strings.isEmptyOrWhitespace(course.getInstructor()) || course.getInstructor() == null) {
                             instructor.setText((CharSequence) null);
                             assignedInstructor_username = "";
                             setViewBasedOnUser();
@@ -396,6 +412,7 @@ public class CoursePage extends Activity {
                         if(!course.getStudents().isEmpty()){
                             studEnr = true;
                             students = course.getStudents();
+                            Log.i("Course", "Student" + students);
 
                             if(course.getStudents().containsKey(getUserCurrent_username)){
                                 userEnr = true;
@@ -440,10 +457,15 @@ public class CoursePage extends Activity {
                 userCurrent_fullname = user.getFullName();
                 getUserCurrent_username = user.getUserName();
                 userType = user.getUserType();
-                courses = user.getMyCourses();
+
+                if(!user.getMyCourses().isEmpty()){
+                    courses = user.getMyCourses();
+                }
+
 
                 Log.i("Current User", "onCallBackUser Username: " + getUserCurrent_username );
                 Log.i("Current User", "User Type" + userType);
+                Log.i("Current User", "Course" + courses);
 
                 //setViewBasedOnUser();
             }
