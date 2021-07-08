@@ -27,6 +27,8 @@ public class Student extends AppCompatActivity {
     DBHandlerCourses dbCourses;
     RecyclerView recCourses;
     CourseAdapter adapter;
+    boolean sw = false;
+
     BroadcastReceiver BR = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -76,6 +78,17 @@ public class Student extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(getApplicationContext(), AssignedCourses.class));
+                sw = !sw;
+                switch (sw){
+                    case true:
+
+                        break;
+
+                    case false:
+
+                        break;
+                }
+
             }
         });
 
