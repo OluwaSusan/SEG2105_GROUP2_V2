@@ -142,9 +142,10 @@ public class Student extends AppCompatActivity {
                         if (assigCourses.size() == 0){
                             Log.i("test", "assig courses is empty.");
                         }
+                        initRecylcerView(assigCourses);
                     }
                 });
-                initRecylcerView(assigCourses);
+
             }
         }
 
