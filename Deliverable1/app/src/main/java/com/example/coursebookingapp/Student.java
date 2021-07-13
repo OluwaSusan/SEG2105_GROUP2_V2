@@ -131,16 +131,9 @@ public class Student extends AppCompatActivity {
 
                                 if (courseList.get(i).getCourseCode().equals(key)){
                                     assigCourses.add(courseList.get(i));
-                                    Log.i("test", "courseCode " + courseList.get(i));
                                 }
                             }
 
-                        }
-                        if (courseList.size() == 0){
-                            Log.i("test", "courseList is empty.");
-                        }
-                        if (assigCourses.size() == 0){
-                            Log.i("test", "assig courses is empty.");
                         }
                         initRecylcerView(assigCourses);
                     }
