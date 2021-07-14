@@ -98,7 +98,7 @@ public class SearchCourse extends Activity {
         }
         return courseList.contains(new Course(courseName, courseID))? "This course already exists":null;
     }
-    public boolean checkCourseNameValidTest(String courseName) {
+    public boolean search_checkCourseNameValidTest(String courseName) {
 
 
         if (courseName.isEmpty()) {
@@ -107,7 +107,7 @@ public class SearchCourse extends Activity {
         return true;
     }
 
-    public boolean checkCourseIDValidTest(String courseID) {
+    public boolean search_checkCourseIDValidTest(String courseID) {
 
         if (courseID.length() != 7) {
             return false;

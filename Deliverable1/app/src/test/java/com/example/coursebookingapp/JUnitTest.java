@@ -8,18 +8,22 @@ import static org.junit.Assert.*;
 import com.example.coursebookingapp.MainActivity;
 import com.example.coursebookingapp.CourseActivity;
 import com.example.coursebookingapp.CoursePage;
+import com.example.coursebookingapp.SearchCourse;
 
 
 public class JUnitTest {
     private MainActivity main;
     private CourseActivity course;
     private CoursePage coursep ;
+    private SearchCourse searchc;
+
 
     @Before
     public void setUp() {
         main = new MainActivity();
         course = new CourseActivity();
         coursep = new CoursePage();
+        searchc = new SearchCourse();
     }
 
     @Test
@@ -59,12 +63,17 @@ public class JUnitTest {
         assertTrue(res);
     }
 
+    @Test
+    public void search_validation_coursename(){
+        boolean res = searchc.search_checkCourseNameValidTest("Linear Algebra");
+        assertTrue(res);
+    }
 
-//    @Test
-//  public void validation_userNameExists(){
-//        boolean res = main.userNameExists("stevey");
-//       assertTrue(res);
-//   }
-    
+    @Test
+    public void search_validation_courseID(){
+        boolean res = searchc.search_checkCourseIDValidTest("MAT1348");
+        assertTrue(res);
+    }
 
-}
+
+
