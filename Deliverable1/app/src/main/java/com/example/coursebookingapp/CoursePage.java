@@ -422,6 +422,7 @@ public class CoursePage extends Activity {
                             studEnr = false;
                             userEnr = false;
                         }
+                        setViewBasedOnUser();
                     }
                 });
 
