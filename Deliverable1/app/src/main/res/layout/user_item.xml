@@ -33,24 +33,50 @@
         </LinearLayout>
 
         <TextView
-
-            android:id="@+id/username_useritem"
+            android:id="@+id/usertype_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_black"
             android:padding="3dp"
-            android:text="INSTRUCTOR_123"
-            android:textColor="@color/black" />
+            android:text="FULL NAME"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
-        <TextView
-
-            android:id="@+id/usertype_useritem"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/muli_bold"
-            android:padding="3dp"
-            android:text="INSTRUCTOR"
-            android:textColor="@color/black" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/usertype_useritem"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_bold"
+                android:padding="3dp"
+                android:text="INSTRUCTOR"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/muli_black"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+
+                android:id="@+id/username_useritem"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_black"
+                android:padding="3dp"
+                android:text="INSTRUCTOR_123"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.coursebookingapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursebookingapp.Course;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -49,6 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         holder.userName.setText(String.valueOf(userArrayList.get(position).getUserName()));
         holder.usertype.setText(String.valueOf(u.getUserType()));
+        holder.userfullName.setText(String.valueOf(userArrayList.get(position).getFullName()));
         // we display data as text using setText() but price is a double and id is an int
         // so we use valueOf() to represent the values as a string
         //holder.userfullName.setText(String.valueOf(u.getFullName()));
@@ -82,6 +85,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         TextView userName, userfullName, userpassword, useremail, usertype ;
         Button deleteButton;
         CardView parentLayout;
+        FirebaseAuth fAuth;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -89,14 +93,31 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             // initialize the TextViews
             usertype = itemView.findViewById(R.id.usertype_useritem);
             userName = itemView.findViewById(R.id.username_useritem);
+            userfullName = itemView.findViewById(R.id.usertype_fullname);
             parentLayout = itemView.findViewById(R.id.cardView_userlist);
             deleteButton = itemView.findViewById(R.id.deleteBtn_userlist);
-            // use findViewById to find the view in our layout with the specified id
-//            userName = itemView.findViewById(R.id.idUserName);
-//            userfullName = itemView.findViewById(R.id.iduserfullName);
-//            userpassword = itemView.findViewById(R.id.idpassword);
-//            useremail = itemView.findViewById(R.id.iduseremail;
-            //missing elements
+            fAuth = FirebaseAuth.getInstance();
+
+            DBHandlerUsers dbUsers = new DBHandlerUsers();
+            Log.i("test", "user course adapter " + fAuth.getCurrentUser().getEmail().split("@")[0]);
+
+            dbUsers.findUser(fAuth.getCurrentUser().getEmail().split("@")[0], new FirebaseCallBackUsers() {
+                @Override
+                public void onCallBackUsersList(ArrayList<User> userList) { }
+
+                @Override
+                public void onCallBackUser(User user) {
+
+                    if (user.getUserType() == UserType.INSTRUCTOR){
+                        deleteButton.setVisibility(View.GONE);
+                    }
+                    if (user.getUserType() == UserType.STUDENT){
+                        deleteButton.setVisibility(View.GONE);
+                    }
+
+                }
+            });
+
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
