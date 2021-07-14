@@ -59,7 +59,7 @@ public class JUnitTest {
 
     @Test
     public void validateTime_test() {
-        boolean res = coursep.validateTimeTest("10:00am");
+        boolean res = coursep.validateTimeTest("10:00am-11:00pm");
         assertTrue(res);
     }
 
