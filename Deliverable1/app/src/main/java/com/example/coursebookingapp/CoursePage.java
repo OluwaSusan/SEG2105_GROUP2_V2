@@ -415,6 +415,7 @@ public class CoursePage extends Activity {
                             Log.i("Course", "Student" + students);
 
                             if(course.getStudents().containsKey(getUserCurrent_username)){
+                                 Log.i("Course Check Extra", "Student Enrolled yes" + course.getStudents().get(getUserCurrent_username));
                                 userEnr = true;
                             }else{userEnr = false;}
 
@@ -422,6 +423,7 @@ public class CoursePage extends Activity {
                             studEnr = false;
                             userEnr = false;
                         }
+                        setViewBasedOnUser();
                     }
                 });
 
