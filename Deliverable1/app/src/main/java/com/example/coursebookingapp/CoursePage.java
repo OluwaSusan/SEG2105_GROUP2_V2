@@ -591,6 +591,67 @@ public class CoursePage extends Activity {
         return true;
     }
 
+    public boolean validateTimeTest(String input) {
+
+        String[] times = input.split("-");
+
+        if (times.length != 2) {
+            return false;
+        }
+
+        if (Integer.parseInt(times[0].split(":")[0]) > 11 || Integer.parseInt(times[1].split(":")[0]) > 12) {
+            return false;
+        }
+
+        int[] hours = new int[2];
+        int[] minutes = new int[2];
+        int[] halfTime = new int[2]; // 0 is am 1 is pm
+
+        for (int i = 0; i < 2; i++) {
+
+            if (!(times[i].contains("pm") || times[i].contains("am") || times[i].contains(":"))) {
+
+
+                return false;
+            }
+
+            if (times[i].contains("pm")) {
+                halfTime[i] = 1;
+            }
+
+            if (Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
+
+
+                return false;
+            }
+
+            hours[i] = Integer.parseInt(times[i].split(":")[0]);
+            minutes[i] = Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", ""));
+        }
+
+        // first time is after in the same half of the day
+        if (hours[0] > hours[1] && halfTime[0] == halfTime[1]) {
+
+
+            return false;
+
+        }
+
+        if (hours[0] == hours[1] && minutes[0] > minutes[1] && halfTime[0] == halfTime[1]) {
+
+            return false;
+
+        }
+        // pm to am classes are not valid
+        if (halfTime[0] > halfTime[1]) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+
 
 
 }

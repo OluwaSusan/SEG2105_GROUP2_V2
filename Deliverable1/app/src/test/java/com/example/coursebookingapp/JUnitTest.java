@@ -53,6 +53,12 @@ public class JUnitTest {
         assertTrue(res);
     }
 
+    @Test
+    public void validateTime_test(){
+        boolean res = coursep.validateTimeTest("10:00am");
+        assertTrue(res);
+    }
+
 
 //    @Test
 //  public void validation_userNameExists(){
