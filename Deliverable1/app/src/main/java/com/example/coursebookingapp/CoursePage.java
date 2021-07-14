@@ -596,10 +596,12 @@ public class CoursePage extends Activity {
         String[] times = input.split("-");
 
         if (times.length != 2) {
+            Log.i("test", "Zenith (1): length is over 2");
             return false;
         }
 
         if (Integer.parseInt(times[0].split(":")[0]) > 11 || Integer.parseInt(times[1].split(":")[0]) > 12) {
+            Log.i("test", "Zenith (2): over 11 or over 12");
             return false;
         }
 
@@ -611,7 +613,7 @@ public class CoursePage extends Activity {
 
             if (!(times[i].contains("pm") || times[i].contains("am") || times[i].contains(":"))) {
 
-
+                Log.i("test", "Zenith (3): no am or pm attribute");
                 return false;
             }
 
@@ -621,7 +623,7 @@ public class CoursePage extends Activity {
 
             if (Integer.parseInt(times[i].split(":")[1].replaceAll("am", "").replaceAll("pm", "")) > 59) {
 
-
+                Log.i("test", "Zenith (4): time is not in minutes, exceeding 59");
                 return false;
             }
 
@@ -632,18 +634,19 @@ public class CoursePage extends Activity {
         // first time is after in the same half of the day
         if (hours[0] > hours[1] && halfTime[0] == halfTime[1]) {
 
-
+            Log.i("test", "Zenith (5): time1 exceeding time2 in hours");
             return false;
 
         }
 
         if (hours[0] == hours[1] && minutes[0] > minutes[1] && halfTime[0] == halfTime[1]) {
-
+            Log.i("test", "Zenith (6): time1 exceeding time2 in minutes");
             return false;
 
         }
         // pm to am classes are not valid
         if (halfTime[0] > halfTime[1]) {
+            Log.i("test", "Zenith (1): the event's halftime (am/pm) is written improperly");
             return false;
         }
 
