@@ -57,6 +57,8 @@ public class JUnitTest {
         assertTrue(res);
     }
 
+    //D3 Tests
+
     @Test
     public void validateTime_test() {
         boolean res = coursep.validateTimeTest("10:00am-11:00pm");
