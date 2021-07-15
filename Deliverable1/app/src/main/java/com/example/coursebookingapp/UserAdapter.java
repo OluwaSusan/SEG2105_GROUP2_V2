@@ -30,6 +30,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         this.userArrayList = userModalArrayList;
         this.context = context;
     }
+    public UserAdapter(ArrayList<User> userModalArrayList){
+        this.userArrayList = userModalArrayList;
+    }
 
     @NonNull
     @Override
@@ -73,7 +76,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     }
 
-    public void test_refresh(String username){
+    public boolean test_refresh(String username){
 
         int index = 0;
         while(userArrayList.iterator().hasNext()){
@@ -92,7 +95,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return userArrayList.size();
     }
 
-    public int usertotal_validation(int number) {
+    public boolean usertotal_validation(int number) {
         // return the size of the ArrayList
         return userArrayList.size() == number ;
     }

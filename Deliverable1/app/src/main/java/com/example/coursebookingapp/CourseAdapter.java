@@ -37,6 +37,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         this.context = context;
         this.courses = courses;
     }
+    public CourseAdapter(ArrayList<Course> courses){
+        this.courses = courses;
+    }
 
     @NonNull
     @NotNull
