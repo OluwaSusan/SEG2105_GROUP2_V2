@@ -73,10 +73,28 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     }
 
+    public void test_refresh(String username){
+
+        int index = 0;
+        while(userArrayList.iterator().hasNext()){
+            if(userArrayList.get(index).getUserName().equals(username)){
+                return true;
+            }
+            index++;
+        }
+        return false;
+
+    }
+
     @Override
     public int getItemCount() {
         // return the size of the ArrayList
         return userArrayList.size();
+    }
+
+    public int usertotal_validation(int number) {
+        // return the size of the ArrayList
+        return userArrayList.size() == number ;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

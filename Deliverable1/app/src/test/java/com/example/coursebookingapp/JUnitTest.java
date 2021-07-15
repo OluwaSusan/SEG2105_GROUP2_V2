@@ -9,6 +9,8 @@ import com.example.coursebookingapp.MainActivity;
 import com.example.coursebookingapp.CourseActivity;
 import com.example.coursebookingapp.CoursePage;
 import com.example.coursebookingapp.SearchCourse;
+import com.example.coursebookingapp.UserAdapter;
+import com.example.coursebookingapp.CourseAdapter;
 
 
 public class JUnitTest {
@@ -16,6 +18,8 @@ public class JUnitTest {
     private CourseActivity course;
     private CoursePage coursep;
     private SearchCourse searchc;
+    private UserAdapter userAdap;
+    private CourseAdapter courseAdap;
 
 
     @Before
@@ -24,6 +28,8 @@ public class JUnitTest {
         course = new CourseActivity();
         coursep = new CoursePage();
         searchc = new SearchCourse();
+        userAdap = new UserAdapter();
+        courseAdap = new CourseAdapter();
     }
 
     @Test
@@ -76,6 +82,21 @@ public class JUnitTest {
         boolean res = searchc.search_checkCourseIDValidTest("MAT1348");
         assertTrue(res);
     }
+
+    @Test
+    public void user_count() {
+        boolean res = userAdap.usertotal_validation("3");
+        assertTrue(res);
+    }
+
+    @Test
+    public void refresh_user_test() {
+        boolean res = userAdap.test_refresh("Student123");
+        assertTrue(res);
+    }
+
+
+
 
 }
 
