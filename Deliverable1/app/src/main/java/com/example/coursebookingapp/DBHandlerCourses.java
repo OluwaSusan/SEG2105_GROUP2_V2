@@ -15,25 +15,26 @@ import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DBHandlerCourses {
 
-    private final DatabaseReference courseRefrence;
+    private final DatabaseReference courseReference;
 
 
     public DBHandlerCourses() {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        courseRefrence = rootNode.getReference("courses");
+        courseReference = rootNode.getReference("courses");
     }
 
     public void addCourse(Course course) {
-        courseRefrence.child(course.getCourseCode()).setValue(course);
+        courseReference.child(course.getCourseCode()).setValue(course);
     }
 
     public void findCourse(String courseCode, FirebaseCallBackCourses callBack) {
 
 
-        Query query = courseRefrence.orderByChild("courseCode").equalTo(courseCode);
+        Query query = courseReference.orderByChild("courseCode").equalTo(courseCode);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -70,7 +71,7 @@ public class DBHandlerCourses {
     public void findByName(String courseName, FirebaseCallBackCourses callBack) {
 
 
-        Query query = courseRefrence.orderByChild("courseName").equalTo(courseName);
+        Query query = courseReference.orderByChild("courseName").equalTo(courseName);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -103,6 +104,41 @@ public class DBHandlerCourses {
 
 
     }
+    public void findByDay(String day, FirebaseCallBackCourses callBack) {
+
+
+        Query query = courseReference.orderByChild("courseName");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+
+                    Iterator<DataSnapshot> it = snapshot.getChildren().iterator();
+                    while (it.hasNext()){
+
+                        Course c = it.next().getValue(Course.class);;
+                        if (c.getDates().containsKey(day)){
+                            callBack.onCallBackCourse(c);
+                            return;
+                        }
+                    }
+                }
+                callBack.onCallBackCourse(new Course());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+
+
+        });
+
+
+    }
 
     public void searchCourse(String query, FirebaseCallBackCourses callBack) {
 
@@ -124,7 +160,23 @@ public class DBHandlerCourses {
 
                                 @Override
                                 public void onCallBackCourse(Course course) {
-                                    callBack.onCallBackCourse(course);
+                                    if(Strings.isEmptyOrWhitespace(course.getCourseCode())){
+                                        findByDay(query, new FirebaseCallBackCourses() {
+                                            @Override
+                                            public void onCallBackCourseList(ArrayList<Course> courseList) {
+                                                callBack.onCallBackCourseList(courseList);
+                                            }
+
+                                            @Override
+                                            public void onCallBackCourse(Course course) {
+                                                callBack.onCallBackCourse(course);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        callBack.onCallBackCourse(course);
+                                    }
+
                                 }
                             });
                             return;
@@ -137,7 +189,7 @@ public class DBHandlerCourses {
     public void listCourses(FirebaseCallBackCourses callBack) {
         ArrayList<Course> courseList = new ArrayList<Course>();
 
-        courseRefrence
+        courseReference
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,7 +215,7 @@ public class DBHandlerCourses {
 
     public void deleteCourse(String courseCode) {
 
-        courseRefrence.child(courseCode).removeValue();
+        courseReference.child(courseCode).removeValue();
 
 
     }
@@ -203,13 +255,13 @@ public class DBHandlerCourses {
 
     public void updateCourseName(String courseCode, String updatedCourseName) {
 
-        courseRefrence.child(courseCode).child("courseName").setValue(updatedCourseName);
+        courseReference.child(courseCode).child("courseName").setValue(updatedCourseName);
 
     }
 
     public void updateStudentEnrolled(String courseCode, HashMap<String, String> students) {
 
-        courseRefrence.child(courseCode).child("students").setValue(students);
+        courseReference.child(courseCode).child("students").setValue(students);
 
     }
 

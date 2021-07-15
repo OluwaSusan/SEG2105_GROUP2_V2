@@ -74,6 +74,7 @@ public class JUnitTest {
         boolean res = searchc.search_checkCourseIDValidTest("MAT1348");
         assertTrue(res);
     }
+
 }
 
 
