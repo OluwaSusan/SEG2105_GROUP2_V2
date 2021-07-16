@@ -23,6 +23,7 @@ public class CoursePage extends Activity {
 
     EditText description, capacity, mon_time, tues_time, wed_time, thurs_time, fri_time;
     TextView coursecode, coursename, instructor;
+    TextView err_mssg;
     String description_og, assignedInstructor_username, assignedInstructor_fullname;
     String capacity_og;
     DBHandlerCourses dbCourses;
@@ -37,6 +38,7 @@ public class CoursePage extends Activity {
     private boolean userEnr = false;
     private boolean studEnr = false;
     private boolean timeConflict = false;
+    private boolean abc = true;
     protected HashMap<String, String> students;
     protected HashMap<String, String> courses;
 
@@ -59,7 +61,7 @@ public class CoursePage extends Activity {
         saveBtn = findViewById(R.id.save_coursepage);
         editBtn = findViewById(R.id.edit_courepage);
         viewStudents = findViewById(R.id.viewStudents);
-//      err_mssg = findViewById(R.id.error_coursepage);
+        err_mssg = findViewById(R.id.error_coursepage);
         mon_time = findViewById(R.id.mon_time);
         tues_time = findViewById(R.id.tues_time);
         wed_time = findViewById(R.id.wed_time);
@@ -156,19 +158,25 @@ public class CoursePage extends Activity {
 //                    boolean value = !isTimeConflict();
 
 //                    Log.i("test", "value " + value);
+                    abc = true;
 
-                    if (isTimeConflict()) {
+                    if (!isTimeConflict()) {
 
+                        if(abc){
+                            students.put(getUserCurrent_username, userCurrent_fullname);
+                            dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
+                            userEnr = true;
 
-                        students.put(getUserCurrent_username, userCurrent_fullname);
-                        dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
-                        userEnr = true;
+                            //update user
+                            courses.put(coursecode.getText().toString(), coursename.getText().toString());
+                            dbUsers.updateCourses(getUserCurrent_username, courses);
+                            setViewBasedOnUser();
 
-                        //update user
-                        courses.put(coursecode.getText().toString(), coursename.getText().toString());
-                        dbUsers.updateCourses(getUserCurrent_username, courses);
+                        }
+                        else{
 
-                        setViewBasedOnUser();
+                        }
+
                     }
                     //Create a new course with course info minus details
 
@@ -592,6 +600,7 @@ public class CoursePage extends Activity {
     private void showTimeValidationToast(String day) {
         Toast toast = Toast.makeText(getApplicationContext(), "The time entered for " + day + " is invalid", Toast.LENGTH_SHORT);
         toast.show();
+        err_mssg.setText("There is a time conflict on your schedule on" + day);
     }
 
     public boolean description_validation_test(String description) {
@@ -768,6 +777,7 @@ public class CoursePage extends Activity {
 
             }
         });
+        err_mssg.setText((CharSequence) null);
         return timeConflict;
     }
 
@@ -775,6 +785,8 @@ public class CoursePage extends Activity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "There is a time conflict on your schedule on " + day, Toast.LENGTH_SHORT);
         toast.show();
+        abc = false;
+        err_mssg.setText("There is a time conflict on your schedule on " + day);
     }
 
     private static boolean validateTimeConflict(String firstTime, String secondTime) {
