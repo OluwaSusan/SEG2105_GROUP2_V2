@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CoursePage extends Activity {
 
@@ -35,9 +36,9 @@ public class CoursePage extends Activity {
     private UserType userType = UserType.INSTRUCTOR;
     private boolean userEnr = false;
     private boolean studEnr = false;
+    private boolean timeConflict = false;
     protected HashMap<String, String> students;
     protected HashMap<String, String> courses;
-
 
 
     @Override
@@ -46,6 +47,7 @@ public class CoursePage extends Activity {
         setContentView(R.layout.activity_fullcoursepage);
 
         description = findViewById(R.id.description_coursepage);
+        fAuth = FirebaseAuth.getInstance();
         capacity = findViewById(R.id.capacity_coursepage);
         coursecode = findViewById(R.id.coursecode_coursepage);
         coursename = findViewById(R.id.coursename_coursepage);
@@ -148,23 +150,29 @@ public class CoursePage extends Activity {
 
                     //update view
                     setViewBasedOnUser();
-                }
+                } else if (task.equals("ENROLL")) {
 
-                else if(task.equals("ENROLL")){
-                    students.put(getUserCurrent_username, userCurrent_fullname);
-                    dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
-                    userEnr = true;
 
-                    //update user
-                    courses.put(coursecode.getText().toString(), coursename.getText().toString());
-                    dbUsers.updateCourses(getUserCurrent_username, courses);
+//                    boolean value = !isTimeConflict();
 
-                    setViewBasedOnUser();
+//                    Log.i("test", "value " + value);
 
+                    if (isTimeConflict()) {
+
+
+                        students.put(getUserCurrent_username, userCurrent_fullname);
+                        dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
+                        userEnr = true;
+
+                        //update user
+                        courses.put(coursecode.getText().toString(), coursename.getText().toString());
+                        dbUsers.updateCourses(getUserCurrent_username, courses);
+
+                        setViewBasedOnUser();
+                    }
                     //Create a new course with course info minus details
 
-                }
-                else if(task.equals("UNENROLL")){
+                } else if (task.equals("UNENROLL")) {
                     students.remove(getUserCurrent_username);
                     dbCourses.updateStudentEnrolled(coursecode.getText().toString(), students);
                     userEnr = false;
@@ -246,12 +254,12 @@ public class CoursePage extends Activity {
 
     private void setViewBasedOnUser() {
 
-        Log.i("Current User", "SetView: " + getUserCurrent_username );
+        Log.i("Current User", "SetView: " + getUserCurrent_username);
         Log.i("Assigned", "SetView: " + assignedInstructor_username);
         Log.i("User type", "Set View: " + userType);
 
         //We have class variables that store currentUser username and assignedInstructor username for comparison, since usernames are unique
-        if (userType == UserType.INSTRUCTOR){
+        if (userType == UserType.INSTRUCTOR) {
 
             if (Strings.isEmptyOrWhitespace(assignedInstructor_username)) {
                 un_assign_enroll.setText("ASSIGN");
@@ -287,8 +295,7 @@ public class CoursePage extends Activity {
                 viewStudents.setVisibility(View.INVISIBLE);
                 viewStudents.setClickable(false);
             }
-        }
-        else if (userType == UserType.STUDENT){
+        } else if (userType == UserType.STUDENT) {
 
             editBtn.setVisibility(View.INVISIBLE);
             editBtn.setClickable(false);
@@ -298,18 +305,17 @@ public class CoursePage extends Activity {
             viewStudents.setClickable(false);
 
             //no students enrolled
-            if(!studEnr){
+            if (!studEnr) {
                 un_assign_enroll.setText("ENROLL");
                 un_assign_enroll.setVisibility(View.VISIBLE);
                 un_assign_enroll.setClickable(true);
             }
             //User not enrolled
-            if(!userEnr){
+            if (!userEnr) {
                 un_assign_enroll.setText("ENROLL");
                 un_assign_enroll.setVisibility(View.VISIBLE);
                 un_assign_enroll.setClickable(true);
-            }
-            else if(userEnr){
+            } else if (userEnr) {
                 un_assign_enroll.setText("UNENROLL");
                 un_assign_enroll.setVisibility(View.VISIBLE);
                 un_assign_enroll.setClickable(true);
@@ -411,17 +417,19 @@ public class CoursePage extends Activity {
                             }
                         }
 
-                        if(!course.getStudents().isEmpty()){
+                        if (!course.getStudents().isEmpty()) {
                             studEnr = true;
                             students = course.getStudents();
                             Log.i("Course", "Student" + students);
 
-                            if(course.getStudents().containsKey(getUserCurrent_username)){
-                                 Log.i("Course Check Extra", "Student Enrolled yes" + course.getStudents().get(getUserCurrent_username));
+                            if (course.getStudents().containsKey(getUserCurrent_username)) {
+                                Log.i("Course Check Extra", "Student Enrolled yes" + course.getStudents().get(getUserCurrent_username));
                                 userEnr = true;
-                            }else{userEnr = false;}
+                            } else {
+                                userEnr = false;
+                            }
 
-                        }else {
+                        } else {
                             studEnr = false;
                             userEnr = false;
                         }
@@ -462,12 +470,12 @@ public class CoursePage extends Activity {
                 getUserCurrent_username = user.getUserName();
                 userType = user.getUserType();
 
-                if(!user.getMyCourses().isEmpty()){
+                if (!user.getMyCourses().isEmpty()) {
                     courses = user.getMyCourses();
                 }
 
 
-                Log.i("Current User", "onCallBackUser Username: " + getUserCurrent_username );
+                Log.i("Current User", "onCallBackUser Username: " + getUserCurrent_username);
                 Log.i("Current User", "User Type" + userType);
                 Log.i("Current User", "Course" + courses);
 
@@ -659,6 +667,175 @@ public class CoursePage extends Activity {
     }
 
 
+    private boolean isTimeConflict() {
+        timeConflict = false;
+        String username = fAuth.getCurrentUser().getEmail().split("@")[0];
+        dbUsers.findUser(username, new FirebaseCallBackUsers() {
+            @Override
+            public void onCallBackUsersList(ArrayList<User> userList) {
+
+            }
+
+            @Override
+            public void onCallBackUser(User user) {
+
+                HashMap<String, String> studentTimetable = user.getMyCourses();
+
+                for (Map.Entry mapElement : studentTimetable.entrySet()) {
+
+                    Log.i("test", "key: " + mapElement.getKey().toString());
 
 
+                    dbCourses.findCourse(mapElement.getKey().toString(), new FirebaseCallBackCourses() {
+                        @Override
+                        public void onCallBackCourseList(ArrayList<Course> courseList) {
+
+                        }
+
+                        @Override
+                        public void onCallBackCourse(Course course) {
+                            Log.i("test", "finds the course");
+
+                            for (Map.Entry dateElement : course.getDates().entrySet()) {
+
+                                Log.i("test", " date key: " + dateElement.getKey().toString());
+
+
+                                switch (dateElement.getKey().toString()) {
+
+                                    case "Monday":
+                                        if (mon_time.getText().toString().replaceAll(" ", "").length() > 0
+                                                && !validateTimeConflict(dateElement.getValue().toString(), mon_time.getText().toString())) {
+
+
+                                            timeConflict = true;
+                                            showTimeConflictError("Monday");
+                                        }
+                                        break;
+
+
+                                    case "Tuesday":
+                                        if (tues_time.getText().toString().replaceAll(" ", "").length() > 0
+                                                && !validateTimeConflict(dateElement.getValue().toString(), tues_time.getText().toString())) {
+
+                                            timeConflict = true;
+                                            showTimeConflictError("Tuesday");
+                                        }
+                                        break;
+
+                                    case "Wednesday":
+                                        if (wed_time.getText().toString().replaceAll(" ", "").length() > 0
+                                                && !validateTimeConflict(dateElement.getValue().toString(), wed_time.getText().toString())) {
+
+                                            timeConflict = true;
+                                            showTimeConflictError("Wednesday");
+                                        }
+                                        break;
+
+
+                                    case "Thursday":
+                                        if (thurs_time.getText().toString().replaceAll(" ", "").length() > 0
+                                                && !validateTimeConflict(dateElement.getValue().toString(), thurs_time.getText().toString())) {
+
+
+                                            timeConflict = true;
+                                            showTimeConflictError("Thursday");
+                                        }
+                                        break;
+
+
+                                    case "Friday":
+                                        if (fri_time.getText().toString().replaceAll(" ", "").length() > 0
+                                                && validateTimeConflict(dateElement.getValue().toString(), fri_time.getText().toString())) {
+
+
+                                            timeConflict = true;
+                                            showTimeConflictError("Friday");
+                                        }
+                                        break;
+
+                                }
+
+
+                            }
+
+                        }
+                    });
+
+
+
+                }
+
+            }
+        });
+        return timeConflict;
+    }
+
+    private void showTimeConflictError(String day) {
+
+        Toast toast = Toast.makeText(getApplicationContext(), "There is a time conflict on your schedule on " + day, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    private static boolean validateTimeConflict(String firstTime, String secondTime) {
+
+        Log.i("test", "reaches validation method");
+
+        String[] first = firstTime.split("-");
+        String[] second = secondTime.split("-");
+
+        int[] firstHours = new int[2];
+        int[] secondHours = new int[2];
+        int[] firstMinutes = new int[2];
+        int[] secondMinutes = new int[2];
+
+        for (int i = 0; i < 2; i++) {
+
+            firstHours[i] = Integer.parseInt(first[i].split(":")[0]);
+            firstMinutes[i] = Integer.parseInt(first[i].split(":")[1].replaceAll("[^\\d.]", ""));
+
+            // converts to 24H
+            if (first[i].contains("pm")) {
+                firstHours[i] += 12;
+            }
+
+            secondHours[i] = Integer.parseInt(second[i].split(":")[0]);
+            secondMinutes[i] = Integer.parseInt(first[i].split(":")[1].replaceAll("[^\\d.]", ""));
+
+            if (second[i].contains("pm")) {
+                secondHours[i] += 12;
+            }
+        }
+
+        // starts during the first class
+        if (secondHours[0] >= firstHours[0] && secondHours[0] < firstHours[1]) {
+
+            return false;
+        }
+
+        // ends during the first class
+        if (secondHours[0] <= firstHours[0] && secondHours[1] > firstHours[0]) {
+
+            return false;
+        }
+
+        if (secondHours[0] == firstHours[1]) {
+
+            if (secondHours[0] >= firstHours[0] && secondMinutes[0] < firstMinutes[1]) {
+
+                return false;
+            }
+
+        }
+
+        if (secondHours[1] == firstHours[0]) {
+
+            return secondHours[0] > firstHours[0] || secondMinutes[1] <= firstMinutes[0];
+
+        }
+
+        return true;
+
+    }
 }
+
