@@ -114,7 +114,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             // initialize the TextViews
             usertype = itemView.findViewById(R.id.usertype_useritem);
             userName = itemView.findViewById(R.id.username_useritem);
-//            userfullName = itemView.findViewById(R.id.usertype_fullname);
+            userfullName = itemView.findViewById(R.id.usertype_fullname);
             parentLayout = itemView.findViewById(R.id.cardView_userlist);
             deleteButton = itemView.findViewById(R.id.deleteBtn_userlist);
             // use findViewById to find the view in our layout with the specified id

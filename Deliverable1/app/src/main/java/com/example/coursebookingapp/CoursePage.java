@@ -236,7 +236,9 @@ public class CoursePage extends Activity {
         viewStudents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(getApplicationContext(), ViewEnrolled.class);
+                i.putExtra("Course_ID", coursecode.getText().toString());
+                startActivity(i);
             }
         });
 
